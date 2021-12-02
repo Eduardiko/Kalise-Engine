@@ -55,6 +55,30 @@ bool ModuleScene::CleanUp()
 	return true;
 }
 
+bool ModuleScene::CleanUpGameObjects()
+{
+	std::stack<GameObject*> S;
+	for (GameObject* child : root->children)
+	{
+		S.push(child);
+	}
+	root->children.clear();
+
+	while (!S.empty())
+	{
+		GameObject* go = S.top();
+		S.pop();
+		for (GameObject* child : go->children)
+		{
+			S.push(child);
+		}
+		go->children.clear();
+		delete go;
+	}
+
+	return true;
+}
+
 update_status ModuleScene::Update(float dt)
 {
 	std::queue<GameObject*> S;

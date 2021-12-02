@@ -488,7 +488,7 @@ void ModuleEditor::UpdateWindowStatus() {
         if (ImGui::Button("Clear", { 60,20 })) 
         {
             App->editor->gameobjectSelected = nullptr;
-            App->scene->CleanUp(); //Clean GameObjects 
+            App->scene->CleanUpGameObjects(); //Clean GameObjects
         }
         ImGui::SameLine();
         if (ImGui::Button("New", { 60,20 }))
