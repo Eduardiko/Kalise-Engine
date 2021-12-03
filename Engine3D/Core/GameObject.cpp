@@ -3,19 +3,23 @@
 #include "ModuleScene.h"
 #include "ModuleFileSystem.h"
 #include "ComponentTransform.h"
+#include "ComponentMaterial.h"
+#include "ComponentMesh.h"
 #include "ImGui/imgui.h"
 
-GameObject::GameObject() {
+GameObject::GameObject()
+{
 
 	name = name + ("GameObject");
 	parent = nullptr;
 
 	transform = CreateComponent<ComponentTransform>();
 
+
 	active = true;
 }
 
-GameObject::GameObject(const std::string name) : name(name) 
+GameObject::GameObject(const std::string name) : name(name)
 {
 	transform = CreateComponent<ComponentTransform>();
 
@@ -25,7 +29,8 @@ GameObject::GameObject(const std::string name) : name(name)
 
 GameObject::~GameObject() {
 
-	for (size_t i = 0; i < components.size(); i++) {
+	for (size_t i = 0; i < components.size(); i++)
+	{
 		RELEASE(components[i]);
 	}
 
@@ -37,9 +42,12 @@ GameObject::~GameObject() {
 	}
 
 	parent = nullptr;
+	active = false;
+	isSelected = false;
+	transform = nullptr;
 }
 
-void GameObject::Update(float dt) 
+void GameObject::Update(float dt)
 {
 	for (Component* component : components)
 	{
@@ -58,8 +66,25 @@ void GameObject::OnGui()
 		{
 			component->OnGui();
 		}
+
+	}
+	if (ImGui::CollapsingHeader("Identifiers"))
+	{
+		ImGui::Text("UID:"/*, (unsigned int)GetUid()*/);
+		ImGui::Text("Parent UID:"/*, (unsigned int)GetParentUid()*/);
 	}
 }
+
+/*
+void GameObject::Save()
+{
+	We should delete the current GameObject data and then save root
+	for(Component* component : components
+	{
+		component->Save();
+	}
+}
+*/
 
 void GameObject::DeleteComponent(Component* component) {
 
@@ -82,6 +107,7 @@ void GameObject::AttachChild(GameObject* child)
 	children.push_back(child);
 	child->transform->NewAttachment();
 	child->PropagateTransform();
+	App->scene->gameObjectList.push_back(child);
 }
 
 void GameObject::RemoveChild(GameObject* child)

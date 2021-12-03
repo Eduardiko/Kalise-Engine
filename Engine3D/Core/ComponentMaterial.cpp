@@ -23,6 +23,19 @@ void ComponentMaterial::OnGui()
 			ImGui::Image((ImTextureID)textureId, ImVec2(128, 128), ImVec2(0, 1), ImVec2(1, 0));
 			ImGui::Text("Size: %d x %d", width, height);
 		}
+		else
+		{
+			ImGui::Text("Name: none");
+			ImGui::Text("Size: 0 x 0");
+		}
 	}
 }
+
+/*
+void ComponentMaterial::Save()
+{
+	Save in json:
+		std::string textureName; uint textureId = 0, width = 0, height = 0;
+}
+*/
 

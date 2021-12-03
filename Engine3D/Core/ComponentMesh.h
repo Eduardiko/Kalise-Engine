@@ -10,7 +10,7 @@
 class ComponentMesh : public Component {
 
 public:
-	
+
 	enum class Shape
 	{
 		CUBE,
@@ -34,9 +34,12 @@ public:
 	bool Update(float dt) override;
 	void OnGui() override;
 
+	// void Save() override;
+
+public:
 	uint vertexBufferId = 0, indexBufferId = 0, textureBufferId = 0;
 	std::string texturePath;
-	
+
 	uint numVertices = 0;
 	std::vector<float3> vertices;
 
@@ -54,7 +57,7 @@ public:
 	bool drawVertexNormals = false;
 	bool drawFaceNormals = false;
 	float normalScale = 1.f;
-	
+
 private:
 
 	//Bounding sphere
@@ -63,5 +66,5 @@ private:
 
 	//Local coords AABB
 	AABB localAABB;
-	
+
 };

@@ -14,6 +14,8 @@ public:
 	void OnGui() override;
 	inline uint GetTextureId() const { return textureId; }
 
+	// void Save() override;
+
 private:
 
 	std::string textureName;

@@ -19,7 +19,7 @@ ComponentMesh::ComponentMesh(GameObject* parent, Shape shape) : Component(parent
 	switch (shape)
 	{
 	case Shape::CUBE:
-		CopyParMesh(par_shapes_create_cube());		
+		CopyParMesh(par_shapes_create_cube());
 		break;
 	case Shape::CYLINDER:
 		CopyParMesh(par_shapes_create_cylinder(20, 20));
@@ -66,7 +66,7 @@ void ComponentMesh::CopyParMesh(par_shapes_mesh* parMesh)
 
 
 void ComponentMesh::GenerateBuffers() {
-	
+
 	//-- Generate Vertex
 	vertexBufferId = 0;
 	glGenBuffers(1, &vertexBufferId);
@@ -114,11 +114,11 @@ void ComponentMesh::ComputeNormals()
 
 void ComponentMesh::GenerateBounds()
 {
-	
+
 	localAABB.SetNegativeInfinity();
 	localAABB.Enclose(&vertices[0], vertices.size());
-		
-	Sphere sphere;	
+
+	Sphere sphere;
 	sphere.r = 0.f;
 	sphere.pos = localAABB.CenterPoint();
 	sphere.Enclose(localAABB);
@@ -134,7 +134,7 @@ void ComponentMesh::DrawNormals() const
 		for (size_t i = 0; i < faceNormals.size(); ++i)
 		{
 			glColor3f(0.f, 0.f, 1.f);
-			glBegin(GL_LINES);			
+			glBegin(GL_LINES);
 			const float3 faceCenter = owner->transform->transformMatrix.TransformPos(faceCenters[i]);
 			const float3 faceNormalPoint = faceCenter + faceNormals[i] * normalScale;
 			glVertex3f(faceCenter.x, faceCenter.y, faceCenter.z);
@@ -181,7 +181,7 @@ bool ComponentMesh::Update(float dt)
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
 
 	if (ComponentMaterial* material = owner->GetComponent<ComponentMaterial>())
-	{	
+	{
 		drawWireframe || !App->renderer3D->useTexture || App->renderer3D->wireframeMode ? 0 : glBindTexture(GL_TEXTURE_2D, material->GetTextureId());
 	}
 
@@ -202,7 +202,7 @@ bool ComponentMesh::Update(float dt)
 	//--Disables States--//
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	
+
 	App->renderer3D->wireframeMode ? glPolygonMode(GL_FRONT_AND_BACK, GL_LINE) : glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	if (drawFaceNormals || drawVertexNormals)
@@ -224,4 +224,10 @@ void ComponentMesh::OnGui()
 	}
 }
 
+/*
+void ComponentMesh::Save()
+{
+
+}
+*/
 

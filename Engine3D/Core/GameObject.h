@@ -51,5 +51,7 @@ public:
 	bool active = true;
 	bool isSelected = false;
 
+	unsigned int uid;
+	unsigned int parentUid;
 };
 

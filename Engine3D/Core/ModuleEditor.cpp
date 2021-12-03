@@ -13,10 +13,8 @@
 #include "ModuleTextures.h"
 #include "ComponentMaterial.h"
 #include "ComponentMesh.h"
-#include "ComponentTransform.h"
 
 //Tools
-
 #include <string>
 #include <stack>
 #include "ImGui/imgui_impl_opengl3.h"
@@ -27,7 +25,7 @@
 
 ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-   
+
     showDemoWindow = false;
     showAnotherWindow = false;
     showAboutWindow = false;
@@ -41,7 +39,7 @@ ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app, s
     showTextures = true;
 
     currentColor = { 1.0f, 1.0f, 1.0f, 1.0f };
-    
+
     gameobjectSelected = nullptr;
 }
 
@@ -60,14 +58,14 @@ bool ModuleEditor::Init() {
 // Called before render is available
 bool ModuleEditor::Start()
 {
-	bool ret = true;
-	
+    bool ret = true;
+
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
 
     ImGuiIO& io = ImGui::GetIO();
-    
+
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
     sceneWindow |= ImGuiWindowFlags_NoScrollbar;
@@ -76,9 +74,9 @@ bool ModuleEditor::Start()
     ImGui::StyleColorsDark();
 
     // Setup Platform/Renderer bindings
-	ImGui_ImplOpenGL3_Init();
+    ImGui_ImplOpenGL3_Init();
     ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
-    
+
     CreateGridBuffer();
 
     return ret;
@@ -145,7 +143,7 @@ bool ModuleEditor::CleanUp()
     ImGui_ImplSDL2_Shutdown();
     ImGui::DestroyContext();
 
-	return true;
+    return true;
 }
 
 void ModuleEditor::CreateGridBuffer()
@@ -157,8 +155,8 @@ void ModuleEditor::CreateGridBuffer()
     constexpr float halfSize = size * .5f;
     constexpr float sliceSize = size / static_cast<float>(slices);
 
-   for (int i = 0; i < slices; ++i) 
-   {
+    for (int i = 0; i < slices; ++i)
+    {
         const float x = -halfSize + static_cast<float>(i) * sliceSize;
         if (x > 0.01f || x < -0.01f)
         {
@@ -175,7 +173,7 @@ void ModuleEditor::CreateGridBuffer()
             indices.push_back(vertices.size() - 2);
             indices.push_back(vertices.size() - 1);
         }
-   }
+    }
 
     glGenVertexArrays(1, &grid.VAO);
     glBindVertexArray(grid.VAO);
@@ -213,26 +211,26 @@ void ModuleEditor::DrawGrid()
     glDrawElements(GL_LINES, grid.length, GL_UNSIGNED_INT, NULL);
 
     glBindVertexArray(0);
-    
+
     glBegin(GL_LINES);
-        //x Axis
-        glColor3f(1.f, 0.f, 0.f);
-        glVertex3f(0.f, 0.0f, 0.f);
-        glColor3f(1.f, 0.f, 0.f);
-        glVertex3f(1000.f, 0.0f, 0.f);
-        glColor3f(.2f, 0.f, 0.f);
-        glVertex3f(0.f, 0.0f, 0.f);
-        glColor3f(.2f, 0.f, 0.f);
-        glVertex3f(-1000.f, 0.0f, 0.f);
-        //z Axis
-        glColor3f(0.f, 0.f, 1.f);
-        glVertex3f(0.f, 0.0f, 0.f);
-        glColor3f(0.f, 0.f, 1.f);
-        glVertex3f(0.f, 0.0f, 1000.f);
-        glColor3f(0.f, 0.f, .2f);
-        glVertex3f(0.f, 0.0f, 0.f);
-        glColor3f(0.f, 0.f, .2f);
-        glVertex3f(0.f, 0.0f, -1000.f);
+    //x Axis
+    glColor3f(1.f, 0.f, 0.f);
+    glVertex3f(0.f, 0.0f, 0.f);
+    glColor3f(1.f, 0.f, 0.f);
+    glVertex3f(1000.f, 0.0f, 0.f);
+    glColor3f(.2f, 0.f, 0.f);
+    glVertex3f(0.f, 0.0f, 0.f);
+    glColor3f(.2f, 0.f, 0.f);
+    glVertex3f(-1000.f, 0.0f, 0.f);
+    //z Axis
+    glColor3f(0.f, 0.f, 1.f);
+    glVertex3f(0.f, 0.0f, 0.f);
+    glColor3f(0.f, 0.f, 1.f);
+    glVertex3f(0.f, 0.0f, 1000.f);
+    glColor3f(0.f, 0.f, .2f);
+    glVertex3f(0.f, 0.0f, 0.f);
+    glColor3f(0.f, 0.f, .2f);
+    glVertex3f(0.f, 0.0f, -1000.f);
     glEnd();
 
     isLightingOn ? glEnable(GL_LIGHTING) : 0;
@@ -292,7 +290,7 @@ bool ModuleEditor::DockingRootItem(char* id, ImGuiWindowFlags winFlags)
     ImGui::SetNextWindowPos(viewport->Pos);
     ImGui::SetNextWindowSize(viewport->Size);
     ImGui::SetNextWindowViewport(viewport->ID);
-    
+
     //Setting window style
     ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, .0f);
     ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, .0f);
@@ -337,6 +335,21 @@ void ModuleEditor::MenuBar() {
             ImGui::EndMenu();
         }
 
+        /* ---- SCENE ---- */
+        if (ImGui::BeginMenu("Scene")) {
+            if (ImGui::MenuItem("Save scene")) //DO SOMETHING
+            {
+                // something like
+                // App->scene->SaveSceneRequest();
+            }
+            if (ImGui::MenuItem("Load Scene"))
+            {
+                // something like
+                // App->scene->LoadSceneRequest();
+            }
+            ImGui::EndMenu();
+        }
+
         /* ---- GAMEOBJECTS ---- */
         if (ImGui::BeginMenu("GameObject")) {
 
@@ -346,15 +359,15 @@ void ModuleEditor::MenuBar() {
 
             if (ImGui::BeginMenu("3D Objects")) {
                 if (ImGui::MenuItem("Cube")) {
-                    GameObject* newGameObject = App->scene->CreateGameObject("Cube");
+                    GameObject* newGameObject = App->scene->CreateGameObjectByName("Cube");
                     ComponentMesh* newMesh = new ComponentMesh(newGameObject, ComponentMesh::Shape::CUBE);
                 }
                 if (ImGui::MenuItem("Sphere")) {
-                    GameObject* newGameObject = App->scene->CreateGameObject("Sphere");
+                    GameObject* newGameObject = App->scene->CreateGameObjectByName("Sphere");
                     ComponentMesh* newMesh = new ComponentMesh(newGameObject, ComponentMesh::Shape::SPHERE);
                 }
                 if (ImGui::MenuItem("Cylinder")) {
-                    GameObject* newGameObject = App->scene->CreateGameObject("Cylinder");
+                    GameObject* newGameObject = App->scene->CreateGameObjectByName("Cylinder");
                     ComponentMesh* newMesh = new ComponentMesh(newGameObject, ComponentMesh::Shape::CYLINDER);
                 }
                 ImGui::EndMenu();
@@ -370,42 +383,42 @@ void ModuleEditor::MenuBar() {
             ImGui::Separator();
 
             if (ImGui::BeginMenu("Workspace Style")) {
-                if (ImGui::MenuItem("Dark")) 
+                if (ImGui::MenuItem("Dark"))
                     ImGui::StyleColorsDark();
-                if (ImGui::MenuItem("Classic")) 
+                if (ImGui::MenuItem("Classic"))
                     ImGui::StyleColorsClassic();
-                if (ImGui::MenuItem("Light")) 
+                if (ImGui::MenuItem("Light"))
                     ImGui::StyleColorsLight();
-                if (ImGui::MenuItem("Custom")) 
+                if (ImGui::MenuItem("Custom"))
                     ImGui::StyleColorsCustom();
                 ImGui::EndMenu();
             }
             ImGui::Separator();
 
-            if (ImGui::MenuItem("Hierarchy")) 
+            if (ImGui::MenuItem("Hierarchy"))
                 showHierarchyWindow = !showHierarchyWindow;
-            if (ImGui::MenuItem("Inspector")) 
+            if (ImGui::MenuItem("Inspector"))
                 showInspectorWindow = !showInspectorWindow;
-            if (ImGui::MenuItem("Scene")) 
+            if (ImGui::MenuItem("Scene"))
                 showSceneWindow = !showSceneWindow;
-            if (ImGui::MenuItem("Game")) 
+            if (ImGui::MenuItem("Game"))
                 showGameWindow = !showGameWindow;
-            if (ImGui::MenuItem("Console")) 
+            if (ImGui::MenuItem("Console"))
                 showConsoleWindow = !showConsoleWindow;
-            if (ImGui::MenuItem("Textures")) 
+            if (ImGui::MenuItem("Textures"))
                 showTextures = !showTextures;
 
             ImGui::Separator();
-            if (ImGui::MenuItem("Configuration")) 
+            if (ImGui::MenuItem("Configuration"))
                 showConfWindow = !showConfWindow;
-            
+
 
             ImGui::EndMenu();
         }
 
         /* ---- HELP ----*/
         if (ImGui::BeginMenu("Help")) {
-            if (ImGui::MenuItem("About")) 
+            if (ImGui::MenuItem("About"))
                 showAboutWindow = !showAboutWindow;
             ImGui::EndMenu();
         }
@@ -418,17 +431,17 @@ void ModuleEditor::MenuBar() {
 void ModuleEditor::UpdateWindowStatus() {
 
     //Demo
-    if (showDemoWindow) 
+    if (showDemoWindow)
         ImGui::ShowDemoWindow(&showDemoWindow);
 
     //About info
-    if (showAboutWindow)  
+    if (showAboutWindow)
         About_Window();
 
     //Config
     if (showConfWindow) {
 
-        ImGui::Begin("Configuration", &showConfWindow);        
+        ImGui::Begin("Configuration", &showConfWindow);
         App->OnGui();
         ImGui::End();
 
@@ -456,7 +469,7 @@ void ModuleEditor::UpdateWindowStatus() {
         }
         ImGui::End();
     }
-        
+
     //Console
     if (showConsoleWindow) {
 
@@ -471,8 +484,8 @@ void ModuleEditor::UpdateWindowStatus() {
 
         ImGui::Begin("Inspector", &showInspectorWindow);
         //Only shows info if any gameobject selected
-        if (gameobjectSelected != nullptr) 
-            InspectorGameObject(); 
+        if (gameobjectSelected != nullptr)
+            InspectorGameObject();
 
         ImGui::End();
 
@@ -484,17 +497,42 @@ void ModuleEditor::UpdateWindowStatus() {
 
         ImGui::Begin("Hierarchy", &showHierarchyWindow);
 
-        //Just cleaning gameObjects(not textures,buffers...)
-        if (ImGui::Button("Clear", { 60,20 })) 
+        if (App->scene->root->name == "Root")
         {
-            App->editor->gameobjectSelected = nullptr;
-            App->scene->CleanUpGameObjects(); //Clean GameObjects
+            // Create empty gameobject at root
+            if (ImGui::Button("New Empty", { 100,20 }))
+            {
+                App->scene->CreateEmptyGameObject();
+            }
+            ImGui::SameLine();
+
+            // Create empty children
+            if (ImGui::Button("New Children", { 100,20 }))
+            {
+                App->scene->CreateChildrenGameObject(gameobjectSelected);
+            }
+
+            // Delete the selected game object
+            if (ImGui::Button("Delete", { 100,20 }))
+            {
+                App->scene->DeleteSelectedGameObject(gameobjectSelected); //Clean GameObjects 
+                App->editor->gameobjectSelected = nullptr;
+            }
+            ImGui::SameLine();
+
+            // Just cleaning gameObjects(not textures,buffers...)
+            if (ImGui::Button("Delete All", { 100,20 }))
+            {
+                App->scene->DeleteAllGameObjects(); //Clean GameObjects
+                App->editor->gameobjectSelected = nullptr;
+            }
         }
-        ImGui::SameLine();
-        if (ImGui::Button("New", { 60,20 }))
+        else
         {
-            App->scene->CreateGameObject();
+            if (ImGui::Button("Create Root", { 100,20 }))
+                App->scene->CreateRoot();
         }
+
         std::stack<GameObject*> S;
         std::stack<uint> indents;
         S.push(App->scene->root);
@@ -510,13 +548,13 @@ void ModuleEditor::UpdateWindowStatus() {
             if (go->isSelected)
                 nodeFlags |= ImGuiTreeNodeFlags_Selected;
             if (go->children.size() == 0)
-                nodeFlags |= ImGuiTreeNodeFlags_Leaf; 
+                nodeFlags |= ImGuiTreeNodeFlags_Leaf;
             for (uint i = 0; i < indentsAmount; ++i)
             {
                 ImGui::Indent();
             }
 
-            if (ImGui::TreeNodeEx(go->name.c_str(), nodeFlags)) 
+            if (ImGui::TreeNodeEx(go->name.c_str(), nodeFlags))
             {
                 if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None))
                 {
@@ -567,6 +605,7 @@ void ModuleEditor::UpdateWindowStatus() {
                 ImGui::TreePop();
             }
         }
+
         ImGui::End();
     }
 
@@ -589,10 +628,10 @@ void ModuleEditor::UpdateWindowStatus() {
         ImGui::Image((ImTextureID)App->viewportBuffer->texture, viewportSize, ImVec2(0, 1), ImVec2(1, 0));
         ImGui::End();
     }
-    
+
 }
 
-void ModuleEditor::InspectorGameObject() 
+void ModuleEditor::InspectorGameObject()
 {
     if (gameobjectSelected)
         gameobjectSelected->OnGui();
