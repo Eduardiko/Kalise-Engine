@@ -340,12 +340,12 @@ void ModuleEditor::MenuBar() {
             if (ImGui::MenuItem("Save scene")) //DO SOMETHING
             {
                 // something like
-                // App->scene->SaveSceneRequest();
+                App->SaveEngineConfig();
             }
             if (ImGui::MenuItem("Load Scene"))
             {
                 // something like
-                // App->scene->LoadSceneRequest();
+                App->LoadEngineConfig();
             }
             ImGui::EndMenu();
         }

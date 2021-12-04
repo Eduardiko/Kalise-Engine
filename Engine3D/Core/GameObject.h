@@ -1,5 +1,11 @@
 #pragma once
 
+#include "rapidjson-1.1.0/include/rapidjson/prettywriter.h"
+#include "rapidjson-1.1.0/include/rapidjson/document.h"
+
+typedef rapidjson::PrettyWriter<rapidjson::StringBuffer> JSONWriter;
+typedef rapidjson::Value JSONReader;
+
 #include <vector>
 #include <string>
 
@@ -17,6 +23,7 @@ public:
 
 	void Update(float dt);
 	void OnGui();
+	void OnSave(JSONWriter& writer);
 
 	template<class T> T* CreateComponent()
 	{

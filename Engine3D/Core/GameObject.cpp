@@ -75,16 +75,12 @@ void GameObject::OnGui()
 	}
 }
 
-/*
-void GameObject::Save()
+void GameObject::OnSave(JSONWriter& writer)
 {
-	We should delete the current GameObject data and then save root
-	for(Component* component : components
-	{
-		component->Save();
-	}
+
 }
-*/
+
+
 
 void GameObject::DeleteComponent(Component* component) {
 
