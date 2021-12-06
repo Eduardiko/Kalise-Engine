@@ -39,6 +39,9 @@ void ComponentMaterial::OnSave(JSONWriter& writer)
 
 	writer.String(uidchr);
 	writer.StartObject();
+	SAVE_JSON_FLOAT(textureId);
+	SAVE_JSON_FLOAT(width);
+	SAVE_JSON_FLOAT(height);
 	writer.EndObject();
 
 }
@@ -52,6 +55,10 @@ void ComponentMaterial::OnLoad(const JSONReader& reader)
 	if (reader.HasMember(uidchr))
 	{
 		const auto& config = reader[uidchr];
+		LOAD_JSON_FLOAT(textureId);
+		LOAD_JSON_FLOAT(width);
+		LOAD_JSON_FLOAT(height);
+		LOAD_JSON_STRING(textureName);
 	}
 }
 

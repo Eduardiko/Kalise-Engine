@@ -232,6 +232,13 @@ void ComponentMesh::OnSave(JSONWriter& writer)
 
 	writer.String(uidchr);
 	writer.StartObject();
+	SAVE_JSON_FLOAT(numVertices);
+	SAVE_JSON_FLOAT(numIndices);
+	SAVE_JSON_BOOL(drawWireframe);
+	SAVE_JSON_BOOL(drawFaceNormals);
+	SAVE_JSON_BOOL(drawVertexNormals);
+	SAVE_JSON_FLOAT(normalScale);
+
 	writer.EndObject();
 
 }
@@ -245,7 +252,12 @@ void ComponentMesh::OnLoad(const JSONReader& reader)
 	if (reader.HasMember(uidchr))
 	{
 		const auto& config = reader[uidchr];
-
+		LOAD_JSON_FLOAT(numVertices);
+		LOAD_JSON_FLOAT(numIndices);
+		LOAD_JSON_BOOL(drawWireframe);
+		LOAD_JSON_BOOL(drawFaceNormals);
+		LOAD_JSON_BOOL(drawVertexNormals);
+		LOAD_JSON_FLOAT(normalScale);
 	}
 }
 

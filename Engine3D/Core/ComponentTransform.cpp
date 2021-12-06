@@ -76,6 +76,7 @@ void ComponentTransform::OnSave(JSONWriter& writer)
 	SAVE_JSON_FLOAT(rotation.x);
 	SAVE_JSON_FLOAT(rotation.y);
 	SAVE_JSON_FLOAT(rotation.z);
+	SAVE_JSON_FLOAT(rotation.w);
 
 	SAVE_JSON_FLOAT(rotationEuler.x);
 	SAVE_JSON_FLOAT(rotationEuler.y);
@@ -118,6 +119,7 @@ void ComponentTransform::OnLoad(const JSONReader& reader)
 		LOAD_JSON_FLOAT(rotation.x);
 		LOAD_JSON_FLOAT(rotation.y);
 		LOAD_JSON_FLOAT(rotation.z);
+		LOAD_JSON_FLOAT(rotation.w);
 
 		LOAD_JSON_FLOAT(rotationEuler.x);
 		LOAD_JSON_FLOAT(rotationEuler.y);
