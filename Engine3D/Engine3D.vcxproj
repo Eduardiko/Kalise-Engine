@@ -71,6 +71,7 @@
     <ClCompile Include="Core\Timer.cpp" />
     <ClCompile Include="Core\ComponentTransform.cpp" />
     <ClCompile Include="Core\ModuleViewportFrameBuffer.cpp" />
+    <ClCompile Include="Core\UUID_.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Application.h" />
@@ -247,6 +248,7 @@
     <ClInclude Include="Core\Timer.h" />
     <ClInclude Include="Core\ComponentTransform.h" />
     <ClInclude Include="Core\ModuleViewportFrameBuffer.h" />
+    <ClInclude Include="Core\UUID_.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Core\Assimp\include\color4.inl" />
@@ -302,7 +304,7 @@
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Core\MathGeoLib\include;$(SolutionDir)\Core\glew\include;$(SolutionDir)\Core\JSONObject\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Core\MathGeoLib\include;$(SolutionDir)\Core\glew\include;$(SolutionDir)\Core\JSONObject\include;$(SolutionDir)\Core\PCG\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);</PreprocessorDefinitions>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <UndefinePreprocessorDefinitions>MATH_SSE;</UndefinePreprocessorDefinitions>

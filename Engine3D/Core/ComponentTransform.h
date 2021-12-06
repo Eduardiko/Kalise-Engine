@@ -12,7 +12,10 @@ public:
 	ComponentTransform(GameObject* parent);
 
 	bool Update(float dt) override;
+
 	void OnGui() override;
+	void OnSave(JSONWriter& writer) override;
+	void OnLoad(const JSONReader& reader) override;
 
 	void SetPosition(const float3& newPosition);
 	void SetRotation(const float3& newRotation);
@@ -47,5 +50,6 @@ private:
 	float3 up = float3::unitY;
 	float3 right = float3::unitX;
 
+	UUID_ uid;
 
 };

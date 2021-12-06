@@ -25,6 +25,10 @@ public:
 	
 	void DuplicateGameObject(GameObject* parent = nullptr);
 	void CreateRoot();
+
+	void OnSave(JSONWriter& writer) const override;
+	void OnLoad(const JSONReader& reader) override;
+
 private:
 	int emptyCounter = 0;
 public:

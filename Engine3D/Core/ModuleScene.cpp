@@ -296,3 +296,20 @@ void ModuleScene::CreateRoot()
 		gameObjectList.push_back(child);
 	}
 }
+
+void ModuleScene::OnSave(JSONWriter& writer) const
+{
+	for (int i = 0; i < gameObjectList.size(); i++)
+	{
+		gameObjectList[i]->OnSave(writer);
+	}
+		int i = 0;
+}
+
+void ModuleScene::OnLoad(const JSONReader& reader)
+{
+	for (int i = 0; i < gameObjectList.size(); i++)
+	{
+		gameObjectList[i]->OnLoad(reader);
+	}
+}

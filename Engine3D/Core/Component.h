@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include "GameObject.h"
+#include "UUID_.h"
 
 class Component {
 
@@ -24,7 +25,8 @@ public:
 	virtual bool Enable() { return active = true; };
 	virtual bool Disable() { return active = false; };
 	virtual void OnGui() { }
-	// virtual void Save() { }
+	virtual void OnSave(JSONWriter& writer) { };
+	virtual void OnLoad(const JSONReader& reader) { };
 
 public:
 

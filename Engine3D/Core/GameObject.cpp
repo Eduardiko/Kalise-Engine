@@ -7,6 +7,8 @@
 #include "ComponentMesh.h"
 #include "ImGui/imgui.h"
 
+#include "rapidjson-1.1.0/include/rapidjson/prettywriter.h"
+
 GameObject::GameObject()
 {
 
@@ -77,7 +79,39 @@ void GameObject::OnGui()
 
 void GameObject::OnSave(JSONWriter& writer)
 {
+	uint64_t uid64 = uid;
+	std::string uidstr = std::to_string(uid64);
+	const char* uidchr = uidstr.c_str();
 
+	writer.String(uidchr);
+	writer.StartObject();
+	SAVE_JSON_BOOL(active);
+	SAVE_JSON_BOOL(isSelected);
+	writer.EndObject();
+	
+	for (int i = 0; i < components.size(); i++)
+	{
+		components[i]->OnSave(writer);
+	}
+}
+
+void GameObject::OnLoad(const JSONReader& reader)
+{
+	uint64_t uid64 = uid;
+	std::string uidstr = std::to_string(uid64);
+	const char* uidchr = uidstr.c_str();
+
+	if (reader.HasMember(uidchr))
+	{
+		const auto& config = reader[uidchr];
+		LOAD_JSON_BOOL(active);
+		LOAD_JSON_BOOL(isSelected);
+	}
+
+	for (int i = 0; i < components.size(); i++)
+	{
+		components[i]->OnLoad(reader);
+	}
 }
 
 
@@ -121,4 +155,5 @@ void GameObject::PropagateTransform()
 	{
 		go->transform->OnParentMoved();
 	}
+
 }

@@ -6,6 +6,8 @@
 typedef rapidjson::PrettyWriter<rapidjson::StringBuffer> JSONWriter;
 typedef rapidjson::Value JSONReader;
 
+#include "UUID_.h"
+
 #include <vector>
 #include <string>
 
@@ -23,7 +25,9 @@ public:
 
 	void Update(float dt);
 	void OnGui();
+
 	void OnSave(JSONWriter& writer);
+	void OnLoad(const JSONReader& reader);
 
 	template<class T> T* CreateComponent()
 	{
@@ -58,7 +62,9 @@ public:
 	bool active = true;
 	bool isSelected = false;
 
-	unsigned int uid;
+	UUID_ uid;
 	unsigned int parentUid;
+
+	char* struuid[10];
 };
 
