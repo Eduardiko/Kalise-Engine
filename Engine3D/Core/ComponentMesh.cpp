@@ -224,10 +224,28 @@ void ComponentMesh::OnGui()
 	}
 }
 
-/*
-void ComponentMesh::Save()
+void ComponentMesh::OnSave(JSONWriter& writer)
 {
+	uint64_t uid64 = uid;
+	std::string uidstr = std::to_string(uid64);
+	const char* uidchr = uidstr.c_str();
+
+	writer.String(uidchr);
+	writer.StartObject();
+	writer.EndObject();
 
 }
-*/
+
+void ComponentMesh::OnLoad(const JSONReader& reader)
+{
+	uint64_t uid64 = uid;
+	std::string uidstr = std::to_string(uid64);
+	const char* uidchr = uidstr.c_str();
+
+	if (reader.HasMember(uidchr))
+	{
+		const auto& config = reader[uidchr];
+
+	}
+}
 

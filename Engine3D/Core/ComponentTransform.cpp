@@ -142,6 +142,15 @@ void ComponentTransform::OnLoad(const JSONReader& reader)
 		LOAD_JSON_BOOL(isDirty);
 	}
 
+	transformMatrixLocal = float4x4::FromTRS(position, rotation, scale);
+
+	right = transformMatrixLocal.Col3(0).Normalized();
+	up = transformMatrixLocal.Col3(1).Normalized();
+	front = transformMatrixLocal.Col3(2).Normalized();
+	RecomputeGlobalMatrix();
+	owner->PropagateTransform();
+	isDirty = false;
+
 }
 
 void ComponentTransform::SetPosition(const float3& newPosition)

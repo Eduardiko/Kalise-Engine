@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Math/float3.h"
+
 #include "rapidjson-1.1.0/include/rapidjson/prettywriter.h"
 #include "rapidjson-1.1.0/include/rapidjson/document.h"
 
@@ -55,7 +57,9 @@ public:
 
 	std::string name;
 	GameObject* parent = nullptr;
+
 	ComponentTransform* transform = nullptr;
+
 	std::vector<GameObject*> children;
 	std::vector<Component*> components;
 	

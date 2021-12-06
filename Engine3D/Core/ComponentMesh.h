@@ -33,8 +33,8 @@ public:
 
 	bool Update(float dt) override;
 	void OnGui() override;
-
-	// void Save() override;
+	void OnSave(JSONWriter& writer) override;
+	void OnLoad(const JSONReader& reader) override;
 
 public:
 	uint vertexBufferId = 0, indexBufferId = 0, textureBufferId = 0;
@@ -67,4 +67,5 @@ private:
 	//Local coords AABB
 	AABB localAABB;
 
+	UUID_ uid;
 };

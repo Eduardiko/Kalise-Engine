@@ -79,6 +79,7 @@ void GameObject::OnGui()
 
 void GameObject::OnSave(JSONWriter& writer)
 {
+
 	uint64_t uid64 = uid;
 	std::string uidstr = std::to_string(uid64);
 	const char* uidchr = uidstr.c_str();
@@ -87,6 +88,7 @@ void GameObject::OnSave(JSONWriter& writer)
 	writer.StartObject();
 	SAVE_JSON_BOOL(active);
 	SAVE_JSON_BOOL(isSelected);
+	
 	writer.EndObject();
 	
 	for (int i = 0; i < components.size(); i++)
@@ -104,9 +106,13 @@ void GameObject::OnLoad(const JSONReader& reader)
 	if (reader.HasMember(uidchr))
 	{
 		const auto& config = reader[uidchr];
+
 		LOAD_JSON_BOOL(active);
 		LOAD_JSON_BOOL(isSelected);
+
 	}
+
+
 
 	for (int i = 0; i < components.size(); i++)
 	{
