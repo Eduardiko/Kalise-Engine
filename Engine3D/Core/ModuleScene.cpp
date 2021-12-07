@@ -2,7 +2,7 @@
 #include "Application.h"
 #include "ModuleScene.h"
 #include "glew.h"
-#include "ImGui/imgui.h"
+#include "imgui.h"
 #include "ModuleImport.h"
 #include "ModuleTextures.h"
 #include "ModuleCamera3D.h"

@@ -182,6 +182,9 @@
     <ClCompile Include="Core\UUID_.cpp">
       <Filter>Engine\Tools</Filter>
     </ClCompile>
+    <ClCompile Include="ImGuizmo.cpp">
+      <Filter>ExternalLibraries\ImGui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\ImGui\imconfig.h">
@@ -708,6 +711,12 @@
     </ClInclude>
     <ClInclude Include="Core\UUID_.h">
       <Filter>Engine\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Header.h">
+      <Filter>Engine\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGuizmo.h">
+      <Filter>ExternalLibraries\ImGui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

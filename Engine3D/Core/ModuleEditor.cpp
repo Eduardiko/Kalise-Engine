@@ -17,9 +17,9 @@
 //Tools
 #include <string>
 #include <stack>
-#include "ImGui/imgui_impl_opengl3.h"
-#include "ImGui/imgui_impl_sdl.h"
-#include "ImGui/imgui_internal.h"
+#include "imgui_impl_opengl3.h"
+#include "imgui_impl_sdl.h"
+#include "imgui_internal.h"
 #include "glew.h"
 #include <gl/GL.h>
 
@@ -88,6 +88,7 @@ update_status ModuleEditor::PreUpdate(float dt) {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplSDL2_NewFrame(App->window->window);
     ImGui::NewFrame();
+    
 
     return UPDATE_CONTINUE;
 

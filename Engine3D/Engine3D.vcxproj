@@ -72,6 +72,7 @@
     <ClCompile Include="Core\ComponentTransform.cpp" />
     <ClCompile Include="Core\ModuleViewportFrameBuffer.cpp" />
     <ClCompile Include="Core\UUID_.cpp" />
+    <ClCompile Include="ImGuizmo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Application.h" />
@@ -249,6 +250,8 @@
     <ClInclude Include="Core\ComponentTransform.h" />
     <ClInclude Include="Core\ModuleViewportFrameBuffer.h" />
     <ClInclude Include="Core\UUID_.h" />
+    <ClInclude Include="Header.h" />
+    <ClInclude Include="ImGuizmo.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Core\Assimp\include\color4.inl" />
@@ -304,7 +307,7 @@
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Core\MathGeoLib\include;$(SolutionDir)\Core\glew\include;$(SolutionDir)\Core\JSONObject\include;$(SolutionDir)\Core\PCG\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Core\MathGeoLib\include;$(SolutionDir)\Core\glew\include;$(SolutionDir)\Core\JSONObject\include;$(SolutionDir)\Core\PCG\include;$(SolutionDir)\Core\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);</PreprocessorDefinitions>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <UndefinePreprocessorDefinitions>MATH_SSE;</UndefinePreprocessorDefinitions>

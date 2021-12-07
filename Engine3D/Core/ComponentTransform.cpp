@@ -4,7 +4,7 @@
 #include "ModuleScene.h"
 #include "Math/TransformOps.h"
 #include "glew.h"
-#include "ImGui/imgui.h"
+#include "imgui.h"
 
 ComponentTransform::ComponentTransform(GameObject* parent) : Component(parent) {
 	
@@ -86,18 +86,6 @@ void ComponentTransform::OnSave(JSONWriter& writer)
 	SAVE_JSON_FLOAT(scale.y);
 	SAVE_JSON_FLOAT(scale.z);
 
-	SAVE_JSON_FLOAT(front.x);
-	SAVE_JSON_FLOAT(front.y);
-	SAVE_JSON_FLOAT(front.z);
-
-	SAVE_JSON_FLOAT(up.x);
-	SAVE_JSON_FLOAT(up.y);
-	SAVE_JSON_FLOAT(up.z);
-
-	SAVE_JSON_FLOAT(right.x);
-	SAVE_JSON_FLOAT(right.y);
-	SAVE_JSON_FLOAT(right.z);
-
 	SAVE_JSON_BOOL(isDirty);
 
 	writer.EndObject();
@@ -128,18 +116,6 @@ void ComponentTransform::OnLoad(const JSONReader& reader)
 		LOAD_JSON_FLOAT(scale.x);
 		LOAD_JSON_FLOAT(scale.y);
 		LOAD_JSON_FLOAT(scale.z);
-
-		LOAD_JSON_FLOAT(front.x);
-		LOAD_JSON_FLOAT(front.y);
-		LOAD_JSON_FLOAT(front.z);
-
-		LOAD_JSON_FLOAT(up.x);
-		LOAD_JSON_FLOAT(up.y);
-		LOAD_JSON_FLOAT(up.z);
-
-		LOAD_JSON_FLOAT(right.x);
-		LOAD_JSON_FLOAT(right.y);
-		LOAD_JSON_FLOAT(right.z);
 
 		LOAD_JSON_BOOL(isDirty);
 	}

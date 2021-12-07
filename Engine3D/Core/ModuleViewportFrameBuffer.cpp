@@ -3,7 +3,7 @@
 #include "Globals.h"
 #include "ModuleWindow.h"
 #include <string>
-#include "ImGui/imgui.h"
+#include "imgui.h"
 #include "ImGui/imgui_internal.h"
 #include "glew.h"
 #include <gl/GL.h>

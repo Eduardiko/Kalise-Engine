@@ -5,7 +5,7 @@
 #include "ComponentTransform.h"
 #include "ComponentMaterial.h"
 #include "ComponentMesh.h"
-#include "ImGui/imgui.h"
+#include "imgui.h"
 
 #include "rapidjson-1.1.0/include/rapidjson/prettywriter.h"
 

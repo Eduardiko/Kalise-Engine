@@ -2,7 +2,7 @@
 #include "Module.h"
 #include "Globals.h"
 
-#include "ImGui/imgui.h"
+#include "imgui.h"
 #include <string>
 
 //Forward declaration

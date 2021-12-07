@@ -7,7 +7,7 @@
 #include "ComponentMaterial.h"
 #include "ComponentTransform.h"
 #include "GameObject.h"
-#include "ImGui/imgui.h"
+#include "imgui.h"
 #include "Geometry/Sphere.h"
 #include "par_shapes.h"
 
