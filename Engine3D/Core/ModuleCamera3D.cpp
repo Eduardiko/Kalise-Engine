@@ -238,33 +238,14 @@ GameObject* ModuleCamera3D::MousePicking(float2 screenPoint)
 		ComponentMesh* m = sceneGameObjects[i]->GetComponent<Mesh>();
 		if (m != nullptr)
 		{
-			bool hit = newRay.Intersects(m->localAABB);
+			bool hit = newRay.Intersects(m->GetGlobalAABB());
 
 			if (hit)
 			{
-				float dNear;
-				float dFar;
-				hit = newRay.Intersects(m->localAABB, dNear, dFar);
-				hitGameObjects[dNear] = sceneGameObjects[i];
+				hitGameObjects[i] = sceneGameObjects[i];
 			}
 		}
-		//	else if (m == nullptr)
-		//	{
-		//		ComponentCamera* c = sceneGameObjects[i]->GetComponent<Camera>();
-		//		if (c != nullptr)
-		//		{
-		//			bool hit = newRay.Intersects(c->bbox);
 
-		//			if (hit)
-		//			{
-		//				float dNear;
-		//				float dFar;
-		//				hit = newRay.Intersects(c->bbox, dNear, dFar);
-		//				hitGameObjects[dNear] = sceneGameObjects[i];
-		//			}
-		//		}
-		//	}
-		//}
 	}
 
 	std::map<float, GameObject*>::iterator it = hitGameObjects.begin();
@@ -303,21 +284,16 @@ GameObject* ModuleCamera3D::MousePicking(float2 screenPoint)
 				float3 intersectionPoint;
 				if (rayLocal.Intersects(triangle, &distance, &intersectionPoint))
 				{
+					App->editor->gameobjectSelected ? App->editor->gameobjectSelected->isSelected = !App->editor->gameobjectSelected->isSelected : 0;
+					App->editor->gameobjectSelected = gameObject;
+					App->editor->gameobjectSelected->isSelected = !App->editor->gameobjectSelected->isSelected;
 					return gameObject;
 				}
 			}
 		}
-		/*else
-		{
-			ComponentCamera* cam = gameObject->GetComponent<Camera>();
-			if (cam != nullptr)
-			{
-				return gameObject;
-			}
-		}*/
+	
 	}
 
-	return nullptr;
 	return nullptr;
 }
 

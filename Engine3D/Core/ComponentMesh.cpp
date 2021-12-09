@@ -320,3 +320,10 @@ void ComponentMesh::OnLoad(const JSONReader& reader)
 	}
 }
 
+AABB ComponentMesh::GetGlobalAABB()
+{
+	AABB global = AABB(localAABB);
+	global.Translate(owner->GetComponent<ComponentTransform>()->GetPosition());
+	return global;
+}
+

@@ -40,6 +40,8 @@ public:
 	void OnSave(JSONWriter& writer) override;
 	void OnLoad(const JSONReader& reader) override;
 
+	AABB GetGlobalAABB();
+
 public:
 	uint vertexBufferId = 0, indexBufferId = 0, textureBufferId = 0;
 	std::string texturePath;
