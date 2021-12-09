@@ -185,6 +185,9 @@
     <ClCompile Include="Core\ImGui\ImGuizmo.cpp">
       <Filter>ExternalLibraries\ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="Core\ComponentCamera.cpp">
+      <Filter>Engine\GameObjects - Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\ImGui\imconfig.h">
@@ -717,6 +720,9 @@
     </ClInclude>
     <ClInclude Include="Core\ImGui\ImGuizmo.h">
       <Filter>ExternalLibraries\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\ComponentCamera.h">
+      <Filter>Engine\GameObjects - Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
