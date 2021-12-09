@@ -15,6 +15,12 @@ typedef rapidjson::Value JSONReader;
 
 class Component;
 class ComponentTransform;
+class ComponentMaterial;
+class ComponentMesh;
+
+typedef ComponentMaterial Material;
+typedef ComponentMesh Mesh;
+typedef ComponentTransform Transform;
 
 class GameObject {
 
@@ -68,7 +74,5 @@ public:
 
 	UUID_ uid;
 	unsigned int parentUid;
-
-	char* struuid[10];
 };
 

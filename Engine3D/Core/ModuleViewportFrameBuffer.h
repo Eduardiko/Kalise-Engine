@@ -14,6 +14,8 @@ public:
 	bool Start() override;
 	update_status PreUpdate(float dt) override;
 	update_status PostUpdate(float dt) override;
+
+	void OnResize(int width, int height);
 	bool CleanUp();
 
 public:

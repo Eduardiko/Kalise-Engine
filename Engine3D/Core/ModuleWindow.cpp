@@ -163,6 +163,11 @@ void ModuleWindow::SetTitle(const char* title)
 	SDL_SetWindowTitle(window, title);
 }
 
+void ModuleWindow::GetPosition(int& x, int& y)
+{
+	SDL_GetWindowPosition(window, &x, &y);
+}
+
 void ModuleWindow::OnGui() {
 		
 	if (ImGui::CollapsingHeader("Window"))

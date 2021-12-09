@@ -5,7 +5,8 @@
 #include "Globals.h"
 #include "ModuleImport.h"
 
-#include "GameObject.h"
+class GameObject;
+
 class ModuleScene : public Module
 {
 public:
@@ -18,7 +19,7 @@ public:
 	bool DeleteAllGameObjects();
 	bool DeleteSelectedGameObject(GameObject* selectedGameObject);
 
-	GameObject* CreateGameObject(GameObject* parent = nullptr);	
+	GameObject* CreateGameObject(GameObject* parent = nullptr);
 	GameObject* CreateGameObjectByName(const std::string name, GameObject* parent = nullptr);	
 	GameObject* CreateEmptyGameObject(GameObject* parent = nullptr);
 	GameObject* CreateChildrenGameObject(GameObject* parent = nullptr);
@@ -32,8 +33,11 @@ public:
 private:
 	int emptyCounter = 0;
 public:
-	
 	GameObject* root;
 	std::vector<GameObject*> gameObjectList;
 	std::vector<GameObject*> rootList;
+
+	ImVec2 winPos;
+	ImVec2 winSize;
+	ImVec2 mouseWinPos;
 };

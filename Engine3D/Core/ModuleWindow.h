@@ -24,6 +24,8 @@ public:
 	void OnGui() override;
 	void SetTitle(const char* title);
 
+	void GetPosition(int& x, int& y);
+
 public:
 	//The window we'll be rendering to
 	SDL_Window* window;

@@ -211,6 +211,27 @@ bool ComponentMesh::Update(float dt)
 	return true;
 }
 
+void ComponentMesh::CreateBBox()
+{
+
+	localAABB.SetNegativeInfinity();
+	localAABB.Enclose(&this->vertices[0], this->vertices.size());
+
+	Sphere sphere;
+	sphere.r = 0.f;
+	sphere.pos = localAABB.CenterPoint();
+	sphere.Enclose(localAABB);
+
+	radius = sphere.r;
+	centerPoint = sphere.pos;
+
+	obb = localAABB;
+	obb.Transform(owner->GetComponent<Transform>()->GetTransform());
+
+	localAABB.SetNegativeInfinity();
+	localAABB.Enclose(obb);
+}
+
 void ComponentMesh::OnGui()
 {
 	if (ImGui::CollapsingHeader("Mesh"))

@@ -1,14 +1,21 @@
-#include "Globals.h"
+
 #include "Application.h"
 #include "ModuleScene.h"
 #include "glew.h"
 #include "imgui.h"
+
 #include "ModuleImport.h"
 #include "ModuleTextures.h"
 #include "ModuleCamera3D.h"
 #include "ModuleEditor.h"
+#include "ModuleWindow.h"
+#include "ModuleInput.h"
+#include "ModuleViewportFrameBuffer.h"
+
+#include "GameObject.h"
 #include "Component.h"
 #include "ComponentTransform.h"
+
 #include <stack>
 #include <queue>
 
@@ -115,6 +122,7 @@ bool ModuleScene::DeleteSelectedGameObject(GameObject* selectedGameObject)
 
 update_status ModuleScene::Update(float dt)
 {
+
 	if (!rootList.empty())
 	{
 		for (int i = 0; i < rootList.size(); ++i)
@@ -141,6 +149,25 @@ update_status ModuleScene::Update(float dt)
 	}
 
 	glDisable(GL_DEPTH_TEST);
+
+	winPos = ImGui::GetWindowPos();
+	winPos.x += ImGui::GetWindowContentRegionMin().x;
+	winPos.y += ImGui::GetWindowContentRegionMin().y;
+
+	int winX, winY;
+	App->window->GetPosition(winX, winY);
+	winPos.x -= winX;
+	winPos.y -= winY;
+
+	mouseWinPos.x = App->input->GetMouseX() - winPos.x;
+	mouseWinPos.y = App->input->GetMouseY() - winPos.y;
+
+	ImVec2 viewportSize = ImGui::GetContentRegionAvail();
+	App->camera->aspectRatio = viewportSize.x / viewportSize.y;
+	App->camera->RecalculateProjection();
+	App->viewportBuffer->OnResize(viewportSize.x, viewportSize.y);
+	
+	winSize = viewportSize;
 
 	if (App->editor->gameobjectSelected)
 	{

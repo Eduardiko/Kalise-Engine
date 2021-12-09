@@ -25,6 +25,8 @@ public:
 	inline float3 GetRotation() const { return rotationEuler; };
 	inline float3 GetScale() const { return scale; };
 
+	float4x4 GetTransform();
+
 	inline const float3& Right() const { return right; }
 	inline const float3& Up() const { return up; }
 	inline const float3& Front() const { return front; }
