@@ -111,6 +111,14 @@ update_status ModuleInput::PreUpdate(float dt)
 				mouse_y_motion = event.motion.yrel / SCREEN_SIZE;
 			break;
 
+			case SDL_MOUSEBUTTONDOWN:
+
+				for (size_t i = 0; i < App->modules.size(); i++)
+				{
+					App->modules[i]->OnClick(event);
+				}
+				break;
+
 			case SDL_QUIT:
 			quit = true;
 			break;

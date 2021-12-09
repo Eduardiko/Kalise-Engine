@@ -127,6 +127,64 @@ void ComponentMesh::GenerateBounds()
 	centerPoint = sphere.pos;
 }
 
+void ComponentMesh::DrawBounds() const
+{
+	float4x4 t = owner->GetComponent<Transform>()->GetTransform();
+
+	glPushMatrix();
+	glMultMatrixf((float*)&t.Transposed());
+
+	float3 cornerPoints[8];
+	localAABB.GetCornerPoints(cornerPoints);
+
+	glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
+	glLineWidth(3.5f);
+	glBegin(GL_LINES);
+
+	glVertex3f(cornerPoints[0].x, cornerPoints[0].y, cornerPoints[0].z);
+	glVertex3f(cornerPoints[1].x, cornerPoints[1].y, cornerPoints[1].z);
+
+	glVertex3f(cornerPoints[0].x, cornerPoints[0].y, cornerPoints[0].z);
+	glVertex3f(cornerPoints[2].x, cornerPoints[2].y, cornerPoints[2].z);
+
+	glVertex3f(cornerPoints[2].x, cornerPoints[2].y, cornerPoints[2].z);
+	glVertex3f(cornerPoints[3].x, cornerPoints[3].y, cornerPoints[3].z);
+
+	glVertex3f(cornerPoints[1].x, cornerPoints[1].y, cornerPoints[1].z);
+	glVertex3f(cornerPoints[3].x, cornerPoints[3].y, cornerPoints[3].z);
+
+	glVertex3f(cornerPoints[0].x, cornerPoints[0].y, cornerPoints[0].z);
+	glVertex3f(cornerPoints[4].x, cornerPoints[4].y, cornerPoints[4].z);
+
+	glVertex3f(cornerPoints[5].x, cornerPoints[5].y, cornerPoints[5].z);
+	glVertex3f(cornerPoints[4].x, cornerPoints[4].y, cornerPoints[4].z);
+
+	glVertex3f(cornerPoints[5].x, cornerPoints[5].y, cornerPoints[5].z);
+	glVertex3f(cornerPoints[1].x, cornerPoints[1].y, cornerPoints[1].z);
+
+	glVertex3f(cornerPoints[5].x, cornerPoints[5].y, cornerPoints[5].z);
+	glVertex3f(cornerPoints[7].x, cornerPoints[7].y, cornerPoints[7].z);
+
+	glVertex3f(cornerPoints[7].x, cornerPoints[7].y, cornerPoints[7].z);
+	glVertex3f(cornerPoints[6].x, cornerPoints[6].y, cornerPoints[6].z);
+
+	glVertex3f(cornerPoints[6].x, cornerPoints[6].y, cornerPoints[6].z);
+	glVertex3f(cornerPoints[2].x, cornerPoints[2].y, cornerPoints[2].z);
+
+	glVertex3f(cornerPoints[6].x, cornerPoints[6].y, cornerPoints[6].z);
+	glVertex3f(cornerPoints[4].x, cornerPoints[4].y, cornerPoints[4].z);
+
+	glVertex3f(cornerPoints[7].x, cornerPoints[7].y, cornerPoints[7].z);
+	glVertex3f(cornerPoints[3].x, cornerPoints[3].y, cornerPoints[3].z);
+
+	glEnd();
+
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+	glLineWidth(1.0f);
+
+	glPopMatrix();
+}
+
 void ComponentMesh::DrawNormals() const
 {
 	if (drawFaceNormals)
@@ -164,6 +222,7 @@ float3 ComponentMesh::GetCenterPointInWorldCoords() const
 
 bool ComponentMesh::Update(float dt)
 {
+	DrawBounds();
 
 	drawWireframe || App->renderer3D->wireframeMode ? glPolygonMode(GL_FRONT_AND_BACK, GL_LINE) : glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
@@ -209,27 +268,6 @@ bool ComponentMesh::Update(float dt)
 		DrawNormals();
 
 	return true;
-}
-
-void ComponentMesh::CreateBBox()
-{
-
-	localAABB.SetNegativeInfinity();
-	localAABB.Enclose(&this->vertices[0], this->vertices.size());
-
-	Sphere sphere;
-	sphere.r = 0.f;
-	sphere.pos = localAABB.CenterPoint();
-	sphere.Enclose(localAABB);
-
-	radius = sphere.r;
-	centerPoint = sphere.pos;
-
-	obb = localAABB;
-	obb.Transform(owner->GetComponent<Transform>()->GetTransform());
-
-	localAABB.SetNegativeInfinity();
-	localAABB.Enclose(obb);
 }
 
 void ComponentMesh::OnGui()

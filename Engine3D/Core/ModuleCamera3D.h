@@ -5,8 +5,8 @@
 #include "Math/float3.h"
 #include "Math/float4x4.h"
 #include "Geometry/Frustum.h"
-#include "Geometry/LineSegment.h"
 #include "MathGeoLib/include/Geometry/Triangle.h"
+#include "GameObject.h"
 #include <map>
 
 class ModuleCamera3D : public Module
@@ -22,7 +22,8 @@ public:
 	void LookAt(const float3&point);
 	void CalculateViewMatrix();
 	void RecalculateProjection();
-	GameObject* MousePicking();
+	void OnClick(SDL_Event event);
+	GameObject* MousePicking(float2 screenPoint);
 
 	void OnGui() override;
 	void OnSave(JSONWriter& writer) const override;

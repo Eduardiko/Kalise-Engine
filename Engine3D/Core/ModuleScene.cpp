@@ -162,12 +162,7 @@ update_status ModuleScene::Update(float dt)
 	mouseWinPos.x = App->input->GetMouseX() - winPos.x;
 	mouseWinPos.y = App->input->GetMouseY() - winPos.y;
 
-	ImVec2 viewportSize = ImGui::GetContentRegionAvail();
-	App->camera->aspectRatio = viewportSize.x / viewportSize.y;
-	App->camera->RecalculateProjection();
-	App->viewportBuffer->OnResize(viewportSize.x, viewportSize.y);
-	
-	winSize = viewportSize;
+	winSize = ImGui::GetContentRegionAvail();
 
 	if (App->editor->gameobjectSelected)
 	{

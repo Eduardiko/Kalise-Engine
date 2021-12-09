@@ -5,6 +5,7 @@
 #include "ModuleEditor.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleScene.h"
+#include "ModuleWindow.h"
 #include "ComponentTransform.h"
 #include "ComponentMesh.h"
 #include "GameObject.h"
@@ -83,7 +84,7 @@ update_status ModuleCamera3D::Update(float dt)
 			}
 		}
 	}
-	
+
 	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
@@ -213,15 +214,20 @@ void ModuleCamera3D::RecalculateProjection()
 	cameraFrustum.horizontalFov = 2.f * atanf(tanf(cameraFrustum.verticalFov * 0.5f) * aspectRatio);
 }
 
-GameObject* ModuleCamera3D::MousePicking()
+void ModuleCamera3D::OnClick(SDL_Event event)
 {
-	float normalX = App->scene->mouseWinPos.x / App->scene->winSize.x;
-	float normalY = App->scene->mouseWinPos.y / App->scene->winSize.y;
+	if (event.button.type != SDL_MOUSEBUTTONDOWN || event.button.button != SDL_BUTTON_LEFT) return;
+	MousePicking(float2(event.button.x, event.button.y));
 
-	normalX = (normalX - 0.5f) * 2.0f;
-	normalY = -(normalY - 0.5f) * 2.0f;
+}
 
-	LineSegment newRay = cameraFrustum.UnProjectLineSegment(normalX, normalY);
+GameObject* ModuleCamera3D::MousePicking(float2 screenPoint)
+{
+	float2 pos = screenPoint;
+	pos.x = 2.0f * pos.x / (float)App->window->width - 1.0f;
+	pos.y = 1.0f - 2.0f * pos.y / (float)App->window->height;
+
+	Ray newRay = cameraFrustum.UnProjectFromNearPlane(pos.x, pos.y);
 
 	std::vector<GameObject*> sceneGameObjects = App->scene->gameObjectList;
 	std::map<float, GameObject*> hitGameObjects;
@@ -266,7 +272,7 @@ GameObject* ModuleCamera3D::MousePicking()
 	{
 		GameObject* gameObject = it->second;
 
-		LineSegment rayLocal = newRay;
+		Ray rayLocal = newRay;
 		rayLocal.Transform(gameObject->GetComponent<Transform>()->GetTransform().Inverted());
 
 		ComponentMesh* cMesh = gameObject->GetComponent<Mesh>();
@@ -311,6 +317,7 @@ GameObject* ModuleCamera3D::MousePicking()
 		}*/
 	}
 
+	return nullptr;
 	return nullptr;
 }
 

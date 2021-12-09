@@ -81,8 +81,8 @@ public:
 
 
 
-private: 
 	std::vector<Module*> modules;
+private: 
 
 };
 

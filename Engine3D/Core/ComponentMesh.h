@@ -30,10 +30,10 @@ public:
 	void GenerateBuffers();
 	void ComputeNormals();
 	void GenerateBounds();
+	void DrawBounds() const;
 	void DrawNormals() const;
 	float3 GetCenterPointInWorldCoords() const;
 	inline float GetSphereRadius() const { return radius; }
-	void CreateBBox();
 
 	bool Update(float dt) override;
 	void OnGui() override;
@@ -63,7 +63,7 @@ public:
 	float normalScale = 1.f;
 
 	AABB localAABB;
-	OBB obb;
+
 private:
 	
 	//Bounding sphere

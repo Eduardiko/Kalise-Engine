@@ -64,6 +64,8 @@ public:
 	}
 
 	virtual void OnGui() {}
+
+	virtual void OnClick(SDL_Event event) {}
 };
 
 #endif

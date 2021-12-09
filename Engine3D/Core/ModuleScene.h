@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "Globals.h"
 #include "ModuleImport.h"
+#include "imgui.h"
 
 class GameObject;
 
