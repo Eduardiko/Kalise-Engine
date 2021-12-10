@@ -17,7 +17,7 @@ public:
 
 	bool Update(float dt) override;
 	
-	void RecalculateMatrix();
+	void RecalculateProjection();
 	void DrawFrustrum();
 
 	bool ContainsBBox(const AABB& refBox) const;

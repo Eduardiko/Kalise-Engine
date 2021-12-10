@@ -4,8 +4,10 @@
 #include "SDL/include/SDL_opengl.h"
 #include "Application.h"
 #include "ModuleRenderer3D.h"
+#include "ModuleScene.h"
 #include "ComponentMaterial.h"
 #include "ComponentTransform.h"
+#include "ComponentCamera.h"
 #include "GameObject.h"
 #include "imgui.h"
 #include "Geometry/Sphere.h"
@@ -223,6 +225,11 @@ float3 ComponentMesh::GetCenterPointInWorldCoords() const
 bool ComponentMesh::Update(float dt)
 {
 	DrawBounds();
+	
+	if (App->scene->camera != nullptr)
+	{
+		if (!App->scene->camera->GetComponent<ComponentCamera>()->ContainsBBox(localAABB)) return true;
+	}
 
 	drawWireframe || App->renderer3D->wireframeMode ? glPolygonMode(GL_FRONT_AND_BACK, GL_LINE) : glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 

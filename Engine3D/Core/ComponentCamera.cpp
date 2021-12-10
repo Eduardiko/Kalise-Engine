@@ -5,12 +5,6 @@
 
 ComponentCamera::ComponentCamera(GameObject* parent) : Component(parent) {
 
-
-	up = float3(0.0f, 1.0f, 0.0f);
-	front = float3(0.0f, 0.0f, 1.0f);
-	position = float3(0.0f, 5.0f, -15.0f);
-
-	RecalculateMatrix();
 }
 
 ComponentCamera::~ComponentCamera() {}
@@ -21,14 +15,14 @@ bool ComponentCamera::Update(float dt) {
 	up = owner->GetComponent<ComponentTransform>()->GetTransform().WorldY();
 	front = owner->GetComponent<ComponentTransform>()->GetTransform().WorldZ();
 
-	RecalculateMatrix();
+	RecalculateProjection();
 
 	DrawFrustrum();
 
 	return true;
 }
 
-void ComponentCamera::RecalculateMatrix()
+void ComponentCamera::RecalculateProjection()
 {
 	frustum.pos = position;
 	frustum.front = front.Normalized();
