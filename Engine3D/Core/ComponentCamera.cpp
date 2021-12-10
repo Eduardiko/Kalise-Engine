@@ -2,6 +2,7 @@
 #include "ComponentCamera.h"
 #include "ComponentTransform.h"
 #include "glew.h"
+#include "imgui.h"
 
 ComponentCamera::ComponentCamera(GameObject* parent) : Component(parent) {
 
@@ -20,6 +21,39 @@ bool ComponentCamera::Update(float dt) {
 	DrawFrustrum();
 
 	return true;
+}
+
+void ComponentCamera::OnGui()
+{
+	if (ImGui::CollapsingHeader("Camera"))
+	{
+		float3 newPosition = position;
+
+		float newNplDist = nearPlaneDistance;
+		if (ImGui::DragFloat("Near Plane Distance", &newNplDist, 0, 0.0f, farPlaneDistance - 1))
+		{
+
+			nearPlaneDistance = newNplDist;
+		}
+
+		float newFplDist = farPlaneDistance;
+		float min = nearPlaneDistance;
+		if (ImGui::DragFloat("Far Plane Distance", &newFplDist, 0.0f, min + 1, 100.0f))
+		{
+
+			farPlaneDistance = newFplDist;
+		}
+
+		ImGui::Checkbox("Apply Frustum Culling:", &applyFrustum);
+	}
+}
+
+void ComponentCamera::OnSave(JSONWriter& writer)
+{
+}
+
+void ComponentCamera::OnLoad(const JSONReader& reader)
+{
 }
 
 void ComponentCamera::RecalculateProjection()
@@ -94,6 +128,8 @@ void ComponentCamera::DrawFrustrum()
 // tests if a BBox is within the frustum
 bool ComponentCamera::ContainsBBox(const AABB& refBox) const
 {
+	if (!applyFrustum) return true;
+
 	float3 vCorner[8];
 	int totalIn = 0;
 

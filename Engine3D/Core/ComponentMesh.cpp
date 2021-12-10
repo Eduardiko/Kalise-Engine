@@ -224,7 +224,6 @@ float3 ComponentMesh::GetCenterPointInWorldCoords() const
 
 bool ComponentMesh::Update(float dt)
 {
-	DrawBounds();
 	
 	if (App->scene->camera != nullptr)
 	{
@@ -282,6 +281,8 @@ bool ComponentMesh::Update(float dt)
 	if (drawFaceNormals || drawVertexNormals)
 		DrawNormals();
 
+	if(drawAABB) DrawBounds();
+
 	return true;
 }
 
@@ -295,6 +296,7 @@ void ComponentMesh::OnGui()
 		ImGui::DragFloat("Normal draw scale", &normalScale);
 		ImGui::Checkbox("Draw face normals", &drawFaceNormals);
 		ImGui::Checkbox("Draw vertex normals", &drawVertexNormals);
+		ImGui::Checkbox("Draw AABB bounds", &drawAABB);
 	}
 }
 

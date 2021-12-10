@@ -339,16 +339,28 @@ void ModuleEditor::MenuBar() {
 
         /* ---- SCENE ---- */
         if (ImGui::BeginMenu("Scene")) {
-            if (ImGui::MenuItem("Save scene")) //DO SOMETHING
+
+            ImGui::Checkbox("Play", &play);
+
+            if (play)
             {
-                // something like
-                App->SaveEngineConfig();
+                if (play == lastPlay)
+                {
+                    App->SaveEngineConfig();
+                    lastPlay = false;
+                }
             }
-            if (ImGui::MenuItem("Load Scene"))
+            else
             {
-                // something like
-                App->LoadEngineConfig();
+                if (play == lastPlay)
+                {
+                    App->LoadEngineConfig();
+                    lastPlay = true;
+                }
+
             }
+
+           
             ImGui::EndMenu();
         }
 

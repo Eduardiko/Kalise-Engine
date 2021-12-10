@@ -62,6 +62,9 @@ public:
 	bool showTextures;
 	bool showConsoleWindow;
 
+	bool play = false;
+	bool lastPlay = false;
+
 	ImGuiTextBuffer consoleText;
 
 	ImVec4 currentColor;

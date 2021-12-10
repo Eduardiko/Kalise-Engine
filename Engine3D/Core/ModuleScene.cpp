@@ -36,6 +36,8 @@ bool ModuleScene::Start()
 	
 	camera = CreateGameObjectByName("Camera");
 	camera->CreateComponent<ComponentCamera>();
+	float3 camInitPos(0.0f, 0.0f, -12.0f);
+	camera->GetComponent<ComponentTransform>()->SetPosition(camInitPos);
 
 	return ret;
 }

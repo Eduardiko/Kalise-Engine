@@ -16,7 +16,10 @@ public:
 	~ComponentCamera();
 
 	bool Update(float dt) override;
-	
+	void OnGui() override;
+	void OnSave(JSONWriter& writer) override;
+	void OnLoad(const JSONReader& reader) override;
+
 	void RecalculateProjection();
 	void DrawFrustrum();
 
@@ -36,6 +39,8 @@ public:
 
 	float verticalFOV = 60.0f;
 	float aspectRatio = 16 / 9;
+
+	bool applyFrustum = true;
 };
 
 #endif //!__COMPONENT_CAMERA_H__

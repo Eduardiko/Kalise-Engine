@@ -59,6 +59,7 @@ public:
 	uint numIndices = 0;
 	std::vector<uint> indices;
 
+	bool drawAABB = false;
 	bool drawWireframe = false;
 	bool drawVertexNormals = false;
 	bool drawFaceNormals = false;
