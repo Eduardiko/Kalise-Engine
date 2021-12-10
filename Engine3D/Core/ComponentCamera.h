@@ -28,19 +28,19 @@ public:
 public:
 	Frustum frustum;
 
-	float3 right;
 	float3 up;
 	float3 front;
 	float3 position;
-	float3 reference;
 
 	float nearPlaneDistance = 0.0f;
 	float farPlaneDistance = 20.0f;
 
-	float verticalFOV = 60.0f;
+	float FOV = 60.0f;
 	float aspectRatio = 16 / 9;
 
 	bool applyFrustum = true;
+
+	UUID_ uid;
 };
 
 #endif //!__COMPONENT_CAMERA_H__

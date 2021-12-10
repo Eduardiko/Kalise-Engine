@@ -36,24 +36,86 @@ void ComponentCamera::OnGui()
 			nearPlaneDistance = newNplDist;
 		}
 
+		float newFOV = FOV;
+		if (ImGui::DragFloat("FOV", &newFOV, 0.0f, 0.0f, 200.0f))
+		{
+			FOV = newFOV;
+		}
+
 		float newFplDist = farPlaneDistance;
 		float min = nearPlaneDistance;
-		if (ImGui::DragFloat("Far Plane Distance", &newFplDist, 0.0f, min + 1, 100.0f))
+		if (ImGui::DragFloat("Far Plane Distance", &newFplDist, 0.0f, min + 1, nearPlaneDistance + 100.0f))
 		{
 
 			farPlaneDistance = newFplDist;
 		}
 
-		ImGui::Checkbox("Apply Frustum Culling:", &applyFrustum);
+		ImGui::Checkbox("Apply Frustum Culling", &applyFrustum);
 	}
 }
 
 void ComponentCamera::OnSave(JSONWriter& writer)
 {
+	uint64_t uid64 = uid;
+	std::string uidstr = std::to_string(uid64);
+	const char* uidchr = uidstr.c_str();
+
+	writer.String(uidchr);
+	writer.StartObject();
+
+	SAVE_JSON_FLOAT(position.x);
+	SAVE_JSON_FLOAT(position.y);
+	SAVE_JSON_FLOAT(position.z);
+
+	SAVE_JSON_FLOAT(up.x);
+	SAVE_JSON_FLOAT(up.y);
+	SAVE_JSON_FLOAT(up.z);
+
+	SAVE_JSON_FLOAT(front.x);
+	SAVE_JSON_FLOAT(front.y);
+	SAVE_JSON_FLOAT(front.z);
+
+	SAVE_JSON_FLOAT(nearPlaneDistance);
+	SAVE_JSON_FLOAT(farPlaneDistance);
+
+	SAVE_JSON_FLOAT(FOV);
+
+	SAVE_JSON_BOOL(applyFrustum);
+
+	writer.EndObject();
 }
 
 void ComponentCamera::OnLoad(const JSONReader& reader)
 {
+	uint64_t uid64 = uid;
+	std::string uidstr = std::to_string(uid64);
+	const char* uidchr = uidstr.c_str();
+
+	if (reader.HasMember(uidchr))
+	{
+		const auto& config = reader[uidchr];
+		LOAD_JSON_FLOAT(position.x);
+		LOAD_JSON_FLOAT(position.y);
+		LOAD_JSON_FLOAT(position.z);
+
+		LOAD_JSON_FLOAT(up.x);
+		LOAD_JSON_FLOAT(up.y);
+		LOAD_JSON_FLOAT(up.z);
+
+		LOAD_JSON_FLOAT(front.x);
+		LOAD_JSON_FLOAT(front.y);
+		LOAD_JSON_FLOAT(front.z);
+
+		LOAD_JSON_FLOAT(nearPlaneDistance);
+		LOAD_JSON_FLOAT(farPlaneDistance);
+
+		LOAD_JSON_FLOAT(FOV);
+
+		LOAD_JSON_BOOL(applyFrustum);
+
+	}
+
+	RecalculateProjection();
 }
 
 void ComponentCamera::RecalculateProjection()
@@ -66,7 +128,7 @@ void ComponentCamera::RecalculateProjection()
 
 	frustum.type = FrustumType::PerspectiveFrustum;
 
-	frustum.verticalFov = (verticalFOV * 3.141592 / 2) / 180.f;
+	frustum.verticalFov = (FOV * 3.141592 / 2) / 180.f;
 	frustum.horizontalFov = 2.f * atanf(tanf(frustum.verticalFov * 0.5f) * aspectRatio);
 
 	frustum.nearPlaneDistance = nearPlaneDistance;
