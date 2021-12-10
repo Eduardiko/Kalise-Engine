@@ -41,4 +41,6 @@ public:
 	ImVec2 winPos;
 	ImVec2 winSize;
 	ImVec2 mouseWinPos;
+
+	GameObject* camera;
 };

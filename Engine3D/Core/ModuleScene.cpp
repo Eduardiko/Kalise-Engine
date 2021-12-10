@@ -15,6 +15,7 @@
 #include "GameObject.h"
 #include "Component.h"
 #include "ComponentTransform.h"
+#include "ComponentCamera.h"
 
 #include <stack>
 #include <queue>
@@ -33,6 +34,9 @@ bool ModuleScene::Start()
 	//Loading house and textures since beginning
 	App->import->LoadGeometry("Assets/Models/BakerHouse.fbx");
 	
+	camera = CreateGameObjectByName("Camera");
+	camera->CreateComponent<ComponentCamera>();
+
 	return ret;
 }
 

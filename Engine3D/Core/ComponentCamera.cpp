@@ -1,36 +1,54 @@
 #include "Gameobject.h"
 #include "ComponentCamera.h"
+#include "ComponentTransform.h"
 #include "glew.h"
 
 ComponentCamera::ComponentCamera(GameObject* parent) : Component(parent) {
-	
-	frustrum.SetPos(float3(0.0f, 0.0f, -5.0f));
-	frustrum.SetUp(float3(0.0f, 1.0f, 0.0f));
-	frustrum.SetFront(float3(0.0f, 0.0f, 1.0f));
 
-	//This function calculates the verticalFOV using the given horizontal FOV and aspect ratio. Also sets type to PerspectiveFrustum.
-	frustrum.SetHorizontalFovAndAspectRatio(horizontalFOV * DEGTORAD, aspectRatio);
 
-	frustrum.SetViewPlaneDistances(0.3f, 1000.0f);
+	up = float3(0.0f, 1.0f, 0.0f);
+	front = float3(0.0f, 0.0f, 1.0f);
+	position = float3(0.0f, 5.0f, -15.0f);
+
+	RecalculateMatrix();
 }
 
 ComponentCamera::~ComponentCamera() {}
 
 bool ComponentCamera::Update(float dt) {
 
-	frustrum.SetPos(owner->GetComponent<ComponentTransform>()->GetPos());
-	frustrum.SetUp(owner->GetComponent<ComponentTransform>()->GetGlobalTransform().WorldY());
-	frustrum.SetFront(owner->GetComponent<ComponentTransform>()->GetGlobalTransform().WorldZ());
+	position = owner->GetComponent<ComponentTransform>()->GetPosition();
+	up = owner->GetComponent<ComponentTransform>()->GetTransform().WorldY();
+	front = owner->GetComponent<ComponentTransform>()->GetTransform().WorldZ();
+
+	RecalculateMatrix();
 
 	DrawFrustrum();
 
 	return true;
 }
 
+void ComponentCamera::RecalculateMatrix()
+{
+	frustum.pos = position;
+	frustum.front = front.Normalized();
+	frustum.up = up.Normalized();
+	float3::Orthonormalize(frustum.front, frustum.up);
+
+
+	frustum.type = FrustumType::PerspectiveFrustum;
+
+	frustum.verticalFov = (verticalFOV * 3.141592 / 2) / 180.f;
+	frustum.horizontalFov = 2.f * atanf(tanf(frustum.verticalFov * 0.5f) * aspectRatio);
+
+	frustum.nearPlaneDistance = nearPlaneDistance;
+	frustum.farPlaneDistance = farPlaneDistance;
+}
+
 void ComponentCamera::DrawFrustrum()
 {
 	float3 cornerPoints[8];
-	frustrum.GetCornerPoints(cornerPoints);
+	frustum.GetCornerPoints(cornerPoints);
 
 	glColor4f(0.0f, 1.0f, 1.0f, 1.0f);
 	glLineWidth(3.5f);
@@ -76,4 +94,38 @@ void ComponentCamera::DrawFrustrum()
 
 	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 	glLineWidth(1.0f);
+}
+
+
+// tests if a BBox is within the frustum
+bool ComponentCamera::ContainsBBox(const AABB& refBox) const
+{
+	float3 vCorner[8];
+	int totalIn = 0;
+
+	//Get BBox
+	refBox.GetCornerPoints(vCorner);
+
+	// test all 8 corners against the 6 sides
+	// if all points are behind 1 specific plane, we are out
+	// if we are in with all points, then we are fully in
+	for (int p = 0; p < 6; ++p) {
+		int cornersOutside = 8;
+		int iPtIn = 1;
+
+		for (int i = 0; i < 8; ++i) {
+			// test this point against the planes
+			if (frustum.GetPlane(p).IsOnPositiveSide(vCorner[i]))
+			{
+				iPtIn = 0;
+				--cornersOutside;
+			}
+		}
+		// were all the points outside of plane p?
+		if (cornersOutside == 0) return false;
+		totalIn += iPtIn;
+	}
+	if (totalIn == 6) return true;
+
+	return true;
 }
