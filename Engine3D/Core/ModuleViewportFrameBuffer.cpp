@@ -72,22 +72,6 @@ update_status ModuleViewportFrameBuffer::PostUpdate(float dt) {
 	return UPDATE_CONTINUE;
 }
 
-
-void ModuleViewportFrameBuffer::OnResize(int width, int height)
-{
-	glViewport(0, 0, width, height);
-
-	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
-	glBindTexture(GL_TEXTURE_2D, texture);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-	glBindRenderbuffer(GL_RENDERBUFFER, renderBufferoutput);
-	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
-	glBindRenderbuffer(GL_RENDERBUFFER, 0);
-	glBindTexture(GL_TEXTURE_2D, 0);
-}
-
 bool ModuleViewportFrameBuffer::CleanUp() {
 
 	texture ? glDeleteTextures(1, &texture) : 0;

@@ -188,35 +188,30 @@ void ComponentCamera::DrawFrustrum()
 
 
 // tests if a BBox is within the frustum
-bool ComponentCamera::ContainsBBox(const AABB& refBox) const
+bool ComponentCamera::ContainsBBox(const AABB& objectAABB) const
 {
 	if (!applyFrustum) return true;
 
-	float3 vCorner[8];
 	int totalIn = 0;
 
-	//Get BBox
-	refBox.GetCornerPoints(vCorner);
+	float3 vertices[8];
+	objectAABB.GetCornerPoints(vertices);
 
-	// test all 8 corners against the 6 sides
-	// if all points are behind 1 specific plane, we are out
-	// if we are in with all points, then we are fully in
-	for (int p = 0; p < 6; ++p) {
+	for (int i = 0; i < 6; ++i) {
 		int cornersOutside = 8;
 		int iPtIn = 1;
 
-		for (int i = 0; i < 8; ++i) {
-			// test this point against the planes
-			if (frustum.GetPlane(p).IsOnPositiveSide(vCorner[i]))
+		for (int j = 0; j < 8; ++j) {
+			if (frustum.GetPlane(i).IsOnPositiveSide(vertices[j]))
 			{
 				iPtIn = 0;
 				--cornersOutside;
 			}
 		}
-		// were all the points outside of plane p?
 		if (cornersOutside == 0) return false;
 		totalIn += iPtIn;
 	}
+
 	if (totalIn == 6) return true;
 
 	return true;

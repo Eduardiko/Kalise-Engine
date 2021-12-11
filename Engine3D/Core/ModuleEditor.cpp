@@ -368,20 +368,20 @@ void ModuleEditor::MenuBar() {
         if (ImGui::BeginMenu("GameObject")) {
 
             if (ImGui::MenuItem("Create empty GameObject")) {
-                App->scene->CreateGameObject();
+                App->scene->CreateEmptyGameObject();
             }
 
             if (ImGui::BeginMenu("3D Objects")) {
                 if (ImGui::MenuItem("Cube")) {
-                    GameObject* newGameObject = App->scene->CreateGameObjectByName("Cube");
+                    GameObject* newGameObject = App->scene->CreateGameObject("Cube");
                     ComponentMesh* newMesh = new ComponentMesh(newGameObject, ComponentMesh::Shape::CUBE);
                 }
                 if (ImGui::MenuItem("Sphere")) {
-                    GameObject* newGameObject = App->scene->CreateGameObjectByName("Sphere");
+                    GameObject* newGameObject = App->scene->CreateGameObject("Sphere");
                     ComponentMesh* newMesh = new ComponentMesh(newGameObject, ComponentMesh::Shape::SPHERE);
                 }
                 if (ImGui::MenuItem("Cylinder")) {
-                    GameObject* newGameObject = App->scene->CreateGameObjectByName("Cylinder");
+                    GameObject* newGameObject = App->scene->CreateGameObject("Cylinder");
                     ComponentMesh* newMesh = new ComponentMesh(newGameObject, ComponentMesh::Shape::CYLINDER);
                 }
                 ImGui::EndMenu();

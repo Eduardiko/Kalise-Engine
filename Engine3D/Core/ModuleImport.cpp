@@ -80,7 +80,7 @@ bool ModuleImport::LoadGeometry(const char* path) {
 			std::string name;
 			FindNodeName(scene, i, name);
 
-			GameObject* newGameObject = App->scene->CreateGameObjectByName(name);
+			GameObject* newGameObject = App->scene->CreateGameObject(name);
 			ComponentMesh* mesh = newGameObject->CreateComponent<ComponentMesh>();
 			assimpMesh = scene->mMeshes[i];
 
@@ -110,16 +110,16 @@ bool ModuleImport::LoadGeometry(const char* path) {
 				}
 			}
 
-			for (int i = 0; i < App->resources->models.size(); i++)
+			for (int i = 0; i < App->resources->fileList.size(); i++)
 			{
-				std::string temp = App->resources->models[i]->name;
+				std::string temp = App->resources->fileList[i]->name;
 				if (temp != name)
 				{
-					App->resources->CreateModelFile(scene->mMeshes[i], path, name);
+					App->resources->FBX2Kalise(scene->mMeshes[i], path, name);
 				}
 			}
 
-			FileMesh* file = App->resources->LoadFileMesh(name);
+			FileMesh* file = App->resources->Binary2Mesh(name);
 
 			mesh->File2Mesh(file);
 

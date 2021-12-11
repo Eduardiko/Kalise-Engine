@@ -225,8 +225,8 @@ float3 ComponentMesh::GetCenterPointInWorldCoords() const
 void ComponentMesh::File2Mesh(FileMesh* file)
 {
 	vertices = file->vecVertices;
-	normals = file->vecNormals;
 	indices = file->vecIndices;
+	normals = file->vecNormals;
 	texCoords = file->vecTextCoords;
 
 	numVertices = vertices.size();

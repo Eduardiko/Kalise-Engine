@@ -16,14 +16,15 @@ public:
 	~ComponentCamera();
 
 	bool Update(float dt) override;
+
 	void OnGui() override;
 	void OnSave(JSONWriter& writer) override;
 	void OnLoad(const JSONReader& reader) override;
 
-	void RecalculateProjection();
 	void DrawFrustrum();
+	void RecalculateProjection();
 
-	bool ContainsBBox(const AABB& refBox) const;
+	bool ContainsBBox(const AABB& objectAABB) const;
 
 public:
 	Frustum frustum;
@@ -36,7 +37,7 @@ public:
 	float farPlaneDistance = 20.0f;
 
 	float FOV = 60.0f;
-	float aspectRatio = 16 / 9;
+	float aspectRatio = 16.0f / 9.0f;
 
 	bool applyFrustum = true;
 

@@ -23,7 +23,7 @@ public:
 	void CalculateViewMatrix();
 	void RecalculateProjection();
 	void OnClick(SDL_Event event);
-	GameObject* MousePicking(float2 screenPoint);
+	GameObject* MousePick(float2 screenPoint);
 
 	void OnGui() override;
 	void OnSave(JSONWriter& writer) const override;

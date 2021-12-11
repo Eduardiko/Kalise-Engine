@@ -217,66 +217,63 @@ void ModuleCamera3D::RecalculateProjection()
 void ModuleCamera3D::OnClick(SDL_Event event)
 {
 	if (event.button.type != SDL_MOUSEBUTTONDOWN || event.button.button != SDL_BUTTON_LEFT) return;
-	MousePicking(float2(event.button.x, event.button.y));
+	MousePick(float2(event.button.x, event.button.y));
 
 }
 
-GameObject* ModuleCamera3D::MousePicking(float2 screenPoint)
+GameObject* ModuleCamera3D::MousePick(float2 screenPoint)
 {
-	float2 pos = screenPoint;
-	pos.x = 2.0f * pos.x / (float)App->window->width - 1.0f;
-	pos.y = 1.0f - 2.0f * pos.y / (float)App->window->height;
+	float2 screenPos = screenPoint;
+	screenPos.x = 2.0f * screenPos.x / (float)App->window->width - 1.0f;
+	screenPos.y = 1.0f - 2.0f * screenPos.y / (float)App->window->height;
 
-	Ray newRay = cameraFrustum.UnProjectFromNearPlane(pos.x, pos.y);
+	Ray newRay = cameraFrustum.UnProjectFromNearPlane(screenPos.x, screenPos.y);
 
-	std::vector<GameObject*> sceneGameObjects = App->scene->gameObjectList;
 	std::map<float, GameObject*> hitGameObjects;
 
-	//Find all hit GameObjects
-	for (size_t i = 0; i < sceneGameObjects.size(); i++)
+	for (size_t i = 0; i < App->scene->gameObjectList.size(); i++)
 	{
-		ComponentMesh* m = sceneGameObjects[i]->GetComponent<Mesh>();
+		ComponentMesh* m = App->scene->gameObjectList[i]->GetComponent<Mesh>();
 		if (m != nullptr)
 		{
 			bool hit = newRay.Intersects(m->GetGlobalAABB());
 
 			if (hit)
 			{
-				hitGameObjects[i] = sceneGameObjects[i];
+				hitGameObjects[i] = App->scene->gameObjectList[i];
 			}
 		}
 
 	}
 
-	std::map<float, GameObject*>::iterator it = hitGameObjects.begin();
-	for (it; it != hitGameObjects.end(); it++)
+	std::map<float, GameObject*>::iterator j = hitGameObjects.begin();
+	for (j; j != hitGameObjects.end(); j++)
 	{
-		GameObject* gameObject = it->second;
+		GameObject* gameObject = j->second;
 
 		Ray rayLocal = newRay;
 		rayLocal.Transform(gameObject->GetComponent<Transform>()->GetTransform().Inverted());
 
-		ComponentMesh* cMesh = gameObject->GetComponent<Mesh>();
+		ComponentMesh* mesh = gameObject->GetComponent<Mesh>();
 
-		if (cMesh != nullptr)
+		if (mesh != nullptr)
 		{
-			for (size_t i = 0; i < cMesh->numIndices; i += 3)
+			for (size_t i = 0; i < mesh->numIndices; i += 3)
 			{
-				//create every triangle
 				float3 v1;
-				v1.x = cMesh->vertices[cMesh->indices[i]].x;
-				v1.y = cMesh->vertices[cMesh->indices[i]].y;
-				v1.z = cMesh->vertices[cMesh->indices[i]].z;
+				v1.x = mesh->vertices[mesh->indices[i]].x;
+				v1.y = mesh->vertices[mesh->indices[i]].y;
+				v1.z = mesh->vertices[mesh->indices[i]].z;
 
 				float3 v2;
-				v2.x = cMesh->vertices[cMesh->indices[i + 1]].x;
-				v2.y = cMesh->vertices[cMesh->indices[i + 1]].y;
-				v2.z = cMesh->vertices[cMesh->indices[i + 1]].z;
+				v2.x = mesh->vertices[mesh->indices[i + 1]].x;
+				v2.y = mesh->vertices[mesh->indices[i + 1]].y;
+				v2.z = mesh->vertices[mesh->indices[i + 1]].z;
 
 				float3 v3;
-				v3.x = cMesh->vertices[cMesh->indices[i + 2]].x;
-				v3.y = cMesh->vertices[cMesh->indices[i + 2]].y;
-				v3.z = cMesh->vertices[cMesh->indices[i + 2]].z;
+				v3.x = mesh->vertices[mesh->indices[i + 2]].x;
+				v3.y = mesh->vertices[mesh->indices[i + 2]].y;
+				v3.z = mesh->vertices[mesh->indices[i + 2]].z;
 
 				const Triangle triangle(v1, v2, v3);
 

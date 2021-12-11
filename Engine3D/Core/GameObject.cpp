@@ -55,6 +55,7 @@ void GameObject::Update(float dt)
 	{
 		component->Update(dt);
 	}
+	parentUid = parent->uid;
 }
 
 void GameObject::OnGui()
@@ -72,8 +73,8 @@ void GameObject::OnGui()
 	}
 	if (ImGui::CollapsingHeader("Identifiers"))
 	{
-		ImGui::Text("UID:"/*, (unsigned int)GetUid()*/);
-		ImGui::Text("Parent UID:"/*, (unsigned int)GetParentUid()*/);
+		ImGui::Text("UID: %" PRIu64, uid);
+		ImGui::Text("Parent UID: %" PRIu64, parentUid);
 	}
 }
 

@@ -31,10 +31,9 @@ bool ModuleScene::Start()
 	
 	CreateRoot();
 
-	//Loading house and textures since beginning
 	App->import->LoadGeometry("Assets/Models/BakerHouse.fbx");
 	
-	camera = CreateGameObjectByName("Camera");
+	camera = CreateGameObject("Camera");
 	camera->CreateComponent<ComponentCamera>();
 	float3 camInitPos(0.0f, 0.0f, -12.0f);
 	camera->GetComponent<ComponentTransform>()->SetPosition(camInitPos);
@@ -156,20 +155,6 @@ update_status ModuleScene::Update(float dt)
 
 	glDisable(GL_DEPTH_TEST);
 
-	winPos = ImGui::GetWindowPos();
-	winPos.x += ImGui::GetWindowContentRegionMin().x;
-	winPos.y += ImGui::GetWindowContentRegionMin().y;
-
-	int winX, winY;
-	App->window->GetPosition(winX, winY);
-	winPos.x -= winX;
-	winPos.y -= winY;
-
-	mouseWinPos.x = App->input->GetMouseX() - winPos.x;
-	mouseWinPos.y = App->input->GetMouseY() - winPos.y;
-
-	winSize = ImGui::GetContentRegionAvail();
-
 	if (App->editor->gameobjectSelected)
 	{
 		ComponentTransform* transform = App->editor->gameobjectSelected->GetComponent<ComponentTransform>();
@@ -194,53 +179,12 @@ update_status ModuleScene::Update(float dt)
 	return UPDATE_CONTINUE;
 }
 
-GameObject* ModuleScene::CreateGameObject(GameObject* parent) {
-
-	GameObject* temp = new GameObject();
-	if (parent)
-		parent->AttachChild(temp);
-	else
-	{
-		//////// Montu: This code is useless af, I have to review it.
-		// else root->AttachChild(temp);
-		int count = 0;
-		// count how many roots, if 2, set new root to root2
-		for (int i = 0; i < gameObjectList.size(); ++i)
-		{
-			if (gameObjectList[i]->name == "Root" ||
-				gameObjectList[i]->name == "Root1" ||
-				gameObjectList[i]->name == "Root2" ||
-				gameObjectList[i]->name == "Root3")
-			{
-				count++;
-			}
-		}
-		if (count != 0) // If there is more than 1 root
-		{
-			std::string tmp = "Root" + std::to_string(count + 1);
-			GameObject* root = new GameObject(tmp);
-			root->AttachChild(temp);
-			gameObjectList.push_back(root);
-			gameObjectList.push_back(temp);
-			rootList.push_back(root);
-		}
-		else // If there is no root just add an empty root
-		{
-			root = new GameObject("Root");
-			gameObjectList.push_back(root);
-			rootList.push_back(root);
-			// root->AttachChild(temp);
-		}
-	}
-
-	return temp;
-}
-GameObject* ModuleScene::CreateGameObjectByName(const std::string name, GameObject* parent)
+GameObject* ModuleScene::CreateGameObject(const std::string name, GameObject* parent)
 {
 	GameObject* temp = new GameObject(name);
 
 	if (name.empty())
-		LOG("A name must be sent to CreateGameObjectByName")
+		LOG("A name must be sent to CreateGameObject")
 	else
 	{
 		if (parent)

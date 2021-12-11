@@ -73,6 +73,6 @@ public:
 	bool isSelected = false;
 
 	UUID_ uid;
-	unsigned int parentUid;
+	uint64_t parentUid;
 };
 
