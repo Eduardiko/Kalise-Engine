@@ -188,6 +188,9 @@
     <ClCompile Include="Core\ComponentCamera.cpp">
       <Filter>Engine\GameObjects - Components</Filter>
     </ClCompile>
+    <ClCompile Include="Core\ModuleResourceManager.cpp">
+      <Filter>Engine\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\ImGui\imconfig.h">
@@ -723,6 +726,9 @@
     </ClInclude>
     <ClInclude Include="Core\ComponentCamera.h">
       <Filter>Engine\GameObjects - Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\ModuleResourceManager.h">
+      <Filter>Engine\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

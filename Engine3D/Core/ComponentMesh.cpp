@@ -222,6 +222,22 @@ float3 ComponentMesh::GetCenterPointInWorldCoords() const
 	return owner->transform->transformMatrix.TransformPos(centerPoint);
 }
 
+void ComponentMesh::File2Mesh(FileMesh* file)
+{
+	vertices = file->vecVertices;
+	normals = file->vecNormals;
+	indices = file->vecIndices;
+	texCoords = file->vecTextCoords;
+
+	numVertices = vertices.size();
+	numIndices = indices.size();
+
+	texturePath = file->texturePath;
+
+	GenerateBuffers();
+
+}
+
 bool ComponentMesh::Update(float dt)
 {
 	

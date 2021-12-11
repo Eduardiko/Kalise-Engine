@@ -6,6 +6,7 @@
 #include "ModuleTextures.h"
 #include "ModuleFileSystem.h"
 #include "ModuleScene.h"
+#include "ModuleResourceManager.h"
 #include "ComponentMesh.h"
 #include "ComponentMaterial.h"
 #include "GameObject.h"
@@ -83,6 +84,7 @@ bool ModuleImport::LoadGeometry(const char* path) {
 			ComponentMesh* mesh = newGameObject->CreateComponent<ComponentMesh>();
 			assimpMesh = scene->mMeshes[i];
 
+
 			if (scene->HasMaterials()) {
 				texture = scene->mMaterials[assimpMesh->mMaterialIndex];
 
@@ -108,44 +110,18 @@ bool ModuleImport::LoadGeometry(const char* path) {
 				}
 			}
 
-			mesh->numVertices = assimpMesh->mNumVertices;
-			mesh->vertices.resize(assimpMesh->mNumVertices);
-
-			memcpy(&mesh->vertices[0], assimpMesh->mVertices, sizeof(float3) * assimpMesh->mNumVertices);
-			LOG("New mesh with %d vertices", assimpMesh->mNumVertices);
-
-			// -- Copying faces --//
-			if (assimpMesh->HasFaces()) {
-				mesh->numIndices = assimpMesh->mNumFaces * 3;
-				mesh->indices.resize(mesh->numIndices);
-
-				for (size_t i = 0; i < assimpMesh->mNumFaces; i++)
-				{
-					if (assimpMesh->mFaces[i].mNumIndices != 3) {
-						LOG("WARNING, geometry face with != 3 indices!")
-					}
-					else {
-						memcpy(&mesh->indices[i * 3], assimpMesh->mFaces[i].mIndices, 3 * sizeof(uint));
-					}
-				}
-			}
-
-			// -- Copying Normals info --//
-			if (assimpMesh->HasNormals()) {
-
-				mesh->normals.resize(assimpMesh->mNumVertices);
-				memcpy(&mesh->normals[0], assimpMesh->mNormals, sizeof(float3) * assimpMesh->mNumVertices);
-			}
-
-			// -- Copying UV info --//
-			if (assimpMesh->HasTextureCoords(0))
+			for (int i = 0; i < App->resources->models.size(); i++)
 			{
-				mesh->texCoords.resize(assimpMesh->mNumVertices);
-				for (size_t j = 0; j < assimpMesh->mNumVertices; ++j)
+				std::string temp = App->resources->models[i]->name;
+				if (temp != name)
 				{
-					memcpy(&mesh->texCoords[j], &assimpMesh->mTextureCoords[0][j], sizeof(float2));
+					App->resources->CreateModelFile(scene->mMeshes[i], path, name);
 				}
 			}
+
+			FileMesh* file = App->resources->LoadFileMesh(name);
+
+			mesh->File2Mesh(file);
 
 			mesh->GenerateBuffers();
 			mesh->GenerateBounds();

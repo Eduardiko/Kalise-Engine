@@ -2,6 +2,8 @@
 #define _MODULE_H_
 #include "Globals.h"
 
+#include "SDL/include/SDL.h"
+
 #include "rapidjson-1.1.0/include/rapidjson/prettywriter.h"
 #include "rapidjson-1.1.0/include/rapidjson/document.h"
 

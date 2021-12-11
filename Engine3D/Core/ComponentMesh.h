@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Component.h"
 #include "Globals.h"
 #include <string.h>
@@ -6,6 +7,7 @@
 #include "Math/float2.h"
 #include "Geometry/AABB.h"
 #include "Geometry/OBB.h"
+#include "ModuleResourceManager.h"
 #include "par_shapes.h"
 
 typedef ComponentTransform Transform;
@@ -34,6 +36,8 @@ public:
 	void DrawNormals() const;
 	float3 GetCenterPointInWorldCoords() const;
 	inline float GetSphereRadius() const { return radius; }
+
+	void File2Mesh(FileMesh* file);
 
 	bool Update(float dt) override;
 	void OnGui() override;
