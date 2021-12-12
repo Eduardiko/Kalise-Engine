@@ -269,6 +269,8 @@ void ModuleScene::CreateRoot()
 	}
 }
 
+
+
 void ModuleScene::OnSave(JSONWriter& writer) const
 {
 	for (int i = 0; i < gameObjectList.size(); i++)

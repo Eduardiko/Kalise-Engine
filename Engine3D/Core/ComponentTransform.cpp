@@ -45,6 +45,7 @@ void ComponentTransform::OnGui()
 		newRotationEuler.x = RADTODEG * rotationEuler.x;
 		newRotationEuler.y = RADTODEG * rotationEuler.y;
 		newRotationEuler.z = RADTODEG * rotationEuler.z;
+
 		if (ImGui::DragFloat3("Rotation", &(newRotationEuler[0])))
 		{
 			newRotationEuler.x = DEGTORAD * newRotationEuler.x;

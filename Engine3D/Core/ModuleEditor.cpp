@@ -534,7 +534,7 @@ void ModuleEditor::UpdateWindowStatus() {
             if (ImGui::Button("Delete", { 100,20 }))
             {
                 App->scene->DeleteSelectedGameObject(gameobjectSelected); //Clean GameObjects 
-                App->editor->gameobjectSelected = nullptr;
+                gameobjectSelected = nullptr;
             }
             ImGui::SameLine();
 
@@ -542,7 +542,7 @@ void ModuleEditor::UpdateWindowStatus() {
             if (ImGui::Button("Delete All", { 100,20 }))
             {
                 App->scene->DeleteAllGameObjects(); //Clean GameObjects
-                App->editor->gameobjectSelected = nullptr;
+                gameobjectSelected = nullptr;
             }
         }
         else
@@ -600,6 +600,7 @@ void ModuleEditor::UpdateWindowStatus() {
                     gameobjectSelected ? gameobjectSelected->isSelected = !gameobjectSelected->isSelected : 0;
                     gameobjectSelected = go;
                     gameobjectSelected->isSelected = !gameobjectSelected->isSelected;
+
                     if (gameobjectSelected->isSelected)
                     {
                         LOG("GameObject selected name: %s", gameobjectSelected->name.c_str());
@@ -609,6 +610,7 @@ void ModuleEditor::UpdateWindowStatus() {
                         LOG("GameObject unselected name: %s", gameobjectSelected->name.c_str());
                     }
                 }
+
                 for (GameObject* child : go->children)
                 {
                     S.push(child);
@@ -647,6 +649,7 @@ void ModuleEditor::UpdateWindowStatus() {
             for (auto const& i : folderList) {
                 currentFolder = (currentDirectory + "/" + i).c_str();
                 const char* foldername = i.c_str();
+                fileList.clear();
                 App->fileSystem->GetFiles(currentFolder.c_str(), fileList);
 
                 if (ImGui::CollapsingHeader(foldername))
@@ -658,11 +661,11 @@ void ModuleEditor::UpdateWindowStatus() {
 
                         if (ImGui::Selectable(filename))
                         {
+                            
                         }
 
                     }
 
-                    fileList.clear();
 
                     ImGui::Unindent();
                 }
