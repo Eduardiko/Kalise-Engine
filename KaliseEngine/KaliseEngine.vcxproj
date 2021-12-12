@@ -276,7 +276,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{746CC4C3-787F-4B0E-AA66-E388FE3FF4F6}</ProjectGuid>
     <RootNamespace>Game Engine</RootNamespace>
-    <ProjectName>Engine3D</ProjectName>
+    <ProjectName>KaliseEngine</ProjectName>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -333,7 +333,7 @@
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Core\MathGeoLib\include;$(SolutionDir)\Core\glew\include;$(SolutionDir)\Core\JSONObject\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Core\MathGeoLib\include;$(SolutionDir)\Core\glew\include;$(SolutionDir)\Core\JSONObject\include;$(SolutionDir)\Core\PCG\include;$(SolutionDir)\Core\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);</PreprocessorDefinitions>
       <UndefinePreprocessorDefinitions>MATH_SSE;</UndefinePreprocessorDefinitions>
     </ClCompile>
