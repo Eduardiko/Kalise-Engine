@@ -132,6 +132,17 @@ void ModuleFileSystem::CreateLibraryDirectories()
 	CreateDir("Assets/Textures/");
 }
 
+bool ModuleFileSystem::RemoveFile(const char* file)
+{
+	if (PHYSFS_delete(file) != 0)
+		return true;
+	else
+	{
+		LOG("File System error while deleting file %s: %s", file, PHYSFS_getLastError());
+		return false;
+	}
+}
+
 // Add a new zip file or folder
 bool ModuleFileSystem::AddPath(const char* path_or_zip)
 {
@@ -402,7 +413,6 @@ bool ModuleFileSystem::DuplicateFile(const char* file, const char* dstFolder, st
 
 bool ModuleFileSystem::DuplicateFile(const char* srcFile, const char* dstFile)
 {
-	//TODO: Compare performance to calling Load(srcFile) and then Save(dstFile)
 	std::ifstream src;
 	src.open(srcFile, std::ios::binary);
 	bool srcOpen = src.is_open();
@@ -433,7 +443,6 @@ int close_sdl_rwops(SDL_RWops *rw)
 	return 0;
 }
 
-// Save a whole buffer to disk
 uint ModuleFileSystem::Save(const char* file, const void* buffer, unsigned int size, bool append) const
 {
 	unsigned int ret = 0;
@@ -463,44 +472,9 @@ uint ModuleFileSystem::Save(const char* file, const void* buffer, unsigned int s
 
 	return ret;
 }
-/*
-bool ModuleFileSystem::Remove(const char * file)
-{
-	bool ret = false;
 
-	if (file != nullptr)
-	{
-		//If it is a directory, we need to recursively remove all the files inside
-		if (IsDirectory(file))
-		{
-			std::vector<std::string> containedFiles, containedDirs;
-			PathNode rootDirectory = GetAllFiles(file);
-			
-			for (uint i = 0; i < rootDirectory.children.size(); ++i)
-				Remove(rootDirectory.children[i].path.c_str());
-		}
-		
-		if (PHYSFS_delete(file) != 0)
-		{
-			LOG("File deleted: [%s]", file);
-			ret = true;
-		}
-		else
-			LOG("File System error while trying to delete [%s]: %s", file, PHYSFS_getLastError());
-	}
-
-	return ret;
-}
-*/
-/*
-uint64 ModuleFileSystem::GetLastModTime(const char* filename)
-{
-	return PHYSFS_getLastModTime(filename);
-}
-*/
 std::string ModuleFileSystem::GetUniqueName(const char* path, const char* name) const
 {
-	//TODO: modify to distinguix files and dirs?
 	std::vector<std::string> files, dirs;
 	DiscoverFiles(path, files, dirs);
 
@@ -511,7 +485,6 @@ std::string ModuleFileSystem::GetUniqueName(const char* path, const char* name) 
 	{
 		unique = true;
 
-		//Build the compare name (name_i)
 		if (i > 0)
 		{
 			finalName = std::string(name).append("_");
@@ -520,7 +493,6 @@ std::string ModuleFileSystem::GetUniqueName(const char* path, const char* name) 
 			finalName.append(std::to_string(i));
 		}
 
-		//Iterate through all the files to find a matching name
 		for (uint f = 0; f < files.size(); ++f)
 		{
 			if (finalName == files[f])

@@ -69,24 +69,11 @@ bool ModuleScene::CleanUp()
 
 bool ModuleScene::DeleteAllGameObjects()
 {
-	std::stack<GameObject*> S;
-	for (GameObject* child : root->children)
-	{
-		S.push(child);
-	}
-	root->children.clear();
+	LOG("Deleting all game objects");
 
-	while (!S.empty())
-	{
-		GameObject* go = S.top();
-		S.pop();
-		for (GameObject* child : go->children)
-		{
-			S.push(child);
-		}
-		go->children.clear();
-		delete go;
-	}
+	root->~GameObject();
+	gameObjectList.clear();
+
 
 	return true;
 }
@@ -119,6 +106,7 @@ bool ModuleScene::DeleteSelectedGameObject(GameObject* selectedGameObject)
 			else
 			{
 				root->~GameObject();
+				gameObjectList.clear();
 			}
 	}
 
@@ -127,6 +115,14 @@ bool ModuleScene::DeleteSelectedGameObject(GameObject* selectedGameObject)
 
 update_status ModuleScene::Update(float dt)
 {
+	if (warningMessage)
+	{
+		ImGui::Begin("Warning Message", &warningMessage);
+		{
+			ImGui::Text("Street Environment is not loaded at the \nstart because it messes up the \ninspector and hierarchy windows!\nDelete all game objects to use them properly");
+			ImGui::End();
+		}
+	}
 
 	if (!rootList.empty())
 	{

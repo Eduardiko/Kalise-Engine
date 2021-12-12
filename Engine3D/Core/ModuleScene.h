@@ -39,4 +39,6 @@ public:
 	std::vector<GameObject*> rootList;
 
 	GameObject* camera;
+
+	bool warningMessage = true;
 };

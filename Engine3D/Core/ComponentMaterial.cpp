@@ -61,12 +61,3 @@ void ComponentMaterial::OnLoad(const JSONReader& reader)
 		LOAD_JSON_STRING(textureName);
 	}
 }
-
-/*
-void ComponentMaterial::Save()
-{
-	Save in json:
-		std::string textureName; uint textureId = 0, width = 0, height = 0;
-}
-*/
-

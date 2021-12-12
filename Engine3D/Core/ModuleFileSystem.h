@@ -30,6 +30,7 @@ public:
 	bool CleanUp() override;
 
 	void CreateLibraryDirectories();
+	bool RemoveFile(const char* file);
 
 	// Utility functions
 	bool AddPath(const char* path_or_zip);

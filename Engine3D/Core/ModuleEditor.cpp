@@ -512,36 +512,31 @@ void ModuleEditor::UpdateWindowStatus() {
     //Hierarchy
     if (showHierarchyWindow) {
 
-
         ImGui::Begin("Hierarchy", &showHierarchyWindow);
 
         if (App->scene->root->name == "Root")
         {
-            // Create empty gameobject at root
-            if (ImGui::Button("New Empty", { 100,20 }))
+            if (ImGui::Button("New Empty", { 110,20 }))
             {
                 App->scene->CreateEmptyGameObject();
             }
             ImGui::SameLine();
 
-            // Create empty children
-            if (ImGui::Button("New Children", { 100,20 }))
+            if (ImGui::Button("New Children", { 110,20 }))
             {
                 App->scene->CreateChildrenGameObject(gameobjectSelected);
             }
 
-            // Delete the selected game object
-            if (ImGui::Button("Delete", { 100,20 }))
+            if (ImGui::Button("Delete Selected", { 110,20 }))
             {
-                App->scene->DeleteSelectedGameObject(gameobjectSelected); //Clean GameObjects 
+                App->scene->DeleteSelectedGameObject(gameobjectSelected);
                 gameobjectSelected = nullptr;
             }
             ImGui::SameLine();
 
-            // Just cleaning gameObjects(not textures,buffers...)
-            if (ImGui::Button("Delete All", { 100,20 }))
+            if (ImGui::Button("Delete All", { 110,20 }))
             {
-                App->scene->DeleteAllGameObjects(); //Clean GameObjects
+                App->scene->DeleteAllGameObjects();
                 gameobjectSelected = nullptr;
             }
         }
@@ -632,22 +627,20 @@ void ModuleEditor::UpdateWindowStatus() {
      // Assets
     if (showAssetsWindow)
     {
-       // ImGui::Begin("Asset Browser", &showAssets);
         if (ImGui::Begin("Assets", &showAssetsWindow))
         {
-
-            constexpr char* s_AssetsDirectory = "Assets";
             std::vector<std::string> fileList;
             std::vector<std::string> folderList;
-            std::string currentDirectory(s_AssetsDirectory);
             std::string currentFolder;
+            std::string extraInfo;
 
-            App->fileSystem->GetFolders(s_AssetsDirectory, folderList);
+            App->fileSystem->GetFolders("Assets", folderList);
             
             ImGuiTreeNodeFlags nodeFlags = 0;
 
             for (auto const& i : folderList) {
-                currentFolder = (currentDirectory + "/" + i).c_str();
+
+                currentFolder = ("Assets/" + i).c_str();
                 const char* foldername = i.c_str();
                 fileList.clear();
                 App->fileSystem->GetFiles(currentFolder.c_str(), fileList);
@@ -655,17 +648,46 @@ void ModuleEditor::UpdateWindowStatus() {
                 if (ImGui::CollapsingHeader(foldername))
                 {
                     ImGui::Indent();
-                    for (auto const& j : fileList)
+                    if (i == "Models")
                     {
-                        const char* filename = j.c_str();
-
-                        if (ImGui::Selectable(filename))
+                        for (auto const& j : fileList)
                         {
-                            
+                            const char* filename = j.c_str();
+
+                            ImGui::Text(filename);
+                            ImGui::SameLine();
+
+                            std::string fileLoadStr = ("Load " + j).c_str();
+                            const char* fileLoadChr = fileLoadStr.c_str();
+
+                            std::string fileDeleteStr = ("Delete " + j).c_str();
+                            const char* fileDeleteChr = fileDeleteStr.c_str();
+
+                            if (ImGui::Button(fileLoadChr, { 100,20 }))
+                            {
+                                if(App->scene->gameObjectList.size() > 0)
+                                    App->import->LoadGeometry(filename);
+
+                            }
+                            ImGui::SameLine();
+                            if (ImGui::Button(fileDeleteChr, { 100,20 }))
+                            {
+                                std::string path = currentFolder + "/" + filename;
+                                App->fileSystem->RemoveFile(path.c_str());
+
+                            }
                         }
-
                     }
+                    else
+                    {
+                        for (auto const& j : fileList)
+                        {
+                            const char* filename = j.c_str();
 
+                             ImGui::Text(filename);
+           
+                        }
+                    }
 
                     ImGui::Unindent();
                 }

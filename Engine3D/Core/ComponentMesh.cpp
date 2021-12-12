@@ -244,9 +244,12 @@ void ComponentMesh::File2Mesh(FileMesh* file)
 bool ComponentMesh::Update(float dt)
 {
 	
-	if (App->scene->camera != nullptr)
+	for (int i = 0; i < App->scene->gameObjectList.size(); i++)
 	{
-		if (!App->scene->camera->GetComponent<ComponentCamera>()->ContainsBBox(localAABB)) return true;
+		if (App->scene->gameObjectList[i]->name == "Camera")
+		{
+			if (!App->scene->camera->GetComponent<ComponentCamera>()->ContainsBBox(localAABB)) return true;
+		}
 	}
 
 	drawWireframe || App->renderer3D->wireframeMode ? glPolygonMode(GL_FRONT_AND_BACK, GL_LINE) : glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
