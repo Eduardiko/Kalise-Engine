@@ -19,7 +19,6 @@
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
-#include "Assimp/include/mesh.h"
 
 
 ModuleImport::ModuleImport(Application* app, bool start_enabled) : Module(app, start_enabled) {}
@@ -84,7 +83,6 @@ bool ModuleImport::LoadGeometry(const char* path) {
 			ComponentMesh* mesh = newGameObject->CreateComponent<ComponentMesh>();
 			assimpMesh = scene->mMeshes[i];
 
-
 			if (scene->HasMaterials()) {
 				texture = scene->mMaterials[assimpMesh->mMaterialIndex];
 
@@ -110,19 +108,16 @@ bool ModuleImport::LoadGeometry(const char* path) {
 				}
 			}
 
-			for (int i = 0; i < App->resources->fileList.size(); i++)
+			if (App->fileSystem->SetNormalName(path) == "Street_environment.fbx")
 			{
-				std::string temp = App->resources->fileList[i]->name;
-				if (temp != name)
-				{
-					App->resources->FBX2Kalise(scene->mMeshes[i], path, name);
-				}
+				AuxiliarLoadGeometry(mesh, assimpMesh);
 			}
-
-			FileMesh* file = App->resources->Binary2Mesh(name);
-
-			mesh->File2Mesh(file);
-
+			else {
+				App->resources->FBX2Kalise(assimpMesh, path, name);
+				FileMesh* file = App->resources->Binary2Mesh(name);
+				mesh->File2Mesh(file);
+			}
+	
 			mesh->GenerateBuffers();
 			mesh->GenerateBounds();
 			mesh->ComputeNormals();
@@ -137,6 +132,48 @@ bool ModuleImport::LoadGeometry(const char* path) {
 	RELEASE_ARRAY(buffer);
 
 	return true;
+}
+
+void ModuleImport::AuxiliarLoadGeometry(ComponentMesh* mesh, aiMesh* assimpMesh)
+{
+	mesh->numVertices = assimpMesh->mNumVertices;
+	mesh->vertices.resize(assimpMesh->mNumVertices);
+
+	memcpy(&mesh->vertices[0], assimpMesh->mVertices, sizeof(float3) * assimpMesh->mNumVertices);
+	LOG("New mesh with %d vertices", assimpMesh->mNumVertices);
+
+	// -- Copying faces --//
+	if (assimpMesh->HasFaces()) {
+		mesh->numIndices = assimpMesh->mNumFaces * 3;
+		mesh->indices.resize(mesh->numIndices);
+
+		for (size_t i = 0; i < assimpMesh->mNumFaces; i++)
+		{
+			if (assimpMesh->mFaces[i].mNumIndices != 3) {
+				LOG("WARNING, geometry face with != 3 indices!")
+			}
+			else {
+				memcpy(&mesh->indices[i * 3], assimpMesh->mFaces[i].mIndices, 3 * sizeof(uint));
+			}
+		}
+	}
+
+	// -- Copying Normals info --//
+	if (assimpMesh->HasNormals()) {
+
+		mesh->normals.resize(assimpMesh->mNumVertices);
+		memcpy(&mesh->normals[0], assimpMesh->mNormals, sizeof(float3) * assimpMesh->mNumVertices);
+	}
+
+	// -- Copying UV info --//
+	if (assimpMesh->HasTextureCoords(0))
+	{
+		mesh->texCoords.resize(assimpMesh->mNumVertices);
+		for (size_t j = 0; j < assimpMesh->mNumVertices; ++j)
+		{
+			memcpy(&mesh->texCoords[j], &assimpMesh->mTextureCoords[0][j], sizeof(float2));
+		}
+	}
 }
 
 void ModuleImport::FindNodeName(const aiScene* scene, const size_t i, std::string& name)

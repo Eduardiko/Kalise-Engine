@@ -42,6 +42,9 @@ public:
 	void GetRealDir(std::string path, std::string& output) const;
 	std::string GetPathRelativeToAssets(const char* originalPath) const;
 	
+	void GetFolders(const char* dir, std::vector<std::string>& nonImportedFolders) const;
+	void GetFiles(const char* dir, std::vector<std::string>& nonImportedFolders) const;
+
 	bool Read(const std::string& path, void* data, unsigned size) const; //reads from path and allocates in data. NOTE: The caller should be responsible to clean it
 	bool Exists(const std::string& path) const;
 	unsigned Size(const std::string& path) const;

@@ -61,9 +61,11 @@ public:
 	bool showGameWindow;
 	bool showTextures;
 	bool showConsoleWindow;
+	bool showAssetsWindow;
 
 	bool play = false;
 	bool lastPlay = false;
+	bool openFolder = false;
 
 	ImGuiTextBuffer consoleText;
 

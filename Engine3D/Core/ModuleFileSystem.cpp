@@ -206,53 +206,7 @@ void ModuleFileSystem::GetAllFilesWithExtension(const char* directory, const cha
 			file_list.push_back(files[i]);
 	}
 }
-/*
-PathNode ModuleFileSystem::GetAllFiles(const char* directory, std::vector<std::string>* filter_ext, std::vector<std::string>* ignore_ext) const
-{
-	PathNode root;
-	if (Exists(directory))
-	{
-		root.path = directory;
-		App->file_system->SplitFilePath(directory, nullptr, &root.localPath);
-		if (root.localPath == "")
-			root.localPath = directory;
 
-		std::vector<std::string> file_list, dir_list;
-		DiscoverFiles(directory, file_list, dir_list);	
-		
-		//Adding all child directories
-		for (uint i = 0; i < dir_list.size(); i++)
-		{
-			std::string str = directory;
-			str.append("/").append(dir_list[i]);
-			root.children.push_back(GetAllFiles(str.c_str(), filter_ext, ignore_ext));
-		}
-		//Adding all child files
-		for (uint i = 0; i < file_list.size(); i++)
-		{
-			//Filtering extensions
-			bool filter = true, discard = false;
-			if (filter_ext != nullptr)
-			{
-				filter = HasExtension(file_list[i].c_str(), *filter_ext);
-			}
-			if (ignore_ext != nullptr)
-			{
-				discard = HasExtension(file_list[i].c_str(), *ignore_ext);
-			}
-			if (filter == true && discard == false)
-			{
-				std::string str = directory;
-				str.append("/").append(file_list[i]);
-				root.children.push_back(GetAllFiles(str.c_str(), filter_ext, ignore_ext));
-			}
-		}
-		root.isFile = HasExtension(root.path.c_str());
-		root.isLeaf = root.children.empty() == true;
-	}
-	return root;
-}
-*/
 void ModuleFileSystem::GetRealDir(std::string path, std::string& output) const
 {	
 	uint i = 0;
@@ -272,6 +226,49 @@ std::string ModuleFileSystem::GetPathRelativeToAssets(const char* originalPath) 
 	GetRealDir(originalPath, ret);
 
 	return ret;
+}
+
+void ModuleFileSystem::GetFolders(const char* dir, std::vector<std::string>& folderList) const
+{
+	char** ef = PHYSFS_enumerateFiles(dir);
+
+	std::string directory(dir);
+	std::string file_name;
+	for (char** i = ef; *i != NULL; i++)
+	{
+		std::string name = (directory + "/" + (*i)).c_str();
+		if (IsDirectory((directory + "/" + (*i)).c_str()))
+		{
+			folderList.push_back(*i);
+		}
+
+	}
+
+	PHYSFS_freeList(ef);
+}
+
+void ModuleFileSystem::GetFiles(const char* dir, std::vector<std::string>& fileList) const
+{
+	char** ef = PHYSFS_enumerateFiles(dir);
+
+	std::string directory(dir);
+	std::string file_name;
+	for (char** i = ef; *i != NULL; i++)
+	{
+		std::string name = (directory + "/" + (*i)).c_str();
+		if (!IsDirectory((directory + "/" + (*i)).c_str()))
+		{
+			file_name = (*i);
+			if (file_name.length() >= 6)
+			{
+				file_name = file_name.substr(file_name.length() - 4, 4);
+				if (file_name != ".meta")
+					fileList.push_back(*i);
+			}
+		}
+	}
+
+	PHYSFS_freeList(ef);
 }
 
 bool ModuleFileSystem::HasExtension(const char* path) const

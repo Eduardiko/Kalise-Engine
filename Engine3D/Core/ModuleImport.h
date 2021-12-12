@@ -1,5 +1,6 @@
 #pragma once
 #include "Module.h"
+#include "Assimp/include/mesh.h"
 
 #include <string>
 
@@ -18,7 +19,8 @@ public:
 
 	bool LoadGeometry(const char* path);
 
-	void FindNodeName(const aiScene* scene, const size_t i, std::string& name);
+	void AuxiliarLoadGeometry(ComponentMesh* mesh, aiMesh* assimpMesh);
 
+	void FindNodeName(const aiScene* scene, const size_t i, std::string& name);
 
 };

@@ -102,6 +102,9 @@ void ComponentMesh::ComputeNormals()
 
 	for (size_t i = 0; i < numIndices; i += 3)
 	{
+		if (indices[i + 2] > vertices.size() || indices[i + 1] > vertices.size() || indices[i] > vertices.size())
+			break;
+
 		const float3 p0 = vertices[indices[i + 1]] - vertices[indices[i]];
 		const float3 p1 = vertices[indices[i + 2]] - vertices[indices[i]];
 

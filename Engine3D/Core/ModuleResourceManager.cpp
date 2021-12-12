@@ -1,4 +1,5 @@
 #include "ModuleResourceManager.h"
+#include "ModuleFileSystem.h"
 #include <fstream>
 
 ModuleResourceManager::ModuleResourceManager(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -9,14 +10,24 @@ ModuleResourceManager::~ModuleResourceManager()
 {
 }
 
+
 bool ModuleResourceManager::FBX2Kalise(const aiMesh* m, const char* path, std::string name)
 {
-	FileMesh* file = new FileMesh();
+	if (fileList.size() != 0)
+	{
+		for (int i = 0; i < fileList.size(); i++)
+		{
+			if (name == fileList[i]->name)
+				return true;
+		}
+	}
 
+	FileMesh* file = new FileMesh();
+	
 	file->verticesSizeBytes = m->mNumVertices * sizeof(float) * 3;
 	file->vertices = (float*)malloc(file->verticesSizeBytes);
 	memcpy(file->vertices, m->mVertices, file->verticesSizeBytes);
-
+	
 	file->normalsSizeBytes = m->mNumVertices * sizeof(float) * 3;
 	file->normals = (float*)malloc(file->normalsSizeBytes);
 	memcpy(file->normals, m->mNormals, file->normalsSizeBytes);
@@ -26,6 +37,7 @@ bool ModuleResourceManager::FBX2Kalise(const aiMesh* m, const char* path, std::s
 	for (int i = 0; i < m->mNumVertices; i++)
 	{
 		*(file->textCoords + i * 2) = m->mTextureCoords[0][i].x;
+
 		*(file->textCoords + i * 2 + 1) = m->mTextureCoords[0][i].y;
 	}
 
@@ -41,6 +53,7 @@ bool ModuleResourceManager::FBX2Kalise(const aiMesh* m, const char* path, std::s
 
 	file->name = name;
 	fileList.push_back(file);
+
 
 	return Kalise2Binary(file, path, name);
 }
@@ -101,7 +114,7 @@ FileMesh* ModuleResourceManager::Binary2Mesh(std::string name)
 	}
 	else
 	{
-		LOG("Error loading MontuFileMesh from '%s'", fullName);
+		LOG("Error loading KaliseFileMesh from '%s'", fullName);
 		return nullptr;
 	}
 }

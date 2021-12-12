@@ -8,6 +8,7 @@
 #include "ModuleInput.h"
 #include "ModuleImport.h"
 #include "ModuleScene.h"
+#include "ModuleFileSystem.h"
 #include "ModuleViewportFrameBuffer.h"
 #include "ModuleCamera3D.h"
 #include "ModuleTextures.h"
@@ -38,6 +39,7 @@ ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app, s
     showGameWindow = true;
     showSceneWindow = true;
     showTextures = true;
+    showAssetsWindow = true;
 
     currentColor = { 1.0f, 1.0f, 1.0f, 1.0f };
 
@@ -421,6 +423,8 @@ void ModuleEditor::MenuBar() {
                 showConsoleWindow = !showConsoleWindow;
             if (ImGui::MenuItem("Textures"))
                 showTextures = !showTextures;
+            if (ImGui::MenuItem("Assets"))
+                showAssetsWindow = !showAssetsWindow;
 
             ImGui::Separator();
             if (ImGui::MenuItem("Configuration"))
@@ -621,6 +625,51 @@ void ModuleEditor::UpdateWindowStatus() {
         }
 
         ImGui::End();
+    }
+
+     // Assets
+    if (showAssetsWindow)
+    {
+       // ImGui::Begin("Asset Browser", &showAssets);
+        if (ImGui::Begin("Assets", &showAssetsWindow))
+        {
+
+            constexpr char* s_AssetsDirectory = "Assets";
+            std::vector<std::string> fileList;
+            std::vector<std::string> folderList;
+            std::string currentDirectory(s_AssetsDirectory);
+            std::string currentFolder;
+
+            App->fileSystem->GetFolders(s_AssetsDirectory, folderList);
+            
+            ImGuiTreeNodeFlags nodeFlags = 0;
+
+            for (auto const& i : folderList) {
+                currentFolder = (currentDirectory + "/" + i).c_str();
+                const char* foldername = i.c_str();
+                App->fileSystem->GetFiles(currentFolder.c_str(), fileList);
+
+                if (ImGui::CollapsingHeader(foldername))
+                {
+                    ImGui::Indent();
+                    for (auto const& j : fileList)
+                    {
+                        const char* filename = j.c_str();
+
+                        if (ImGui::Selectable(filename))
+                        {
+                        }
+
+                    }
+
+                    fileList.clear();
+
+                    ImGui::Unindent();
+                }
+            }
+
+            ImGui::End();
+        }
     }
 
     if (showGameWindow) {
