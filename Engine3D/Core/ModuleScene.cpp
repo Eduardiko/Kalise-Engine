@@ -96,11 +96,6 @@ bool ModuleScene::DeleteSelectedGameObject(GameObject* selectedGameObject)
 						root->RemoveChild(selectedGameObject);
 						gameObjectList.erase(gameObjectList.begin() + i);
 					}
-					else
-					{
-						selectedGameObject->parent->RemoveChild(selectedGameObject);
-						gameObjectList.erase(gameObjectList.begin() + i);
-					}
 				}
 			}
 			else
@@ -119,7 +114,7 @@ update_status ModuleScene::Update(float dt)
 	{
 		ImGui::Begin("Warning Message", &warningMessage);
 		{
-			ImGui::Text("Street Environment is not loaded at the \nstart because it messes up the \ninspector and hierarchy windows!\nDelete all game objects to use them properly");
+			ImGui::Text("Street Environment is not loaded at the \nstart because it messes up the inspector and \nhierarchy windows! After loading Street Environment\ndelete all game objects to use them properly.\n\nPd: Mouse pick is super unprecise but it works.");
 			ImGui::End();
 		}
 	}

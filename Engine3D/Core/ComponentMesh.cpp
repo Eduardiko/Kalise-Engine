@@ -248,7 +248,10 @@ bool ComponentMesh::Update(float dt)
 	{
 		if (App->scene->gameObjectList[i]->name == "Camera")
 		{
-			if (!App->scene->camera->GetComponent<ComponentCamera>()->ContainsBBox(localAABB)) return true;
+			if (!App->scene->camera->GetComponent<ComponentCamera>()->ContainsBBox(localAABB))
+			{
+				return true;
+			}
 		}
 	}
 

@@ -14,6 +14,9 @@
 #include "ModuleTextures.h"
 #include "ComponentMaterial.h"
 #include "ComponentMesh.h"
+#include "ComponentTransform.h"
+#include "ComponentCamera.h"
+
 
 //Tools
 #include <string>
@@ -371,6 +374,25 @@ void ModuleEditor::MenuBar() {
 
             if (ImGui::MenuItem("Create empty GameObject")) {
                 App->scene->CreateEmptyGameObject();
+            }
+            
+            if (ImGui::MenuItem("Create camera")) {
+                bool cameraExists = false;
+                for (int i = 0; i < App->scene->gameObjectList.size(); i++)
+                {
+                    if (App->scene->gameObjectList[i]->name == "Camera")
+                    {
+                        cameraExists = true;
+                        LOG("There can only be one camera");
+                    }
+                }
+                if (!cameraExists)
+                {
+                    App->scene->camera = App->scene->CreateGameObject("Camera");
+                    App->scene->camera->CreateComponent<ComponentCamera>();
+                    float3 camInitPos(0.0f, 0.0f, -12.0f);
+                    App->scene->camera->GetComponent<ComponentTransform>()->SetPosition(camInitPos);
+                }                
             }
 
             if (ImGui::BeginMenu("3D Objects")) {
