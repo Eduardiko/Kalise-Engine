@@ -5,6 +5,7 @@
 #include "ComponentTransform.h"
 #include "ComponentMaterial.h"
 #include "ComponentMesh.h"
+#include "ComponentAnimation.h"
 #include "imgui.h"
 
 #include "rapidjson-1.1.0/include/rapidjson/prettywriter.h"
@@ -24,6 +25,7 @@ GameObject::GameObject()
 GameObject::GameObject(const std::string name) : name(name)
 {
 	transform = CreateComponent<ComponentTransform>();
+	AddComponent(CreateComponent<ComponentAnimation>());
 
 	active = true;
 }

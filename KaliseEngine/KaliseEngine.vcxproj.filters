@@ -191,6 +191,15 @@
     <ClCompile Include="Core\ModuleResourceManager.cpp">
       <Filter>Engine\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="Core\ComponentAnimation.cpp">
+      <Filter>Engine\GameObjects - Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Data.cpp">
+      <Filter>Engine\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\JSON\parson.c">
+      <Filter>ExternalLibraries\JSON</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\ImGui\imconfig.h">
@@ -730,6 +739,15 @@
     <ClInclude Include="Core\ModuleResourceManager.h">
       <Filter>Engine\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="Core\ComponentAnimation.h">
+      <Filter>Engine\GameObjects - Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Data.h">
+      <Filter>Engine\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\JSON\parson.h">
+      <Filter>ExternalLibraries\JSON</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ExternalLibraries">
@@ -785,6 +803,9 @@
     </Filter>
     <Filter Include="Engine\Tools">
       <UniqueIdentifier>{3b33fd60-8311-4ddf-87d9-d36b91d2b082}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ExternalLibraries\JSON">
+      <UniqueIdentifier>{e8266f1d-3703-4615-819b-3fa7f1c7ac3e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
