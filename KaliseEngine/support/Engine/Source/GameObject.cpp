@@ -15,11 +15,11 @@
 #include "Profiling.h"
 
 
-GameObject::GameObject() : active(true), parent(nullptr), name("Game Object"), newComponent(false), index(nullptr), vertex(nullptr), colliders(false), staticObj(true), audioRegistered(false)
+GameObject::GameObject() : active(true), parent(nullptr), name("Game Object"), newComponent(false), index(nullptr), vertex(nullptr), colliders(false), staticObj(true)
 {
 	globalAabb.SetNegativeInfinity();
 	LCG lcg;
-	uuid = lcg.Int();
+	uuid = lcg.IntFast();
 }
 
 GameObject::~GameObject()
@@ -92,12 +92,10 @@ void GameObject::DrawOutline()
 void GameObject::DrawEditor()
 {
 	ImGui::PushMultiItemsWidths(3, ImGui::GetWindowWidth());
-	ImGui::Checkbox("##Active", &active);
+	ImGui::Checkbox("Active", &active);
 	ImGui::PopItemWidth();
 	ImGui::SameLine();
-	ImGui::Text("Name");
-	ImGui::SameLine();
-	ImGui::InputText("##Name", &name[0], 30);
+	ImGui::InputText("Name", &name[0], 20);
 	ImGui::PopItemWidth();
 	ImGui::SameLine();
 	ImGui::Checkbox("Static", &staticObj);
@@ -124,21 +122,6 @@ void GameObject::DrawEditor()
 		if (ImGui::Selectable("Material Component"))
 		{
 			CreateComponent(ComponentType::MATERIAL);
-			newComponent = false;
-		}
-		if (ImGui::Selectable("Audio Source Component"))
-		{
-			CreateComponent(ComponentType::AUDIO_SOURCE);
-			newComponent = false;
-		}
-		if (ImGui::Selectable("Audio Listener Component"))
-		{
-			CreateComponent(ComponentType::AUDIO_LISTENER);
-			newComponent = false;
-		}
-		if (ImGui::Selectable("Audio Reverb Zone Component"))
-		{
-			CreateComponent(ComponentType::AUDIO_REVERB_ZONE);
 			newComponent = false;
 		}
 		else if (!ImGui::IsAnyItemHovered() && ((ImGui::GetIO().MouseClicked[0] || ImGui::GetIO().MouseClicked[1])))
@@ -242,15 +225,6 @@ Component* GameObject::CreateComponent(ComponentType type)
 	case ComponentType::CAMERA:
 		component = new CameraComponent(this, GetComponent<TransformComponent>());
 		app->scene->SetMainCamera((CameraComponent*)component);
-		break;
-	case ComponentType::AUDIO_SOURCE:
-		component = new AudioSourceComponent(this, GetComponent<TransformComponent>());
-		break;
-	case ComponentType::AUDIO_LISTENER:
-		component = new ListenerComponent(this, GetComponent<TransformComponent>());
-		break;
-	case ComponentType::AUDIO_REVERB_ZONE:
-		component = new AudioReverbZoneComponent(this, GetComponent<TransformComponent>());
 		break;
 	case ComponentType::MATERIAL:
 		component = new MaterialComponent(this);

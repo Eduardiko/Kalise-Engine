@@ -49,9 +49,6 @@
     <Filter Include="Sources\Resources\Importers">
       <UniqueIdentifier>{3c644c45-199c-460f-9c95-bb1da2fa630e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\Libraries\WWise">
-      <UniqueIdentifier>{bd1af3b5-ca65-4c5d-adab-cf27c3be5b4b}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Source\Module.h">
@@ -262,57 +259,6 @@
       <Filter>Sources\Tools</Filter>
     </ClInclude>
     <ClInclude Include="resource.h" />
-    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Win32\AkDefaultIOHookBlocking.h">
-      <Filter>Sources\Libraries\WWise</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Win32\AkDefaultIOHookDeferred.h">
-      <Filter>Sources\Libraries\WWise</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Win32\AkFileHelpers.h">
-      <Filter>Sources\Libraries\WWise</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Win32\AkFilePackageLowLevelIOBlocking.h">
-      <Filter>Sources\Libraries\WWise</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Win32\AkFilePackageLowLevelIODeferred.h">
-      <Filter>Sources\Libraries\WWise</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Win32\stdafx.h">
-      <Filter>Sources\Libraries\WWise</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkDefaultLowLevelIODispatcher.h">
-      <Filter>Sources\Libraries\WWise</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkFileHelpersBase.h">
-      <Filter>Sources\Libraries\WWise</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkFileLocationBase.h">
-      <Filter>Sources\Libraries\WWise</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkFilePackage.h">
-      <Filter>Sources\Libraries\WWise</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkFilePackageLowLevelIO.h">
-      <Filter>Sources\Libraries\WWise</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkFilePackageLUT.h">
-      <Filter>Sources\Libraries\WWise</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkMultipleFileLocation.h">
-      <Filter>Sources\Libraries\WWise</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Source\AudioManager.h">
-      <Filter>Sources\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Source\AudioSourceComponent.h">
-      <Filter>Sources\GameObject\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Source\ListenerComponent.h">
-      <Filter>Sources\GameObject\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Source\AudioReverbZoneComponent.h">
-      <Filter>Sources\GameObject\Components</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Source\ModuleCamera3D.cpp">
@@ -480,52 +426,11 @@
     <ClCompile Include="Engine\Source\Model.cpp">
       <Filter>Sources\Resources</Filter>
     </ClCompile>
-    <ClCompile Include="Dependencies\Wwise\include\AK\SoundEngine\Win32\AkDefaultIOHookBlocking.cpp">
-      <Filter>Sources\Libraries\WWise</Filter>
-    </ClCompile>
-    <ClCompile Include="Dependencies\Wwise\include\AK\SoundEngine\Win32\AkDefaultIOHookDeferred.cpp">
-      <Filter>Sources\Libraries\WWise</Filter>
-    </ClCompile>
-    <ClCompile Include="Dependencies\Wwise\include\AK\SoundEngine\Win32\stdafx.cpp">
-      <Filter>Sources\Libraries\WWise</Filter>
-    </ClCompile>
-    <ClCompile Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkDefaultLowLevelIODispatcher.cpp">
-      <Filter>Sources\Libraries\WWise</Filter>
-    </ClCompile>
-    <ClCompile Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkFileLocationBase.cpp">
-      <Filter>Sources\Libraries\WWise</Filter>
-    </ClCompile>
-    <ClCompile Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkFilePackage.cpp">
-      <Filter>Sources\Libraries\WWise</Filter>
-    </ClCompile>
-    <ClCompile Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkFilePackageLUT.cpp">
-      <Filter>Sources\Libraries\WWise</Filter>
-    </ClCompile>
-    <ClCompile Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkMultipleFileLocation.cpp">
-      <Filter>Sources\Libraries\WWise</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Source\AudioManager.cpp">
-      <Filter>Sources\Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Source\AudioSourceComponent.cpp">
-      <Filter>Sources\GameObject\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Source\ListenerComponent.cpp">
-      <Filter>Sources\GameObject\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Source\AudioReverbZoneComponent.cpp">
-      <Filter>Sources\GameObject\Components</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Ragnar Engine.rc" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Output\Settings\EngineResources\logo.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkFilePackageLowLevelIO.inl">
-      <Filter>Sources\Libraries\WWise</Filter>
-    </None>
   </ItemGroup>
 </Project>

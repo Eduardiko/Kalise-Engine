@@ -12,9 +12,6 @@ enum class ComponentType
 	MESH_RENDERER,
 	MATERIAL,
 	CAMERA,
-	AUDIO_SOURCE,
-	AUDIO_LISTENER,
-	AUDIO_REVERB_ZONE
 };
 
 class Component

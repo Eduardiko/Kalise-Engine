@@ -81,7 +81,6 @@ public:
 	void SetGameDeltaTime(float deltaTime) { gameTimer.SetDesiredDeltaTime(deltaTime); }
 
 	CameraComponent* mainCamera;
-	GameObject* camera;
 private:
 	GameObject* root;
 	Quadtree qTree;

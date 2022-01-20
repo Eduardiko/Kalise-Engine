@@ -1,6 +1,5 @@
 #include "Application.h"
 #include "Globals.h"
-#include "AudioManager.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleInput.h"
 #include "ModuleScene.h"
@@ -262,7 +261,6 @@ bool MainMenuBar::Update(float dt)
 		if (ImGui::ImageButton((ImTextureID)buttonPlay->GetId(), { 27,18 }))
 		{
 			app->scene->Play();
-			AudioManager::Get()->PlayAllAudioSources();
 			ImGui::StyleColorsClassic();
 		}
 
@@ -277,7 +275,6 @@ bool MainMenuBar::Update(float dt)
 	{
 		if (ImGui::ImageButton((ImTextureID)buttonStop->GetId(), { 27,18 }))
 		{
-			AudioManager::Get()->StopAllAudioSources();
 			app->scene->Stop();
 			StyleTheme();
 		}
@@ -285,17 +282,11 @@ bool MainMenuBar::Update(float dt)
 
 		if (app->scene->GetGameState() == GameState::PAUSE)
 		{
-			if (ImGui::ImageButton((ImTextureID)buttonPauseBlue->GetId(), { 27,18 }))
-			{
-				app->scene->Resume();
-				AudioManager::Get()->ResumeAllAudioSources();
-			}
+			if (ImGui::ImageButton((ImTextureID)buttonPauseBlue->GetId(), { 27,18 })) app->scene->Resume();
 		}
-		else if (ImGui::ImageButton((ImTextureID)buttonPause->GetId(), { 27,18 }))
-		{
-			AudioManager::Get()->PauseAllAudioSources();
-			app->scene->Pause();
-		}
+		else 
+			if (ImGui::ImageButton((ImTextureID)buttonPause->GetId(), { 27,18 })) app->scene->Pause();
+
 
 		ImGui::SameLine();
 		if (ImGui::ImageButton((ImTextureID)buttonNextFrame->GetId(), { 27,18 })) if (app->scene->GetGameState() == GameState::PAUSE) app->scene->NextFrame();

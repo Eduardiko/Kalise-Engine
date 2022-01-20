@@ -1,7 +1,6 @@
 #include "ModuleScene.h"
 
 #include "Application.h"
-#include "ModuleInput.h"
 #include "Globals.h"
 #include "ModuleEditor.h"
 #include "Primitives.h"
@@ -10,13 +9,11 @@
 #include "Resource.h"
 #include "ResourceManager.h"
 
-#include "AudioManager.h"
-
 #include <stack>
 
 #include "Profiling.h"
 
-ModuleScene::ModuleScene() : sceneDir(""), mainCamera(nullptr), gameState(GameState::NOT_PLAYING), frameSkip(0), resetQuadtree(true), goToRecalculate(nullptr), camera(nullptr)
+ModuleScene::ModuleScene() : sceneDir(""), mainCamera(nullptr), gameState(GameState::NOT_PLAYING), frameSkip(0), resetQuadtree(true), goToRecalculate(nullptr)
 {
 	root = new GameObject();
 	root->SetName("Untitled");
@@ -30,15 +27,9 @@ bool ModuleScene::Start()
 {
 	RG_PROFILING_FUNCTION("Starting Scene");
 
-	camera = CreateGameObject(nullptr);
+	GameObject* camera = CreateGameObject(nullptr);
 	camera->CreateComponent(ComponentType::CAMERA);
 	camera->SetName("Camera");
-	camera->CreateComponent(ComponentType::AUDIO_LISTENER);
-	//camera->CreateComponent(ComponentType::AUDIO_SOURCE);
-
-	// Register this camera as the default listener.
-	AkGameObjectID cameraID = camera->GetUUID();
-	AudioManager::Get()->SetDefaultListener(&cameraID, camera->GetComponent<TransformComponent>());
 	
 	qTree.Create(AABB(float3(-200, -50, -200), float3(200, 50, 200)));
 	
@@ -46,19 +37,6 @@ bool ModuleScene::Start()
 	ResourceManager::GetInstance()->ImportAllResources();
 	ImportPrimitives();
 	ResourceManager::GetInstance()->LoadResource(std::string("Assets/Resources/Street.fbx"));
-
-	//AkAuxSendValue aEnvs[1];
-	//root->GetChilds()[1]->GetChilds()[1]->CreateComponent(ComponentType::AUDIO_REVERB_ZONE);
-
-	//
-	//aEnvs[0].listenerID = camera->GetUUID();
-	//aEnvs[0].auxBusID = AK::SoundEngine::GetIDFromString(L"ReverbZone");
-	//aEnvs[0].fControlValue = 0.0f;
-	//
-	//if (AK::SoundEngine::SetGameObjectAuxSendValues(camera->GetUUID(), aEnvs, 1) != AK_Success)
-	//{
-	//	DEBUG_LOG("Couldnt set aux send values");
-	//}
 
 	return true;
 }
@@ -126,8 +104,6 @@ bool ModuleScene::Update(float dt)
 
 		resetQuadtree = false;
 	}
-	
-	AudioManager::Get()->Render();
 
 	return true;
 }
@@ -462,6 +438,16 @@ void ModuleScene::ImportPrimitives()
 	normals.clear();
 	texCoords.clear();
 }
+
+//void ModuleScene::AddToQuadtree(GameObject* go)
+//{
+//	qTree.Insert(go);
+//}
+//
+//void ModuleScene::RemoveFromQuadtree(GameObject* go)
+//{
+//	qTree.Remove(go);
+//}
 
 void ModuleScene::Play()
 {

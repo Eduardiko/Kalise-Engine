@@ -21,14 +21,14 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -55,17 +55,16 @@
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glew\include;$(SolutionDir)Dependencies;$(SolutionDir)Dependencies/SDL/include;$(SolutionDir)Dependencies\Assimp\include;$(SolutionDir)Dependencies\DevIL\include;$(SolutionDir)Dependencies\Wwise\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glew\include;$(SolutionDir)Dependencies;$(SolutionDir)Dependencies/SDL/include;$(SolutionDir)Dependencies\Assimp\include;$(SolutionDir)Dependencies\DevIL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>RG_PROFILING;GLEW_STATIC;LOGGING_SUPPORT_DISABLED;WINDOWS_IGNORE_PACKING_MISMATCH;_MBCS;%(PreprocessorDefinitions);USE_IMGUI_API</PreprocessorDefinitions>
-      <LanguageStandard>Default</LanguageStandard>
-      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\glew\lib;$(SolutionDir)Dependencies\SDL\libx86;$(SolutionDir)Dependencies\MathGeoLib\lib\Deb;$(SolutionDir)Dependencies\Assimp\lib;$(SolutionDir)Dependencies\PhysFS\lib;$(SolutionDir)Dependencies\Optick\lib;$(SolutionDir)Dependencies\DevIL\lib;$(SolutionDir)Dependencies\Wwise\lib\Deb;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>ws2_32.lib;CommunicationCentral.lib;AkMemoryMgr.lib;AkMusicEngine.lib;AkSoundEngine.lib;AkSpatialAudio.lib;AkStreamMgr.lib;ILU.lib;ILUT.lib;DevIL.lib;OptickCore.lib;physfs.lib;assimp-vc142-mt.lib;glew32s.lib;MathGeoLib.lib;opengl32.lib;SDL2main.lib;SDL2.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;AkRoomVerbFX.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\glew\lib;$(SolutionDir)Dependencies\SDL\libx86;$(SolutionDir)Dependencies\MathGeoLib\lib\Deb;$(SolutionDir)Dependencies\Assimp\lib;$(SolutionDir)Dependencies\PhysFS\lib;$(SolutionDir)Dependencies\Optick\lib;$(SolutionDir)Dependencies\DevIL\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ILU.lib;ILUT.lib;DevIL.lib;OptickCore.lib;physfs.lib;assimp-vc142-mt.lib;glew32s.lib;MathGeoLib.lib;opengl32.lib;SDL2main.lib;SDL2.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -77,9 +76,8 @@
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glew\include;$(SolutionDir)Dependencies;$(SolutionDir)Dependencies/SDL/include;$(SolutionDir)Dependencies\Assimp\include;$(SolutionDir)Dependencies\DevIL\include;$(SolutionDir)Dependencies\Wwise\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>AK_OPTIMIZED;GLEW_STATIC;LOGGING_SUPPORT_DISABLED;WINDOWS_IGNORE_PACKING_MISMATCH;_MBCS;%(PreprocessorDefinitions);USE_IMGUI_API</PreprocessorDefinitions>
-      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glew\include;$(SolutionDir)Dependencies;$(SolutionDir)Dependencies/SDL/include;$(SolutionDir)Dependencies\Assimp\include;$(SolutionDir)Dependencies\DevIL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>GLEW_STATIC;LOGGING_SUPPORT_DISABLED;WINDOWS_IGNORE_PACKING_MISMATCH;_MBCS;%(PreprocessorDefinitions);USE_IMGUI_API</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -87,8 +85,8 @@
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Windows</SubSystem>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\glew\lib;$(SolutionDir)Dependencies\SDL\libx86;$(SolutionDir)Dependencies\MathGeoLib\lib\Release;$(SolutionDir)Dependencies\Assimp\lib;$(SolutionDir)Dependencies\PhysFS\lib;$(SolutionDir)Dependencies\Optick\lib;$(SolutionDir)Dependencies\DevIL\lib;$(SolutionDir)Dependencies\Wwise\lib\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>AkMemoryMgr.lib;AkMusicEngine.lib;AkSoundEngine.lib;AkSpatialAudio.lib;AkStreamMgr.lib;ILU.lib;ILUT.lib;DevIL.lib;OptickCore.lib;physfs.lib;assimp-vc142-mt.lib;glew32s.lib;MathGeoLib.lib;opengl32.lib;SDL2main.lib;SDL2.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);AkRoomVerbFX.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\glew\lib;$(SolutionDir)Dependencies\SDL\libx86;$(SolutionDir)Dependencies\MathGeoLib\lib\Release;$(SolutionDir)Dependencies\Assimp\lib;$(SolutionDir)Dependencies\PhysFS\lib;$(SolutionDir)Dependencies\Optick\lib;$(SolutionDir)Dependencies\DevIL\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ILU.lib;ILUT.lib;DevIL.lib;OptickCore.lib;physfs.lib;assimp-vc142-mt.lib;glew32s.lib;MathGeoLib.lib;opengl32.lib;SDL2main.lib;SDL2.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -110,25 +108,9 @@
     <ClInclude Include="Dependencies\json\parson.h" />
     <ClInclude Include="Dependencies\mmgr\mmgr.h" />
     <ClInclude Include="Dependencies\mmgr\nommgr.h" />
-    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkDefaultLowLevelIODispatcher.h" />
-    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkFileHelpersBase.h" />
-    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkFileLocationBase.h" />
-    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkFilePackage.h" />
-    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkFilePackageLowLevelIO.h" />
-    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkFilePackageLUT.h" />
-    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkMultipleFileLocation.h" />
-    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Win32\AkDefaultIOHookBlocking.h" />
-    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Win32\AkDefaultIOHookDeferred.h" />
-    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Win32\AkFileHelpers.h" />
-    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Win32\AkFilePackageLowLevelIOBlocking.h" />
-    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Win32\AkFilePackageLowLevelIODeferred.h" />
-    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Win32\stdafx.h" />
     <ClInclude Include="Engine\Source\AboutMenu.h" />
     <ClInclude Include="Engine\Source\Application.h" />
     <ClInclude Include="Engine\Source\AssimpDefs.h" />
-    <ClInclude Include="Engine\Source\AudioManager.h" />
-    <ClInclude Include="Engine\Source\AudioReverbZoneComponent.h" />
-    <ClInclude Include="Engine\Source\AudioSourceComponent.h" />
     <ClInclude Include="Engine\Source\CameraComponent.h" />
     <ClInclude Include="Engine\Source\Color.h" />
     <ClInclude Include="Engine\Source\Component.h" />
@@ -148,7 +130,6 @@
     <ClInclude Include="Engine\Source\InspectorMenu.h" />
     <ClInclude Include="Engine\Source\JsonParsing.h" />
     <ClInclude Include="Engine\Source\Light.h" />
-    <ClInclude Include="Engine\Source\ListenerComponent.h" />
     <ClInclude Include="Engine\Source\MainMenuBar.h" />
     <ClInclude Include="Engine\Source\MaterialComponent.h" />
     <ClInclude Include="Engine\Source\Menu.h" />
@@ -191,20 +172,9 @@
     <ClCompile Include="Dependencies\Imgui\imgui_widgets.cpp" />
     <ClCompile Include="Dependencies\json\parson.c" />
     <ClCompile Include="Dependencies\mmgr\mmgr.cpp" />
-    <ClCompile Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkDefaultLowLevelIODispatcher.cpp" />
-    <ClCompile Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkFileLocationBase.cpp" />
-    <ClCompile Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkFilePackage.cpp" />
-    <ClCompile Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkFilePackageLUT.cpp" />
-    <ClCompile Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkMultipleFileLocation.cpp" />
-    <ClCompile Include="Dependencies\Wwise\include\AK\SoundEngine\Win32\AkDefaultIOHookBlocking.cpp" />
-    <ClCompile Include="Dependencies\Wwise\include\AK\SoundEngine\Win32\AkDefaultIOHookDeferred.cpp" />
-    <ClCompile Include="Dependencies\Wwise\include\AK\SoundEngine\Win32\stdafx.cpp" />
     <ClCompile Include="Engine\Source\AboutMenu.cpp" />
     <ClCompile Include="Engine\Source\Application.cpp" />
     <ClCompile Include="Engine\Source\AssimpDefs.cpp" />
-    <ClCompile Include="Engine\Source\AudioManager.cpp" />
-    <ClCompile Include="Engine\Source\AudioReverbZoneComponent.cpp" />
-    <ClCompile Include="Engine\Source\AudioSourceComponent.cpp" />
     <ClCompile Include="Engine\Source\CameraComponent.cpp" />
     <ClCompile Include="Engine\Source\Color.cpp" />
     <ClCompile Include="Engine\Source\ConfigurationMenu.cpp" />
@@ -221,7 +191,6 @@
     <ClCompile Include="Engine\Source\InspectorMenu.cpp" />
     <ClCompile Include="Engine\Source\JsonParsing.cpp" />
     <ClCompile Include="Engine\Source\Light.cpp" />
-    <ClCompile Include="Engine\Source\ListenerComponent.cpp" />
     <ClCompile Include="Engine\Source\log.cpp" />
     <ClCompile Include="Engine\Source\Main.cpp" />
     <ClCompile Include="Engine\Source\MainMenuBar.cpp" />
@@ -254,9 +223,6 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Output\Settings\EngineResources\logo.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkFilePackageLowLevelIO.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
