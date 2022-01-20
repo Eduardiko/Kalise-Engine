@@ -1,0 +1,531 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Sources">
+      <UniqueIdentifier>{8b7ed093-66ce-4096-96d2-fbb9faa4bf52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Modules">
+      <UniqueIdentifier>{7b418be2-1631-4a31-9ef2-8a8b234a7339}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Containers">
+      <UniqueIdentifier>{afc36133-f401-499a-aa33-0da1e500fb52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Tools">
+      <UniqueIdentifier>{7e4dfaf7-022c-4f7d-92aa-f3b3fa9d6248}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Helpers">
+      <UniqueIdentifier>{121f8e6b-df36-4ab0-be0d-601ddfc9e503}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Libraries">
+      <UniqueIdentifier>{4151a58e-da1f-404e-9562-e6bafb6439cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Libraries\Glew">
+      <UniqueIdentifier>{f1442131-92ee-444c-a2b8-4b277525dbce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Libraries\Imgui">
+      <UniqueIdentifier>{e7ffaeb1-b797-4a6b-b5d0-e5c512547ed7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Libraries\Json">
+      <UniqueIdentifier>{d663f6c4-7d79-4712-b249-d682a75cbce1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Libraries\Mmgr">
+      <UniqueIdentifier>{74524c20-a52e-44fb-92b8-1afadfd99e75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Menus">
+      <UniqueIdentifier>{c485172c-6561-4cb6-a863-2a63fdf06e04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\GameObject">
+      <UniqueIdentifier>{605491ab-7daf-462f-a09a-bf69974fdf62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\GameObject\Components">
+      <UniqueIdentifier>{42270041-6858-44b8-a2a6-b4fae0477f9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Buffers">
+      <UniqueIdentifier>{2caa784c-4ed5-42a4-9742-39ce57bcd3cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Resources">
+      <UniqueIdentifier>{26d5840f-16b5-46f9-9d16-8f4c7e057a77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Resources\Importers">
+      <UniqueIdentifier>{3c644c45-199c-460f-9c95-bb1da2fa630e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Libraries\WWise">
+      <UniqueIdentifier>{bd1af3b5-ca65-4c5d-adab-cf27c3be5b4b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Engine\Source\Module.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\ModuleCamera3D.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\ModuleInput.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\ModuleRenderer3D.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\ModuleWindow.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Application.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Timer.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Color.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Light.h">
+      <Filter>Sources\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\glmath.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\ModuleEditor.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\glew\include\GL\eglew.h">
+      <Filter>Sources\Libraries\Glew</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\glew\include\GL\glew.h">
+      <Filter>Sources\Libraries\Glew</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\glew\include\GL\glxew.h">
+      <Filter>Sources\Libraries\Glew</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\Imgui\imstb_truetype.h">
+      <Filter>Sources\Libraries\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\Imgui\imgui.h">
+      <Filter>Sources\Libraries\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\Imgui\imgui_impl_opengl3.h">
+      <Filter>Sources\Libraries\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\Imgui\imgui_impl_opengl3_loader.h">
+      <Filter>Sources\Libraries\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\Imgui\imgui_impl_sdl.h">
+      <Filter>Sources\Libraries\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\Imgui\imgui_internal.h">
+      <Filter>Sources\Libraries\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\Imgui\imstb_rectpack.h">
+      <Filter>Sources\Libraries\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\Imgui\imstb_textedit.h">
+      <Filter>Sources\Libraries\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\json\parson.h">
+      <Filter>Sources\Libraries\Json</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\Imgui\imconfig.h">
+      <Filter>Sources\Libraries\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\glew\include\GL\wglew.h">
+      <Filter>Sources\Libraries\Glew</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\mmgr\mmgr.h">
+      <Filter>Sources\Libraries\Mmgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\mmgr\nommgr.h">
+      <Filter>Sources\Libraries\Mmgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\JsonParsing.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\ConsoleMenu.h">
+      <Filter>Sources\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Globals.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Menu.h">
+      <Filter>Sources\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\MainMenuBar.h">
+      <Filter>Sources\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\ConfigurationMenu.h">
+      <Filter>Sources\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\AboutMenu.h">
+      <Filter>Sources\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\FileSystem.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\AssimpDefs.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\ModuleScene.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\GameObject.h">
+      <Filter>Sources\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Component.h">
+      <Filter>Sources\GameObject\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\TransformComponent.h">
+      <Filter>Sources\GameObject\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\MeshComponent.h">
+      <Filter>Sources\GameObject\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\MaterialComponent.h">
+      <Filter>Sources\GameObject\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Viewport.h">
+      <Filter>Sources\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\InspectorMenu.h">
+      <Filter>Sources\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\HierarchyMenu.h">
+      <Filter>Sources\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\IndexBuffer.h">
+      <Filter>Sources\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\TextureBuffer.h">
+      <Filter>Sources\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\VertexBuffer.h">
+      <Filter>Sources\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Framebuffer.h">
+      <Filter>Sources\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Primitives.h">
+      <Filter>Sources\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Primitive.h">
+      <Filter>Sources\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Profiling.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\Imgui\ImguiStyle.h">
+      <Filter>Sources\Libraries\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Mesh.h">
+      <Filter>Sources\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Texture.h">
+      <Filter>Sources\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\CameraComponent.h">
+      <Filter>Sources\GameObject\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\ContentBrowserMenu.h">
+      <Filter>Sources\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\Imgui\ImGuizmo.h">
+      <Filter>Sources\Libraries\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\GameView.h">
+      <Filter>Sources\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\EngineTimer.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\ModelImporter.h">
+      <Filter>Sources\Resources\Importers</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\TextureImporter.h">
+      <Filter>Sources\Resources\Importers</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\MeshImporter.h">
+      <Filter>Sources\Resources\Importers</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\ResourceManager.h">
+      <Filter>Sources\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Quadtree.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Resource.h">
+      <Filter>Sources\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\GameTimer.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Model.h">
+      <Filter>Sources\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Dialogs.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Win32\AkDefaultIOHookBlocking.h">
+      <Filter>Sources\Libraries\WWise</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Win32\AkDefaultIOHookDeferred.h">
+      <Filter>Sources\Libraries\WWise</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Win32\AkFileHelpers.h">
+      <Filter>Sources\Libraries\WWise</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Win32\AkFilePackageLowLevelIOBlocking.h">
+      <Filter>Sources\Libraries\WWise</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Win32\AkFilePackageLowLevelIODeferred.h">
+      <Filter>Sources\Libraries\WWise</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Win32\stdafx.h">
+      <Filter>Sources\Libraries\WWise</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkDefaultLowLevelIODispatcher.h">
+      <Filter>Sources\Libraries\WWise</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkFileHelpersBase.h">
+      <Filter>Sources\Libraries\WWise</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkFileLocationBase.h">
+      <Filter>Sources\Libraries\WWise</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkFilePackage.h">
+      <Filter>Sources\Libraries\WWise</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkFilePackageLowLevelIO.h">
+      <Filter>Sources\Libraries\WWise</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkFilePackageLUT.h">
+      <Filter>Sources\Libraries\WWise</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkMultipleFileLocation.h">
+      <Filter>Sources\Libraries\WWise</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\AudioManager.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\AudioSourceComponent.h">
+      <Filter>Sources\GameObject\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\ListenerComponent.h">
+      <Filter>Sources\GameObject\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\AudioReverbZoneComponent.h">
+      <Filter>Sources\GameObject\Components</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Engine\Source\ModuleCamera3D.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\ModuleInput.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\ModuleRenderer3D.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\ModuleWindow.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Application.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Main.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\log.cpp">
+      <Filter>Sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Timer.cpp">
+      <Filter>Sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Color.cpp">
+      <Filter>Sources\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Light.cpp">
+      <Filter>Sources\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\glmath.cpp">
+      <Filter>Sources\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\ModuleEditor.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependencies\Imgui\imgui.cpp">
+      <Filter>Sources\Libraries\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependencies\Imgui\imgui_demo.cpp">
+      <Filter>Sources\Libraries\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependencies\Imgui\imgui_draw.cpp">
+      <Filter>Sources\Libraries\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependencies\Imgui\imgui_impl_opengl3.cpp">
+      <Filter>Sources\Libraries\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependencies\Imgui\imgui_impl_sdl.cpp">
+      <Filter>Sources\Libraries\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependencies\Imgui\imgui_tables.cpp">
+      <Filter>Sources\Libraries\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependencies\Imgui\imgui_widgets.cpp">
+      <Filter>Sources\Libraries\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependencies\json\parson.c">
+      <Filter>Sources\Libraries\Json</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependencies\mmgr\mmgr.cpp">
+      <Filter>Sources\Libraries\Mmgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\JsonParsing.cpp">
+      <Filter>Sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\ConsoleMenu.cpp">
+      <Filter>Sources\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\MainMenuBar.cpp">
+      <Filter>Sources\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\ConfigurationMenu.cpp">
+      <Filter>Sources\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\AboutMenu.cpp">
+      <Filter>Sources\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\FileSystem.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\AssimpDefs.cpp">
+      <Filter>Sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\ModuleScene.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\GameObject.cpp">
+      <Filter>Sources\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\TransformComponent.cpp">
+      <Filter>Sources\GameObject\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\MeshComponent.cpp">
+      <Filter>Sources\GameObject\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\MaterialComponent.cpp">
+      <Filter>Sources\GameObject\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Viewport.cpp">
+      <Filter>Sources\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\InspectorMenu.cpp">
+      <Filter>Sources\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\HierarchyMenu.cpp">
+      <Filter>Sources\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\IndexBuffer.cpp">
+      <Filter>Sources\Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\TextureBuffer.cpp">
+      <Filter>Sources\Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\VertexBuffer.cpp">
+      <Filter>Sources\Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Framebuffer.cpp">
+      <Filter>Sources\Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Primitive.cpp">
+      <Filter>Sources\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Mesh.cpp">
+      <Filter>Sources\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Texture.cpp">
+      <Filter>Sources\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\CameraComponent.cpp">
+      <Filter>Sources\GameObject\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\ContentBrowserMenu.cpp">
+      <Filter>Sources\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependencies\Imgui\ImGuizmo.cpp">
+      <Filter>Sources\Libraries\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\GameView.cpp">
+      <Filter>Sources\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\EngineTimer.cpp">
+      <Filter>Sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\ModelImporter.cpp">
+      <Filter>Sources\Resources\Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\TextureImporter.cpp">
+      <Filter>Sources\Resources\Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\MeshImporter.cpp">
+      <Filter>Sources\Resources\Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\ResourceManager.cpp">
+      <Filter>Sources\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Quadtree.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\GameTimer.cpp">
+      <Filter>Sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Model.cpp">
+      <Filter>Sources\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependencies\Wwise\include\AK\SoundEngine\Win32\AkDefaultIOHookBlocking.cpp">
+      <Filter>Sources\Libraries\WWise</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependencies\Wwise\include\AK\SoundEngine\Win32\AkDefaultIOHookDeferred.cpp">
+      <Filter>Sources\Libraries\WWise</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependencies\Wwise\include\AK\SoundEngine\Win32\stdafx.cpp">
+      <Filter>Sources\Libraries\WWise</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkDefaultLowLevelIODispatcher.cpp">
+      <Filter>Sources\Libraries\WWise</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkFileLocationBase.cpp">
+      <Filter>Sources\Libraries\WWise</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkFilePackage.cpp">
+      <Filter>Sources\Libraries\WWise</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkFilePackageLUT.cpp">
+      <Filter>Sources\Libraries\WWise</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkMultipleFileLocation.cpp">
+      <Filter>Sources\Libraries\WWise</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\AudioManager.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\AudioSourceComponent.cpp">
+      <Filter>Sources\GameObject\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\ListenerComponent.cpp">
+      <Filter>Sources\GameObject\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\AudioReverbZoneComponent.cpp">
+      <Filter>Sources\GameObject\Components</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Ragnar Engine.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Output\Settings\EngineResources\logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Dependencies\Wwise\include\AK\SoundEngine\Common\AkFilePackageLowLevelIO.inl">
+      <Filter>Sources\Libraries\WWise</Filter>
+    </None>
+  </ItemGroup>
+</Project>
