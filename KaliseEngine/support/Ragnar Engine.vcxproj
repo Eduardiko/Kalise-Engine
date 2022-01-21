@@ -109,6 +109,7 @@
     <ClInclude Include="Dependencies\mmgr\mmgr.h" />
     <ClInclude Include="Dependencies\mmgr\nommgr.h" />
     <ClInclude Include="Engine\Source\AboutMenu.h" />
+    <ClInclude Include="Engine\Source\Animation.h" />
     <ClInclude Include="Engine\Source\Application.h" />
     <ClInclude Include="Engine\Source\AssimpDefs.h" />
     <ClInclude Include="Engine\Source\CameraComponent.h" />
@@ -173,6 +174,7 @@
     <ClCompile Include="Dependencies\json\parson.c" />
     <ClCompile Include="Dependencies\mmgr\mmgr.cpp" />
     <ClCompile Include="Engine\Source\AboutMenu.cpp" />
+    <ClCompile Include="Engine\Source\Animation.cpp" />
     <ClCompile Include="Engine\Source\Application.cpp" />
     <ClCompile Include="Engine\Source\AssimpDefs.cpp" />
     <ClCompile Include="Engine\Source\CameraComponent.cpp" />
