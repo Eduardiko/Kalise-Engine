@@ -67,25 +67,25 @@ public:
 	void LockAnimationRatio(float ratio);
 	//-------------------------------------------
 
-	void LinkAnimation();
+	//void LinkAnimation();
 
-	const char* GetResourcePath();
-	void SetResource(ResourceFileAnimation* resource);
+	//const char* GetResourcePath();
+	//void SetResource(ResourceFileAnimation* resource);
 
-	bool StartAnimation();
-	void Update();
+	//bool StartAnimation();
+	//void Update();
 
 private:
-	void UpdateBonesTransform(const Animation* settings, const Animation* blend, float blendRatio);
-	float3 GetChannelPosition(Link& link, float currentKey, float3 default, const Animation& settings);
-	Quat GetChannelRotation(Link& link, float currentKey, Quat default, const Animation& settings);
-	float3 GetChannelScale(Link& link, float currentKey, float3 default, const Animation& settings);
+	//void UpdateBonesTransform(const Animation* settings, const Animation* blend, float blendRatio);
+	//float3 GetChannelPosition(Link& link, float currentKey, float3 default, const Animation& settings);
+	//Quat GetChannelRotation(Link& link, float currentKey, Quat default, const Animation& settings);
+	//float3 GetChannelScale(Link& link, float currentKey, float3 default, const Animation& settings);
 
-	void ComponentAnimation::CollectMeshesBones(GameObject* gameObject, std::map<std::string, ComponentMesh*>& meshes, std::vector<ComponentBone*>& bones);
-	void ComponentAnimation::UpdateMeshAnimation(GameObject* gameObject);
+	//void ComponentAnimation::CollectMeshesBones(GameObject* gameObject, std::map<std::string, ComponentMesh*>& meshes, std::vector<ComponentBone*>& bones);
+	//void ComponentAnimation::UpdateMeshAnimation(GameObject* gameObject);
 
-	void LinkChannels();
-	void LinkBones();
+	//void LinkChannels();
+	//void LinkBones();
 
 public:
 	std::vector<Animation> animations;

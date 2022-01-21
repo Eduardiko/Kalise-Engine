@@ -48,7 +48,7 @@ void Animation::SetFrameRatio(float ratio)
 		time = GetDuration() * ratio;
 }
 
-ComponentAnimation::ComponentAnimation(GameObject* game_object) : Component(ComponentType::ANIMATION, game_object)
+ComponentAnimation::ComponentAnimation(GameObject* game_object) : Component()
 {
 
 }
@@ -316,8 +316,8 @@ void ComponentAnimation::LockAnimationRatio(float ratio)
 	{
 		current_animation->SetFrameRatio(ratio);
 		blend_animation = nullptr;
-		UpdateBonesTransform(current_animation, blend_animation, 0.0f);
-		UpdateMeshAnimation(owner);
+		//UpdateBonesTransform(current_animation, blend_animation, 0.0f);
+		//UpdateMeshAnimation(owner);
 		playing = false;
 	}
 }
