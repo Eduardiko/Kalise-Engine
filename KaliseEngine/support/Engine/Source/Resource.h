@@ -11,6 +11,7 @@ enum class ResourceType
 	MESH,
 	MODEL,
 	SCENE,
+	BONE,
 	ANIM
 };
 
