@@ -10,9 +10,10 @@ enum class ComponentType
 	NONE = -1,
 	TRANSFORM,
 	MESH_RENDERER,
-	BONE,
 	MATERIAL,
 	CAMERA,
+	BONE,
+
 };
 
 class Component
