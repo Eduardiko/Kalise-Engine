@@ -32,6 +32,7 @@ class ResourceFileAnimation : public Resource
 {
 public:
 	ResourceFileAnimation(uint uid, std::string& assets, std::string& library);
+	ResourceFileAnimation(const std::string& file_path, unsigned int uuid);
 	~ResourceFileAnimation();
 
 private:
