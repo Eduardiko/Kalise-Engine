@@ -47,6 +47,8 @@ public:
 	inline GameObject* GetParent() const { return parent; }
 	inline const bool& GetActive() const { return active; }
 	inline std::vector<GameObject*>& GetChilds() { return children; }
+	void CollectAllChilds(std::vector<GameObject*>& vector);
+
 
 	void SetAABB(AABB newAABB, bool needToClean = false);
 	void SetAABB(OBB newOBB);
@@ -65,9 +67,11 @@ public:
 
 	template<typename T>
 	T* GetComponent();
+	Component* GetComponent(ComponentType type) const;
+
+	std::string name;
 
 private:
-	std::string name;
 	bool active;
 	bool staticObj;
 	bool colliders;

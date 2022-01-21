@@ -290,6 +290,13 @@ void GameObject::RemoveChild(GameObject* object)
 	}
 }
 
+void GameObject::CollectAllChilds(std::vector<GameObject*>& vector)
+{
+	vector.push_back(this);
+	for (uint i = 0; i < children.size(); i++)
+		children[i]->CollectAllChilds(vector);
+}
+
 void GameObject::SetAABB(AABB newAABB, bool needToClean)
 {
 	globalObb = newAABB;
@@ -437,4 +444,25 @@ void GameObject::OnSave(JsonParsing& node, JSON_Array* array)
 	{
 		children[i]->OnSave(node, array);
 	}
+}
+
+Component* GameObject::GetComponent(ComponentType type) const
+{
+	/*if (components.empty() == false)
+	{
+		if (type == ComponentType::TRANSFORM)
+			return transform;
+
+		std::vector<Component*>::const_iterator comp = components.begin();
+		while (comp != components.end())
+		{
+			if ((*comp)->GetType() == type)
+			{
+				return (*comp);
+			}
+			++comp;
+		}
+	}*/
+
+	return nullptr;
 }
