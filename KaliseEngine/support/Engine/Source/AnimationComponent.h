@@ -71,8 +71,8 @@ public:
 
 	//void LinkAnimation();
 
-	//const char* GetResourcePath();
-	//void SetResource(ResourceFileAnimation* resource);
+	const char* GetResourcePath();
+	void SetResource(ResourceFileAnimation* resource);
 
 	bool StartAnimation();
 	void Update();

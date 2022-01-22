@@ -325,7 +325,7 @@ void ComponentAnimation::LockAnimationRatio(float ratio)
 	{
 		current_animation->SetFrameRatio(ratio);
 		blend_animation = nullptr;
-		//UpdateBonesTransform(current_animation, blend_animation, 0.0f);
+		UpdateBonesTransform(current_animation, blend_animation, 0.0f);
 		//UpdateMeshAnimation(owner);
 		playing = false;
 	}
@@ -377,17 +377,17 @@ void ComponentAnimation::LockAnimationRatio(float ratio)
 //	LinkBones();
 //	linked = true;
 //}
-//
+
 //const char* ComponentAnimation::GetResourcePath()
 //{
 //	return (rAnimation != nullptr ? rAnimation->GetFile() : nullptr);
 //}
-//
-//void ComponentAnimation::SetResource(ResourceFileAnimation* resource)
-//{
-//	rAnimation = resource;
-//}
-//
+
+void ComponentAnimation::SetResource(ResourceFileAnimation* resource)
+{
+	rAnimation = resource;
+}
+
 bool ComponentAnimation::StartAnimation()
 {
 	if (linked == false)
@@ -575,12 +575,13 @@ float3 ComponentAnimation::GetChannelScale(Link & link, float current_frame, flo
 //		CollectMeshesBones(*it, meshes, bones);
 //	}
 //}
+
 //
 //void ComponentAnimation::UpdateMeshAnimation(GameObject * gameObject)
 //{
-//	BROFILER_CATEGORY("ComponentAnimation::UpdateMeshAnimation", Profiler::Color::Orange)
-//		ComponentMesh* mesh = (ComponentMesh*)gameObject->GetComponent(C_MESH);
-//	if (mesh != nullptr && mesh->HasBones() == true)
+//	//BROFILER_CATEGORY("ComponentAnimation::UpdateMeshAnimation", Profiler::Color::Orange)
+//		ComponentMesh* mesh = (ComponentMesh*)gameObject->GetComponent(ComponentType::MESH_RENDERER);
+//	/if (mesh != nullptr && mesh->HasBones() == true)
 //	{
 //		mesh->DeformAnimMesh();
 //	}
@@ -591,4 +592,4 @@ float3 ComponentAnimation::GetChannelScale(Link & link, float current_frame, flo
 //	}
 //}
 //
-//
+
