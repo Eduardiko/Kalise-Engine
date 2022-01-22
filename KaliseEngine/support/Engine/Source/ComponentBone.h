@@ -14,7 +14,7 @@ public:
 	ComponentBone(GameObject* game_object);
 	~ComponentBone();
 
-	void OnInspector(bool debug);
+	void OnEditor() override;
 
 	void Save(JsonParsing& file, JSON_Array* array) const;
 	void Load(JsonParsing& conf);

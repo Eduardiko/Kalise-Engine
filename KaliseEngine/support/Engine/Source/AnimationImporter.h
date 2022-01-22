@@ -15,8 +15,8 @@ struct aiNodeAnim;
 struct aiMesh;
 
 class GameObject;
-class ResourceFileAnimation;
-class ResourceFileBone;
+class ResourceTypeAnimation;
+class Bone;
 struct Channel;
 
 namespace AnimationImporter
@@ -45,14 +45,14 @@ namespace AnimationImporter
 	uint CalcChannelSize(const Channel& channel);
 	void CollectGameObjectNames(GameObject* game_object, std::map<std::string, GameObject*>& map);
 
-	//Bone Import -------------------------------------------------------
-	//void ImportSceneBones(const std::vector<const aiMesh*>& boned_meshes, const std::vector<const GameObject*>& boned_game_objects, GameObject* root, const char* base_path, std::vector<unsigned int>& uuids);
+	//Bone Import ------------------------------------------------------ -
+	void ImportSceneBones(const std::vector<const aiMesh*>& boned_meshes, const std::vector<const GameObject*>& boned_game_objects, GameObject* root, const char* base_path, std::vector<unsigned int>& uuids);
 	//bool ImportBone(const aiBone* bone, const char* base_path, const char* mesh_path, std::string& output_name, unsigned int& uuid);
-	//bool SaveBone(const ResourceFileBone& bone, const char* folder_path, std::string& output_name, unsigned int& uuid);
+	bool SaveBone(const Bone& bone, const char* folder_path, std::string& output_name, unsigned int& uuid);
 	//-------------------------------------------------------------------
 
 	//Bone Load ---------------------------------------------------------
-	//void LoadBone(const char* path, ResourceFileBone* bone);
+	void LoadBone(const char* path, Bone* bone);
 	//-------------------------------------------------------------------
 }
 

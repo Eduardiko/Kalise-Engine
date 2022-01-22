@@ -420,6 +420,17 @@ void FileSystem::GetFilenameWithoutExtension(std::string& path)
 	path = path.substr(0, path.find_last_of("."));
 }
 
+std::string FileSystem::GetFilenameWithoutExtensionReturn(std::string& path)
+{
+	NormalizePath(path);
+
+	if (path.find("/") != std::string::npos)
+	{
+		path = path.substr(path.find_last_of("/") + 1, path.length());
+	}
+	return path = path.substr(0, path.find_last_of("."));
+}
+
 bool FileSystem::RemoveFile(const char* file)
 {
 	bool ret = false;

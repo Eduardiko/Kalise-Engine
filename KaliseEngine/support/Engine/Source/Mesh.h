@@ -33,6 +33,7 @@ public:
 	inline const std::vector<unsigned int>& GetIndicesVector() const { return indices; }
 
 	void Reimport(ModelParameters& data);
+	std::string file_path;
 private:
 	std::vector<float3> vertices;
 	std::vector<unsigned int> indices;

@@ -49,6 +49,7 @@ public:
 	void GetRelativeDirectory(std::string& path);
 	void GetFilenameWithExtension(std::string& path);
 	void GetFilenameWithoutExtension(std::string& path);
+	std::string GetFilenameWithoutExtensionReturn(std::string& path);
 
 	bool RemoveFile(const char* file);
 	

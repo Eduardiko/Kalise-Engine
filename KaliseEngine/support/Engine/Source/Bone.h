@@ -9,6 +9,7 @@ class Bone : public Resource
 {
 public:
 	Bone(uint uid, std::string& assets, std::string& library);
+	//Bone(const std::string& file_path, unsigned int uuid);
 	~Bone();
 
 private:

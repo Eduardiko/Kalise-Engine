@@ -9,8 +9,8 @@
 #include "ModuleEditor.h"
 #include "GameObject.h"
 #include "Mesh.h"
-//#include "ResourceFileBone.h"
-//#include "ComponentBone.h"
+#include "Bone.h"
+#include "ComponentBone.h"
 #include "ResourceManager.h"
 
 #include "MathGeoLib/src/Algorithm/Random/LCG.h"
@@ -38,8 +38,8 @@ bool AnimationImporter::ImportSceneAnimations(const aiScene* scene, GameObject* 
 	}
 	return ret;
 }
-/*
-bool AnimationImporter::ImportAnimation(const aiAnimation* anim, const char* base_path, std::string& output_name, unsigned int& uuid)
+
+/*bool AnimationImporter::ImportAnimation(const aiAnimation* anim, const char* base_path, std::string& output_name, unsigned int& uuid)
 {
 	ResourceFileAnimation animation("", 0);
 
@@ -285,7 +285,7 @@ void AnimationImporter::CollectGameObjectNames(GameObject* game_object, std::map
 		//CollectGameObjectNames(*it, map);
 }
 
-/*
+
 void AnimationImporter::ImportSceneBones(const std::vector<const aiMesh*>& boned_meshes, const std::vector<const GameObject*>& boned_game_objects, GameObject* root, const char* base_path, std::vector<unsigned int>& uuids)
 {
 	std::map<std::string, GameObject*> map;
@@ -299,27 +299,28 @@ void AnimationImporter::ImportSceneBones(const std::vector<const aiMesh*>& boned
 				uuids.push_back(0);
 
 			std::string mesh_path = "";
-			MeshComponent* mesh = (MeshComponent*)boned_game_objects[i]->GetComponent(C_MESH);
+			MeshComponent* mesh = (MeshComponent*)boned_game_objects[i]->GetComponent(ComponentType::MESH_RENDERER);
 			if (mesh != nullptr)
 			{
-				mesh_path = app->fs->GetNameFromPath(mesh->GetMesh()->file_path);
+				mesh_path = app->fs->GetFilenameWithoutExtensionReturn(mesh->GetMesh()->file_path);
 			}
 
 			std::string bone_file = "";
-			ImportBone(boned_meshes[i]->mBones[b], base_path, mesh_path.c_str(), bone_file, uuids[i + b]);
+			//ImportBone(boned_meshes[i]->mBones[b], base_path, mesh_path.c_str(), bone_file, uuids[i + b]);
 			std::map<std::string, GameObject*>::iterator bone_it = map.find(boned_meshes[i]->mBones[b]->mName.C_Str());
 			if (bone_it != map.end())
 			{
-				ComponentBone* bone = (ComponentBone*)bone_it->second->AddComponent(C_BONE);
-				bone->SetResource((ResourceFileBone*)ResourceManager::GetInstance()->LoadResource(bone_file, RES_BONE));
+				//ComponentBone* bone = (ComponentBone*)bone_it->second->AddComponent(<TransformComponent>());
+				//bone->SetResource((Bone*)ResourceManager::GetInstance()->LoadResource(std::stoll(bone_file));
 			}
 		}
 	}
 }
 
+/*
 bool AnimationImporter::ImportBone(const aiBone* bone, const char* base_path, const char* mesh_path, std::string& output_name, unsigned int& uuid)
 {
-	ResourceFileBone rBone(base_path, 0);
+	Bone rBone(base_path, 0);
 	rBone.numWeights = bone->mNumWeights;
 	rBone.weights = new float[rBone.numWeights];
 	rBone.weightsIndex = new uint[rBone.numWeights];
@@ -343,8 +344,9 @@ bool AnimationImporter::ImportBone(const aiBone* bone, const char* base_path, co
 
 	return ret;
 }
+*/
 
-bool AnimationImporter::SaveBone(const ResourceFileBone& bone, const char* folder_path, std::string& output_name, unsigned int& uuid)
+bool AnimationImporter::SaveBone(const Bone& bone, const char* folder_path, std::string& output_name, unsigned int& uuid)
 {
 	uint size = sizeof(uint) + bone.mesh_path.size() + sizeof(uint) + bone.numWeights * sizeof(float) + bone.numWeights * sizeof(uint)
 		+ sizeof(float) * 16;
@@ -380,7 +382,7 @@ bool AnimationImporter::SaveBone(const ResourceFileBone& bone, const char* folde
 	if (uuid == 0)
 		uuid = random.Int();
 
-	bool ret = app->fs->Save(std::to_string(uuid).data(), data, size, folder_path, "bone", output_name);
+	bool ret = app->fs->Save(std::to_string(uuid).data(), data, size, true);
 
 	delete[] data;
 	data = nullptr;
@@ -388,7 +390,7 @@ bool AnimationImporter::SaveBone(const ResourceFileBone& bone, const char* folde
 	return ret;
 }
 
-void AnimationImporter::LoadBone(const char* path, ResourceFileBone* bone)
+void AnimationImporter::LoadBone(const char* path, Bone* bone)
 {
 	char* buffer;
 	uint size = app->fs->Load(path, &buffer);
@@ -435,4 +437,3 @@ void AnimationImporter::LoadBone(const char* path, ResourceFileBone* bone)
 		delete[] buffer;
 	}
 }
-*/

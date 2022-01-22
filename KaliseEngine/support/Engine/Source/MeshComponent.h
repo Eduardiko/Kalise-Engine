@@ -51,4 +51,5 @@ private:
 	AABB localBoundingBox;
 
 	bool showMeshMenu;
+	
 };

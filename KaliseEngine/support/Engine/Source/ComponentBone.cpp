@@ -23,7 +23,7 @@ ComponentBone::~ComponentBone()
 
 }
 
-void ComponentBone::OnInspector(bool debug)
+void ComponentBone::OnEditor()
 {
 	std::string str = (std::string("Bone") + std::string("##"));
 	if (ImGui::CollapsingHeader(str.c_str(), ImGuiTreeNodeFlags_DefaultOpen))
