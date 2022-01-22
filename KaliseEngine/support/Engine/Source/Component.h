@@ -3,6 +3,7 @@
 #include "Imgui/imgui.h"
 #include "JsonParsing.h"
 
+class Data;
 class GameObject;
 
 enum class ComponentType
@@ -16,6 +17,8 @@ enum class ComponentType
 	ANIMATION,
 
 };
+
+
 
 class Component
 {

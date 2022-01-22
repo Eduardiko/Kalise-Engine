@@ -1,7 +1,7 @@
 #include "AnimationComponent.h"
 #include "imgui\imgui.h"
 #include "Animation.h"
-//#include "Data.h"
+#include "Data.h"
 #include "Application.h"
 #include "ResourceManager.h"
 #include "GameObject.h"
@@ -172,69 +172,69 @@ void ComponentAnimation::OnEditor()
 	ImGui::PopID();
 }
 
-//void ComponentAnimation::Save(Data& file)const
-//{
-//	Data data;
-//	data.AppendInt("type", ComponentType::C_ANIMATION);
-//	data.AppendUInt("UUID", uuid);
-//	data.AppendBool("active", active);
-//	data.AppendString("path", rAnimation->GetFile());
-//	if (animations.size() > 0)
-//	{
-//		for (uint i = 0; i < animations.size(); i++)
-//		{
-//			if (current_animation == &animations[i])
-//			{
-//				data.AppendInt("current_animation", i);
-//				break;
-//			}
-//		}
-//	}
-//	else
-//		data.AppendInt("current_animation", -1);
-//
-//	data.AppendArray("animations");
-//
-//	for (uint i = 0; i < animations.size(); i++)
-//	{
-//		Data anim_data;
-//		anim_data.AppendString("name", animations[i].name.c_str());
-//
-//		anim_data.AppendUInt("start_frame", animations[i].start_frame);
-//		anim_data.AppendUInt("end_frame", animations[i].end_frame);
-//
-//		anim_data.AppendFloat("ticks_per_second", animations[i].ticks_per_second);
-//
-//		anim_data.AppendBool("loopable", animations[i].loopable);
-//
-//		data.AppendArrayValue(anim_data);
-//	}
-//
-//	file.AppendArrayValue(data);
-//}
-//
-//void ComponentAnimation::Load(Data& conf)
-//{
-//	uuid = conf.GetUInt("UUID");
-//	active = conf.GetBool("active");
-//
-//	const char* path = conf.GetString("path");
-//
-//	rAnimation = (ResourceFileAnimation*)App->resource_manager->LoadResource(path, ResourceFileType::RES_ANIMATION);
-//
-//	for (uint i = 0; i < conf.GetArraySize("animations"); i++)
-//	{
-//		Data anim_data = conf.GetArray("animations", i);
-//		AddAnimation(anim_data.GetString("name"), anim_data.GetUInt("start_frame"), anim_data.GetUInt("end_frame"), anim_data.GetFloat("ticks_per_second"));
-//		animations[animations.size() - 1].loopable = anim_data.GetBool("loopable");
-//	}
-//
-//	int current_anim = conf.GetInt("current_animation");
-//	if (current_anim != -1)
-//	{
-//		current_animation = &animations[current_anim];
-//	}
-//}
+void ComponentAnimation::Save(Data& file)const
+{
+	Data data;
+	data.AppendInt("type", 3);
+	data.AppendUInt("UUID", uuid);
+	data.AppendBool("active", active);
+	data.AppendString("path", rAnimation->GetFile());
+	if (animations.size() > 0)
+	{
+		for (uint i = 0; i < animations.size(); i++)
+		{
+			if (current_animation == &animations[i])
+			{
+				data.AppendInt("current_animation", i);
+				break;
+			}
+		}
+	}
+	else
+		data.AppendInt("current_animation", -1);
+
+	data.AppendArray("animations");
+
+	for (uint i = 0; i < animations.size(); i++)
+	{
+		Data anim_data;
+		anim_data.AppendString("name", animations[i].name.c_str());
+
+		anim_data.AppendUInt("start_frame", animations[i].start_frame);
+		anim_data.AppendUInt("end_frame", animations[i].end_frame);
+
+		anim_data.AppendFloat("ticks_per_second", animations[i].ticks_per_second);
+
+		anim_data.AppendBool("loopable", animations[i].loopable);
+
+		data.AppendArrayValue(anim_data);
+	}
+
+	file.AppendArrayValue(data);
+}
+
+void ComponentAnimation::Load(Data& conf)
+{
+	uuid = conf.GetUInt("UUID");
+	active = conf.GetBool("active");
+
+	const char* path = conf.GetString("path");
+
+	//rAnimation = (ResourceFileAnimation*)ResourceManager::GetInstance()->LoadResource(path);
+
+	for (uint i = 0; i < conf.GetArraySize("animations"); i++)
+	{
+		Data anim_data = conf.GetArray("animations", i);
+		AddAnimation(anim_data.GetString("name"), anim_data.GetUInt("start_frame"), anim_data.GetUInt("end_frame"), anim_data.GetFloat("ticks_per_second"));
+		animations[animations.size() - 1].loopable = anim_data.GetBool("loopable");
+	}
+
+	int current_anim = conf.GetInt("current_animation");
+	if (current_anim != -1)
+	{
+		current_animation = &animations[current_anim];
+	}
+}
 
 
 //-------------------------------------------
@@ -459,7 +459,7 @@ void ComponentAnimation::UpdateBonesTransform(const Animation* settings, const A
 	//CHECK TRANSFORM, NOT LINKED WITH GAME OBJECT
 	//BROFILER_CATEGORY("ComponentAnimation::UpdateBonesTransform", Profiler::Color::Orange)
 
-		uint current_frame = settings->start_frame + settings->ticks_per_second * settings->time;
+	uint current_frame = settings->start_frame + settings->ticks_per_second * settings->time;
 
 	for (uint i = 0; i < links.size(); i++)
 	{

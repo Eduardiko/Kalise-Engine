@@ -53,8 +53,8 @@ public:
 	//Base component behaviour ------------------
 	void OnEditor() override;
 
-	//void Save(Data& file)const;
-	//void Load(Data& conf);
+	void Save(Data& file)const;
+	void Load(Data& conf);
 	
 	//-------------------------------------------
 
@@ -100,7 +100,7 @@ public:
 
 	bool game_started = false;
 	ResourceFileAnimation* rAnimation;
-
+	uint uuid;
 private:
 
 	bool started = false;

@@ -122,6 +122,7 @@
     <ClInclude Include="Engine\Source\ConfigurationMenu.h" />
     <ClInclude Include="Engine\Source\ConsoleMenu.h" />
     <ClInclude Include="Engine\Source\ContentBrowserMenu.h" />
+    <ClInclude Include="Engine\Source\Data.h" />
     <ClInclude Include="Engine\Source\Dialogs.h" />
     <ClInclude Include="Engine\Source\FileSystem.h" />
     <ClInclude Include="Engine\Source\Framebuffer.h" />
@@ -190,6 +191,7 @@
     <ClCompile Include="Engine\Source\ConfigurationMenu.cpp" />
     <ClCompile Include="Engine\Source\ConsoleMenu.cpp" />
     <ClCompile Include="Engine\Source\ContentBrowserMenu.cpp" />
+    <ClCompile Include="Engine\Source\Data.cpp" />
     <ClCompile Include="Engine\Source\FileSystem.cpp" />
     <ClCompile Include="Engine\Source\Framebuffer.cpp" />
     <ClCompile Include="Engine\Source\GameObject.cpp" />
