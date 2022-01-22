@@ -19,7 +19,7 @@ class Resource
 {
 public:
 	Resource(uint id, ResourceType t, std::string& assets, std::string& library) : uid(id), type(t), assetsPath(assets), libraryPath(library){}
-	Resource(ResourceType type, const std::string& file_path, unsigned int uuid);
+	Resource(ResourceType type, const std::string& file_path, unsigned int uuid) : type(type), uid(uuid){};
 	~Resource() {}
 
 	virtual void Load() {}

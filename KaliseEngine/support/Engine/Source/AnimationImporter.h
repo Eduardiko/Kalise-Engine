@@ -25,7 +25,7 @@ namespace AnimationImporter
 	//File is the final path of the imported file with the extension. Path is from the file is converted. Base path is the directory to save all generated files
 	//UUIDs vector MUST be filled with scene animations size!
 	bool ImportSceneAnimations(const aiScene* scene, GameObject* root, const char* base_path, std::string& output_name, std::vector<unsigned int>& uuids);
-	//bool ImportAnimation(const aiAnimation* anim, const char* base_path, std::string& output_name, unsigned int& uuid);
+	bool ImportAnimation(const aiAnimation* anim, const char* base_path, std::string& output_name, unsigned int& uuid);
 	void ImportChannel(const aiNodeAnim* node, Channel& channel);
 
 	bool Save(const ResourceFileAnimation& anim, const char* folder_path, std::string& output_name, unsigned int& uuid);
