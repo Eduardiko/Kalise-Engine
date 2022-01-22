@@ -63,11 +63,9 @@ public:
 	FileSystem* fs;
 
 	JsonParsing jsonFile;
-
+	EngineTimer engineTimer;
 private:
 	std::list<Module*> listModules;
-
-	EngineTimer engineTimer;
 
 	bool saveRequested;
 	bool loadRequested;

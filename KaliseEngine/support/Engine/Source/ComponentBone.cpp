@@ -11,11 +11,13 @@
 
 #include <string>
 
+class ComponentTransform;
 
-ComponentBone::ComponentBone(GameObject* game_object) 
+ComponentBone::ComponentBone(GameObject* own, TransformComponent* transform) : Component()
 {
-
-
+	game_object = new GameObject();
+	this->game_object->CreateComponent(ComponentType::TRANSFORM);
+	this->transform = (TransformComponent*)game_object->GetComponent(ComponentType::TRANSFORM);
 }
 
 ComponentBone::~ComponentBone()
@@ -79,27 +81,30 @@ Bone* ComponentBone::GetResource() const
 
 void ComponentBone::Update()
 {
-	/*if (app->StartInGame() == false)
+	if (app->engineTimer.engineStarted == false)
 	{
-		for (std::vector<GameObject*>::const_iterator it = game_object->GetChilds()->begin(); it != game_object->GetChilds()->end(); it++)
+		for (std::vector<GameObject*>::const_iterator it = game_object->GetChilds().begin(); it != game_object->GetChilds().end(); it++)
 		{
-			float3 pos1 = game_object->transform->GetGlobalMatrix().TranslatePart();
-			float3 pos2 = (*it)->transform->GetGlobalMatrix().TranslatePart();
-			App->renderer3D->DrawLine(pos1, pos2, float4(1, 0, 1, 1));
+			float3 pos1 = this->transform->GetGlobalTransform().TranslatePart();
+			TransformComponent temporalTrans = (TransformComponent*)(*it)->GetComponent(ComponentType::TRANSFORM);
+			float3 pos2 = temporalTrans.GetGlobalTransform().TranslatePart();
+			app->renderer3D->DrawLine(pos1, pos2, float4(1, 0, 1, 1));
 		}
-	}*/
+	}
 }
 
-//float4x4 ComponentBone::GetSystemTransform()
-//{
-//	/*float4x4 transform = game_object->transform->GetGlobalMatrix();
-//	return GetRoot()->game_object->GetParent()->GetParent()->transform->GetGlobalMatrix().Inverted() * transform;*/
-//
-//}
-//
-//ComponentBone* ComponentBone::GetRoot()
-//{
-//	/*ComponentBone* parentBone = (ComponentBone*)game_object->GetParent()->GetComponent(C_BONE);
-//	return parentBone == nullptr ? this : parentBone->GetRoot();*/
-//
-//}
+float4x4 ComponentBone::GetSystemTransform()
+{
+	float4x4 transform = this->transform->GetGlobalTransform();
+	TransformComponent temporalTrans = (TransformComponent*)GetRoot()->game_object->GetParent()->GetParent()->GetComponent(ComponentType::TRANSFORM);
+	return temporalTrans.GetGlobalTransform().Inverted() * transform;
+	
+
+}
+
+ComponentBone* ComponentBone::GetRoot()
+{
+	ComponentBone* parentBone = (ComponentBone*)game_object->GetParent()->GetComponent(ComponentType::BONE);
+	return parentBone == nullptr ? this : parentBone->GetRoot();
+
+}

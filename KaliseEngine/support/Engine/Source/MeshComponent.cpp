@@ -6,6 +6,7 @@
 #include "CameraComponent.h"
 #include "FileSystem.h"
 #include "ResourceManager.h"
+#include "ComponentBone.h"
 
 #include "Mesh.h"
 
@@ -21,6 +22,9 @@ MeshComponent::MeshComponent(GameObject* own, TransformComponent* trans) : mater
 	owner = own;
 	mesh = nullptr;
 	material = owner->GetComponent<MaterialComponent>();
+
+	game_object = new GameObject();
+	this->game_object->CreateComponent(ComponentType::TRANSFORM);
 
 	showMeshMenu = false;
 }
@@ -189,5 +193,54 @@ void MeshComponent::SetMesh(std::shared_ptr<Resource> m)
 		localBoundingBox.Enclose(mesh->GetVerticesData(), mesh->GetVerticesSize());
 
 		owner->SetAABB(localBoundingBox);
+	}
+}
+
+
+bool MeshComponent::HasBones()
+{
+	return bones_reference.size() > 0;
+}
+
+void MeshComponent::AddBone(ComponentBone* bone)
+{
+	for (uint i = 0; i < bones_reference.size(); i++)
+		if (bones_reference[i].bone == bone)
+			return;
+
+	TransformComponent trans = (TransformComponent*)bone->game_object->GetComponent(ComponentType::TRANSFORM);
+	Bone* bonestatic = bone->GetResource();
+	bones_reference.push_back(Bone_Reference(bone,bonestatic->offset));
+
+	if (bones_vertex.empty())
+	{
+		bones_vertex = std::vector<Bone_Vertex>(verticesNormals);
+	}
+
+	Bone* rBone = bone->GetResource();
+	
+	for (uint i = 0; i < rBone->numWeights; i++)
+	{
+		uint data_b_index = bones_reference.size() - 1;
+		float data_b_float = rBone->weights[i];
+		bones_vertex[rBone->weightsIndex[i]].AddBone(data_b_index, data_b_float);
+	}
+}
+
+void MeshComponent::DeformAnimMesh()
+{
+	//BROFILER_CATEGORY("ComponentMesh::DeformAnimMesh", Profiler::Color::Maroon)
+
+		bones_trans.clear();
+
+	for (uint i = 0; i < bones_reference.size(); i++)
+	{
+		float4x4 matrix = bones_reference[i].bone->GetSystemTransform();
+		TransformComponent trans = (TransformComponent*)game_object->GetComponent(ComponentType::TRANSFORM);
+		matrix = trans.GetLocalTransform().Inverted() * matrix;
+		
+		float4x4 bone_trn_mat = matrix * bones_reference[i].offset;
+		bones_trans.push_back(bone_trn_mat.Transposed());
+		
 	}
 }

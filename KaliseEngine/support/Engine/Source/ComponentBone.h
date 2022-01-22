@@ -5,13 +5,15 @@
 #include "MathGeoLib/src/MathGeoLib.h"
 #include <string>
 
+#include "TransformComponent.h"
+
 
 class ResourceFileBone;
 
 class ComponentBone : public Component
 {
 public:
-	ComponentBone(GameObject* game_object);
+	ComponentBone(GameObject* game_object,TransformComponent* Transform);
 	~ComponentBone();
 
 	void OnEditor() override;
@@ -26,8 +28,12 @@ public:
 
 	void Update();
 
-	//float4x4 GetSystemTransform();
-	//ComponentBone* GetRoot();
+	float4x4 GetSystemTransform();
+	ComponentBone* GetRoot();
+
+	GameObject* game_object;
+	TransformComponent* transform;
+
 private:
 
 private:
