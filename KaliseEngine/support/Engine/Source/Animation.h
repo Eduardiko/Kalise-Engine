@@ -42,7 +42,7 @@ private:
 public:
 	float full_duration = 0;
 	uint ticks_per_second = 0;
-	std::string file_path;
+	std::string path;
 
 	uint num_channels = 0;
 	Channel* channels = nullptr;

@@ -85,7 +85,7 @@ ResourceFileAnimation::~ResourceFileAnimation()
 
 void ResourceFileAnimation::LoadInMemory()
 {
-	AnimationImporter::LoadAnimation(file_path.c_str(), this);
+	AnimationImporter::LoadAnimation(path.c_str(), this);
 }
 
 void ResourceFileAnimation::UnloadInMemory()

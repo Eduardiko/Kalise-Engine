@@ -33,6 +33,7 @@ public:
 	inline const std::string& GetAssetsPath() const { return assetsPath; }
 	inline const std::string& GetLibraryPath() const { return libraryPath; }
 	inline const std::string& GetName() const { return name; }
+	inline const char* GetFile()const { return assetsPath.data(); };
 
 protected:
 	uint uid;

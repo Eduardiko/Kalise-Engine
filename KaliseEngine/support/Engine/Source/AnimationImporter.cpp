@@ -59,6 +59,24 @@ bool AnimationImporter::ImportAnimation(const aiAnimation* anim, const char* bas
 	return true;
 }
 
+void AnimationImporter::ImportAnimationFromFilename(std::string& fileName)
+{
+	if (ResourceManager::GetInstance()->CheckResource(fileName))
+	{
+		return;
+	}
+	else
+	{
+		
+		std::string libraryPath;
+
+		ResourceManager::GetInstance()->CreateResource(ResourceType::ANIM, fileName, libraryPath);
+
+		
+	}
+}
+
+
 void AnimationImporter::ImportChannel(const aiNodeAnim* node, Channel& channel)
 {
 	channel.name = node->mNodeName.C_Str();

@@ -99,9 +99,9 @@ public:
 	bool linked = false;
 
 	bool game_started = false;
+	ResourceFileAnimation* rAnimation;
 
 private:
-	ResourceFileAnimation* rAnimation;
 
 	bool started = false;
 

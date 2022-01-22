@@ -1,6 +1,7 @@
 #include "MeshImporter.h"
 
 #include "Application.h"
+#include "AnimationComponent.h"
 #include "FileSystem.h"
 #include "ResourceManager.h"
 #include "Component.h"
@@ -167,6 +168,7 @@ void MeshImporter::ImportMesh(const aiMesh* mesh, const aiScene* scene, JsonPars
 		DEBUG_LOG("Material loading completed!");
 		json.SetValueToArray(array, mat.GetRootValue());
 	}
+
 }
 
 void MeshImporter::SaveMesh(std::string& name, std::vector<float3>& vertices, std::vector<unsigned int>& indices, std::vector<float3>& normals, std::vector<float2>& texCoords)

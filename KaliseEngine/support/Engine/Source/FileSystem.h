@@ -61,6 +61,7 @@ private:
 	const char* name;
 	std::list<std::string> texExtension;
 	std::list<std::string> modelExtension;
+	std::list<std::string> animExtension;
 
 	aiFileIO* assimpIO;
 };

@@ -253,6 +253,7 @@ void ComponentAnimation::AddAnimation()
 	if (defCount > 0)
 		new_name.append(std::to_string(defCount));
 
+
 	AddAnimation(new_name.c_str(), 0, rAnimation->full_duration, rAnimation->ticks_per_second);
 }
 
@@ -378,10 +379,10 @@ void ComponentAnimation::LockAnimationRatio(float ratio)
 //	linked = true;
 //}
 
-//const char* ComponentAnimation::GetResourcePath()
-//{
-//	return (rAnimation != nullptr ? rAnimation->GetFile() : nullptr);
-//}
+const char* ComponentAnimation::GetResourcePath()
+{
+	return (rAnimation != nullptr ? rAnimation->GetFile() : nullptr);
+}
 
 void ComponentAnimation::SetResource(ResourceFileAnimation* resource)
 {

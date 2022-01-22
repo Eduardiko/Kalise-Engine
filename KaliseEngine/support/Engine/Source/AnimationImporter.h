@@ -26,6 +26,7 @@ namespace AnimationImporter
 	//UUIDs vector MUST be filled with scene animations size!
 	bool ImportSceneAnimations(const aiScene* scene, GameObject* root, const char* base_path, std::string& output_name, std::vector<unsigned int>& uuids);
 	bool ImportAnimation(const aiAnimation* anim, const char* base_path, std::string& output_name, unsigned int& uuid);
+	void ImportAnimationFromFilename(std::string& fileName);
 	void ImportChannel(const aiNodeAnim* node, Channel& channel);
 
 	bool Save(const ResourceFileAnimation& anim, const char* folder_path, std::string& output_name, unsigned int& uuid);
