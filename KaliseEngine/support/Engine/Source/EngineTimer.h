@@ -21,6 +21,8 @@ public:
 
 	void ReadConfig(JsonParsing& node);
 	void SaveConfig(JsonParsing& node);
+
+	bool engineStarted;
 private:
 	// Normal timings
 	int timer;
@@ -31,7 +33,6 @@ private:
 
 	// Engine timings
 	int engineTimer;
-	bool engineStarted;
 
 	// Json Parsing for loading and saving things
 	JsonParsing jsonFile;

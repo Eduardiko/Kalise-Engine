@@ -39,6 +39,7 @@ public:
 
 	inline void SaveConfigRequest() { saveRequested = true; }
 	inline void LoadConfigRequest() { loadRequested = true; }
+	bool IsGameRunning()const;
 
 	inline void ResizeRequest() { resizeRequested = true; }
 

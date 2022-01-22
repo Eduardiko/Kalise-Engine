@@ -238,3 +238,10 @@ void Application::LoadConfig()
 
 	loadRequested = false;
 }
+
+///Returns true if the game simulation has started. If the game is paused also returns true.
+bool Application::IsGameRunning() const
+{
+	bool running = engineTimer.engineStarted;
+	return running;
+}

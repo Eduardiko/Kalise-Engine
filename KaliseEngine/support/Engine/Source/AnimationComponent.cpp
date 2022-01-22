@@ -52,6 +52,9 @@ ComponentAnimation::ComponentAnimation(GameObject* own)
 {
 	type = ComponentType::ANIMATION;
 	owner = own;
+	//LINKS TRANSFORM
+
+	//links[0].gameObject->CreateComponent(ComponentType::TRANSFORM);
 
 
 }
@@ -385,174 +388,173 @@ void ComponentAnimation::LockAnimationRatio(float ratio)
 //	rAnimation = resource;
 //}
 //
-//bool ComponentAnimation::StartAnimation()
-//{
-//	if (linked == false)
-//	{
-//		LOG("[ERROR] The animation of %s is not linked and is trying to be played.", game_object->name);
-//		App->editor->DisplayWarning(WarningType::W_ERROR, "The animation of %s is not linked and is trying to be played", game_object->name);
-//	}
-//
-//	if (current_animation != nullptr)
-//		started = true;
-//	return started;
-//}
-//
-//void ComponentAnimation::Update()
-//{
-//	BROFILER_CATEGORY("ComponentAnimation::Update", Profiler::Color::Red)
-//
-//		if (App->IsGameRunning())
-//		{
-//			if (game_started == false)
-//			{
-//				if (current_animation != nullptr)
-//				{
-//					PlayAnimation(current_animation->index);
-//				}
-//				game_started = true;
-//			}
-//
-//			if (playing == true)
-//			{
-//				if (started == false)
-//					if (StartAnimation() == false)
-//						return;
-//
-//				float blend_ratio = 0.0f;
-//
-//				if (blend_animation != nullptr)
-//				{
-//					blend_time += time->DeltaTime();
-//					if (blend_animation->Advance(time->DeltaTime()) == false)
-//					{
-//						blend_animation = nullptr;
-//					}
-//					else
-//					{
-//						blend_ratio = blend_time / blend_time_duration;
-//						if (blend_ratio >= 1.0f)
-//							blend_animation = nullptr;
-//					}
-//				}
-//
-//				if (current_animation->Advance(time->DeltaTime()) == false)
-//				{
-//					playing = false;
-//				}
-//				BROFILER_CATEGORY("ComponentAnimation::UpdateBonesTransform", Profiler::Color::BlueViolet)
-//					UpdateBonesTransform(current_animation, blend_animation, blend_ratio);
-//			}
-//		}
-//
-//	BROFILER_CATEGORY("ComponentAnimation::UpdateMeshAnimation", Profiler::Color::Cyan)
-//		UpdateMeshAnimation(game_object); //Do it always
-//}
-//
-////-------------------------------------------
-//void ComponentAnimation::UpdateBonesTransform(const Animation* settings, const Animation* blend, float blendRatio)
-//{
-//	BROFILER_CATEGORY("ComponentAnimation::UpdateBonesTransform", Profiler::Color::Orange)
-//
-//		uint current_frame = settings->start_frame + settings->ticks_per_second * settings->time;
-//
-//	for (uint i = 0; i < links.size(); i++)
-//	{
-//		GameObject* go = links[i].gameObject;
-//
-//		float3 position = GetChannelPosition(links[i], current_frame, go->transform->GetPosition(), *settings);
-//		Quat rotation = GetChannelRotation(links[i], current_frame, go->transform->GetRotation(), *settings);
-//		float3 scale = GetChannelScale(links[i], current_frame, go->transform->GetScale(), *settings);
-//
-//		if (blend != nullptr)
-//		{
-//			uint blend_frame = blend->start_frame + blend->ticks_per_second * blend->time;
-//			position = float3::Lerp(GetChannelPosition(links[i], blend_frame, go->transform->GetPosition(), *blend), position, blendRatio);
-//			rotation = Quat::Slerp(GetChannelRotation(links[i], blend_frame, go->transform->GetRotation(), *blend), rotation, blendRatio);
-//			scale = float3::Lerp(GetChannelScale(links[i], blend_frame, go->transform->GetScale(), *blend), scale, blendRatio);
-//		}
-//
-//		go->transform->SetPosition(position);
-//		go->transform->SetRotation(rotation);
-//		go->transform->SetScale(scale);
-//	}
-//}
-//
-//float3 ComponentAnimation::GetChannelPosition(Link& link, float current_frame, float3 default, const Animation& settings)
-//{
-//	float3 position = default;
-//
-//	if (link.channel->HasPosKey())
-//	{
-//		std::map<double, float3>::iterator previous = link.channel->GetPrevPosKey(current_frame);
-//		std::map<double, float3>::iterator next = link.channel->GetNextPosKey(current_frame);
-//
-//		if (next == link.channel->positionKeys.end())
-//			next = previous;
-//
-//		//If both keys are the same, no need to blend
-//		if (previous == next)
-//			position = previous->second;
-//		else //blend between both keys
-//		{
-//			//0 to 1
-//			float ratio = (current_frame - previous->first) / (next->first - previous->first);
-//			position = previous->second.Lerp(next->second, ratio);
-//		}
-//	}
-//
-//	return position;
-//}
-//
-//Quat ComponentAnimation::GetChannelRotation(Link & link, float current_frame, Quat default, const Animation& settings)
-//{
-//	Quat rotation = default;
-//
-//	if (link.channel->HasRotKey())
-//	{
-//		std::map<double, Quat>::iterator previous = link.channel->GetPrevRotKey(current_frame);
-//		std::map<double, Quat>::iterator next = link.channel->GetNextRotKey(current_frame);
-//
-//		if (next == link.channel->rotationKeys.end())
-//			next = previous;
-//
-//		//If both keys are the same, no need to blend
-//		if (previous == next)
-//			rotation = previous->second;
-//		else //blend between both keys
-//		{
-//			//0 to 1
-//			float ratio = (current_frame - previous->first) / (next->first - previous->first);
-//			rotation = previous->second.Slerp(next->second, ratio);
-//		}
-//	}
-//	return rotation;
-//}
-//
-//float3 ComponentAnimation::GetChannelScale(Link & link, float current_frame, float3 default, const Animation& settings)
-//{
-//	float3 scale = default;
-//
-//	if (link.channel->HasScaleKey())
-//	{
-//		std::map<double, float3>::iterator previous = link.channel->GetPrevScaleKey(current_frame);
-//		std::map<double, float3>::iterator next = link.channel->GetPrevScaleKey(current_frame);
-//
-//		if (next == link.channel->scaleKeys.end())
-//			next = previous;
-//
-//		//If both keys are the same, no need to blend
-//		if (previous == next)
-//			scale = previous->second;
-//		else //blend between both keys
-//		{
-//			//0 to 1
-//			float ratio = (current_frame - previous->first) / (next->first - previous->first);
-//			scale = previous->second.Lerp(next->second, ratio);
-//		}
-//	}
-//	return scale;
-//}
+bool ComponentAnimation::StartAnimation()
+{
+	if (linked == false)
+	{
+		LOG("[ERROR] The animation of %s is not linked and is trying to be played.", game_object->name);
+		//app->editor->DisplayWarning(WarningType::W_ERROR, "The animation of %s is not linked and is trying to be played", game_object->name);
+	}
+
+	if (current_animation != nullptr)
+		started = true;
+	return started;
+}
+
+void ComponentAnimation::Update()
+{
+	//BROFILER_CATEGORY("ComponentAnimation::Update", Profiler::Color::Red)
+
+		if (app->IsGameRunning())
+		{
+			if (game_started == false)
+			{
+				if (current_animation != nullptr)
+				{
+					PlayAnimation(current_animation->index);
+				}
+				game_started = true;
+			}
+
+			if (playing == true)
+			{
+				if (started == false)
+					if (StartAnimation() == false)
+						return;
+
+				float blend_ratio = 0.0f;
+
+				if (blend_animation != nullptr)
+				{
+					blend_time += app->GetEngineDeltaTime();
+					if (blend_animation->Advance(app->GetEngineDeltaTime()) == false)
+					{
+						blend_animation = nullptr;
+					}
+					else
+					{
+						blend_ratio = blend_time / blend_time_duration;
+						if (blend_ratio >= 1.0f)
+							blend_animation = nullptr;
+					}
+				}
+
+				if (current_animation->Advance(app->GetEngineDeltaTime()) == false)
+				{
+					playing = false;
+				}
+				//BROFILER_CATEGORY("ComponentAnimation::UpdateBonesTransform", Profiler::Color::BlueViolet)
+				UpdateBonesTransform(current_animation, blend_animation, blend_ratio);
+			}
+		}
+
+	//BROFILER_CATEGORY("ComponentAnimation::UpdateMeshAnimation", Profiler::Color::Cyan)
+		//UpdateMeshAnimation(game_object); //Do it always
+}
+
+//-------------------------------------------
+void ComponentAnimation::UpdateBonesTransform(const Animation* settings, const Animation* blend, float blendRatio)
+{
+	//CHECK TRANSFORM, NOT LINKED WITH GAME OBJECT
+	//BROFILER_CATEGORY("ComponentAnimation::UpdateBonesTransform", Profiler::Color::Orange)
+
+		uint current_frame = settings->start_frame + settings->ticks_per_second * settings->time;
+
+	for (uint i = 0; i < links.size(); i++)
+	{
+		TransformComponent* goTrans = links[i].transform;
+
+		float3 position = GetChannelPosition(links[i], current_frame, goTrans->GetPosition(), *settings);
+		Quat rotation = GetChannelRotation(links[i], current_frame, goTrans->GetRotation(), *settings);
+		float3 scale = GetChannelScale(links[i], current_frame, goTrans->GetScale(), *settings);
+
+		if (blend != nullptr)
+		{
+			uint blend_frame = blend->start_frame + blend->ticks_per_second * blend->time;
+			position = float3::Lerp(GetChannelPosition(links[i], blend_frame, goTrans->GetPosition(), *blend), position, blendRatio);
+			rotation = Quat::Slerp(GetChannelRotation(links[i], blend_frame, goTrans->GetRotation(), *blend), rotation, blendRatio);
+			scale = float3::Lerp(GetChannelScale(links[i], blend_frame, goTrans->GetScale(), *blend), scale, blendRatio);
+		}
+
+		goTrans->SetTransform(position, rotation, scale);
+	}
+}
+
+float3 ComponentAnimation::GetChannelPosition(Link& link, float current_frame, float3 default, const Animation& settings)
+{
+	float3 position = default;
+
+	if (link.channel->HasPosKey())
+	{
+		std::map<double, float3>::iterator previous = link.channel->GetPrevPosKey(current_frame);
+		std::map<double, float3>::iterator next = link.channel->GetNextPosKey(current_frame);
+
+		if (next == link.channel->positionKeys.end())
+			next = previous;
+
+		//If both keys are the same, no need to blend
+		if (previous == next)
+			position = previous->second;
+		else //blend between both keys
+		{
+			//0 to 1
+			float ratio = (current_frame - previous->first) / (next->first - previous->first);
+			position = previous->second.Lerp(next->second, ratio);
+		}
+	}
+
+	return position;
+}
+
+Quat ComponentAnimation::GetChannelRotation(Link & link, float current_frame, Quat default, const Animation& settings)
+{
+	Quat rotation = default;
+
+	if (link.channel->HasRotKey())
+	{
+		std::map<double, Quat>::iterator previous = link.channel->GetPrevRotKey(current_frame);
+		std::map<double, Quat>::iterator next = link.channel->GetNextRotKey(current_frame);
+
+		if (next == link.channel->rotationKeys.end())
+			next = previous;
+
+		//If both keys are the same, no need to blend
+		if (previous == next)
+			rotation = previous->second;
+		else //blend between both keys
+		{
+			//0 to 1
+			float ratio = (current_frame - previous->first) / (next->first - previous->first);
+			rotation = previous->second.Slerp(next->second, ratio);
+		}
+	}
+	return rotation;
+}
+
+float3 ComponentAnimation::GetChannelScale(Link & link, float current_frame, float3 default, const Animation& settings)
+{
+	float3 scale = default;
+
+	if (link.channel->HasScaleKey())
+	{
+		std::map<double, float3>::iterator previous = link.channel->GetPrevScaleKey(current_frame);
+		std::map<double, float3>::iterator next = link.channel->GetPrevScaleKey(current_frame);
+
+		if (next == link.channel->scaleKeys.end())
+			next = previous;
+
+		//If both keys are the same, no need to blend
+		if (previous == next)
+			scale = previous->second;
+		else //blend between both keys
+		{
+			//0 to 1
+			float ratio = (current_frame - previous->first) / (next->first - previous->first);
+			scale = previous->second.Lerp(next->second, ratio);
+		}
+	}
+	return scale;
+}
 //
 //void ComponentAnimation::CollectMeshesBones(GameObject * gameObject, std::map<std::string, ComponentMesh*>&meshes, std::vector<ComponentBone*>&bones)
 //{
