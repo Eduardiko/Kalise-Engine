@@ -124,6 +124,11 @@ void GameObject::DrawEditor()
 			CreateComponent(ComponentType::MATERIAL);
 			newComponent = false;
 		}
+		if (ImGui::Button("Animation Component"))
+		{
+			CreateComponent(ComponentType::ANIMATION);
+			newComponent = false;
+		}
 		else if (!ImGui::IsAnyItemHovered() && ((ImGui::GetIO().MouseClicked[0] || ImGui::GetIO().MouseClicked[1])))
 		{
 			newComponent = false;
@@ -145,6 +150,11 @@ void GameObject::DrawEditor()
 			if (ImGui::Button("Material Component"))
 			{
 				CreateComponent(ComponentType::MATERIAL);
+				newComponent = false;
+			}
+			if (ImGui::Button("Animation Component"))
+			{
+				CreateComponent(ComponentType::ANIMATION);
 				newComponent = false;
 			}
 			else if (!ImGui::IsAnyItemHovered() && ((ImGui::GetIO().MouseClicked[0] || ImGui::GetIO().MouseClicked[1])))
@@ -222,6 +232,9 @@ Component* GameObject::CreateComponent(ComponentType type)
 	case ComponentType::MESH_RENDERER:
 		component = new MeshComponent(this, GetComponent<TransformComponent>());
 		break;
+	case ComponentType::ANIMATION:
+		component = new ComponentAnimation(this);
+		break;
 	case ComponentType::CAMERA:
 		component = new CameraComponent(this, GetComponent<TransformComponent>());
 		app->scene->SetMainCamera((CameraComponent*)component);
@@ -230,6 +243,7 @@ Component* GameObject::CreateComponent(ComponentType type)
 		component = new MaterialComponent(this);
 		MeshComponent* m = GetComponent<MeshComponent>();
 		if (m != nullptr) m->SetMaterial((MaterialComponent*)component);
+
 		break;
 	}
 
@@ -258,6 +272,9 @@ void GameObject::CopyComponent(Component* component)
 		break;
 	case ComponentType::MESH_RENDERER:
 		c = new MeshComponent(dynamic_cast<MeshComponent*>(component), GetComponent<TransformComponent>());
+		break;
+	case ComponentType::ANIMATION:
+		//c = new ComponentAnimation(dynamic_cast<ComponentAnimation*>(component));
 		break;
 	case ComponentType::MATERIAL:
 		c = new MaterialComponent(dynamic_cast<MaterialComponent*>(component));

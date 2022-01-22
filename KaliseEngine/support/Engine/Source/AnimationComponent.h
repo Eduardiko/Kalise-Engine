@@ -45,11 +45,11 @@ class ComponentAnimation : public Component
 	};
 
 public:
-	ComponentAnimation(GameObject* game_object);
+	ComponentAnimation(GameObject* own);
 	~ComponentAnimation();
 
 	//Base component behaviour ------------------
-	void OnInspector(bool debug);
+	void OnEditor() override;
 
 	//void Save(Data& file)const;
 	//void Load(Data& conf);

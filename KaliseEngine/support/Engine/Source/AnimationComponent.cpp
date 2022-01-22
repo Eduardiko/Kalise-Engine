@@ -48,8 +48,11 @@ void Animation::SetFrameRatio(float ratio)
 		time = GetDuration() * ratio;
 }
 
-ComponentAnimation::ComponentAnimation(GameObject* game_object) : Component()
+ComponentAnimation::ComponentAnimation(GameObject* own)
 {
+	type = ComponentType::ANIMATION;
+	owner = own;
+
 
 }
 
@@ -59,8 +62,10 @@ ComponentAnimation::~ComponentAnimation()
 }
 
 //Base component behaviour ------------------
-void ComponentAnimation::OnInspector(bool debug)
+void ComponentAnimation::OnEditor()
 {
+	ImGui::PushID(this);
+
 	if (ImGui::CollapsingHeader("Animation", ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		if (ImGui::Checkbox("Playing", &playing))
@@ -161,6 +166,7 @@ void ComponentAnimation::OnInspector(bool debug)
 			AddAnimation();
 		}
 	}
+	ImGui::PopID();
 }
 
 //void ComponentAnimation::Save(Data& file)const
