@@ -19,7 +19,7 @@ class Resource
 {
 public:
 	Resource(uint id, ResourceType t, std::string& assets, std::string& library) : uid(id), type(t), assetsPath(assets), libraryPath(library){}
-	Resource(ResourceType type, const std::string& file_path, unsigned int uuid);
+	Resource(ResourceType type, const std::string& file_path, unsigned int uuid) : type(type), uid(uuid){};
 	~Resource() {}
 
 	virtual void Load() {}
@@ -27,11 +27,13 @@ public:
 
 	virtual void DrawOnEditor() {}
 
+	//const char* GetFile(return libraryPath.data())const;
 	inline const ResourceType& GetType() const { return type; }
 	inline const uint& GetUID() const { return uid; }
 	inline const std::string& GetAssetsPath() const { return assetsPath; }
 	inline const std::string& GetLibraryPath() const { return libraryPath; }
 	inline const std::string& GetName() const { return name; }
+	inline const char* GetFile()const { return assetsPath.data(); };
 
 protected:
 	uint uid;

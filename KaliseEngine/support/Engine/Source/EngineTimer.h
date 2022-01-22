@@ -21,6 +21,7 @@ public:
 
 	void ReadConfig(JsonParsing& node);
 	void SaveConfig(JsonParsing& node);
+
 	bool engineStarted;
 private:
 	// Normal timings

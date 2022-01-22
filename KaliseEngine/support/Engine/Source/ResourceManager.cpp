@@ -6,12 +6,14 @@
 #include "TextureImporter.h"
 #include "MeshImporter.h"
 #include "ModelImporter.h"
+#include "AnimationImporter.h"
 
 #include "MathGeoLib/src/Algorithm/Random/LCG.h"
 
 #include "Texture.h"
 #include "Mesh.h"
 #include "Model.h"
+#include "Animation.h"
 
 #include <stack>
 
@@ -91,6 +93,11 @@ uint ResourceManager::CreateResource(ResourceType type, std::string& assets, std
 		library = MODELS_FOLDER + std::string("model_") + std::to_string(uid) + ".rgmodel";
 		resource = std::make_shared<Model>(uid, assets, library);
 		break;
+	case ResourceType::ANIM:
+		library = ANIM_FOLDER + std::string("anim_") + std::to_string(uid) + ".rganim";
+		resource = std::make_shared<ResourceFileAnimation>(uid, assets, library);
+		
+		break;
 	}
 
 	if (resource != nullptr) map[uid] = resource;
@@ -111,6 +118,9 @@ void ResourceManager::CreateResourceCreated(ResourceType type, uint uid, std::st
 		break;
 	case ResourceType::MODEL:
 		resource = std::make_shared<Model>(uid, assets, library);
+		break;
+	case ResourceType::ANIM:
+		resource = std::make_shared<ResourceFileAnimation>(uid, assets, library);
 		break;
 	default:
 		break;
@@ -199,6 +209,7 @@ void ResourceManager::ImportResourcesFromLibrary()
 					if (files[i].find(".rgmodel") != std::string::npos) CreateResourceCreated(ResourceType::MODEL, uid, assets, dir + files[i]);
 					else if (files[i].find(".rgtexture") != std::string::npos) CreateResourceCreated(ResourceType::TEXTURE, uid, assets, dir + files[i]);
 					else if (files[i].find(".rgmesh") != std::string::npos) CreateResourceCreated(ResourceType::MESH, uid, assets, dir + files[i]);
+					else if (files[i].find(".rganim") != std::string::npos) CreateResourceCreated(ResourceType::ANIM, uid, assets, dir + files[i]);
 
 					RELEASE_ARRAY(buffer);
 				}
@@ -237,6 +248,9 @@ void ResourceManager::ImportAllResources()
 				break;
 			case ResourceType::TEXTURE:
 				TextureImporter::ImportTexture(*it);
+				break;
+			case ResourceType::ANIM:
+				AnimationImporter::ImportAnimationFromFilename(*it);
 				break;
 			}
 		}

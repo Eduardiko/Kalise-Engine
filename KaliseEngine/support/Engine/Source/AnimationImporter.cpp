@@ -29,17 +29,18 @@ bool AnimationImporter::ImportSceneAnimations(const aiScene* scene, GameObject* 
 		if (uuids.empty())
 			uuids.push_back(0);
 
-		//ret = ImportAnimation(scene->mAnimations[0], base_path, output_name, uuids[0]);
+		ret = ImportAnimation(scene->mAnimations[0], base_path, output_name, uuids[0]);
 		if (ret == false)
 		{
 			LOG("[WARNING] Animation hasn't been imported");
 			//app->editor->DisplayWarning(WarningType::W_WARNING, "Animation has not been imported");
 		}
 	}
+
 	return ret;
 }
 
-/*bool AnimationImporter::ImportAnimation(const aiAnimation* anim, const char* base_path, std::string& output_name, unsigned int& uuid)
+bool AnimationImporter::ImportAnimation(const aiAnimation* anim, const char* base_path, std::string& output_name, unsigned int& uuid)
 {
 	ResourceFileAnimation animation("", 0);
 
@@ -55,8 +56,26 @@ bool AnimationImporter::ImportSceneAnimations(const aiScene* scene, GameObject* 
 
 	delete[] animation.channels;
 	animation.channels = nullptr;
-	return ret;
-}*/
+	return true;
+}
+
+void AnimationImporter::ImportAnimationFromFilename(std::string& fileName)
+{
+	if (ResourceManager::GetInstance()->CheckResource(fileName))
+	{
+		return;
+	}
+	else
+	{
+		
+		std::string libraryPath;
+
+		ResourceManager::GetInstance()->CreateResource(ResourceType::ANIM, fileName, libraryPath);
+
+		
+	}
+}
+
 
 void AnimationImporter::ImportChannel(const aiNodeAnim* node, Channel& channel)
 {
@@ -279,10 +298,10 @@ uint AnimationImporter::CalcChannelSize(const Channel& channel)
 
 void AnimationImporter::CollectGameObjectNames(GameObject* game_object, std::map<std::string, GameObject*>& map)
 {
-	//map[game_object->name.c_str()] = game_object;
+	map[game_object->name.c_str()] = game_object;
 
-	//for (std::vector<GameObject*>::const_iterator it = game_object->GetChilds()->begin(); it != game_object->GetChilds()->end(); it++)
-		//CollectGameObjectNames(*it, map);
+	for (std::vector<GameObject*>::const_iterator it = game_object->GetChilds().begin(); it != game_object->GetChilds().end(); it++)
+		CollectGameObjectNames(*it, map);
 }
 
 

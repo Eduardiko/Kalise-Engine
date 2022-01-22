@@ -8,6 +8,7 @@
 
 class Texture;
 class Mesh;
+class ResourceFileAnimation;
 class Resource;
 enum class ResourceType;
 
@@ -51,4 +52,5 @@ private:
 	std::map<uint, std::shared_ptr<Resource>> map;
 	std::vector<Texture*> textures;
 	std::vector<Mesh*> meshes;
+	std::vector<ResourceFileAnimation*> animation;
 };
