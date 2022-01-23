@@ -7,6 +7,8 @@
 #include "FileSystem.h"
 #include "ResourceManager.h"
 #include "ComponentBone.h"
+#include "ModuleEditor.h"
+#include "MeshImporter.h"
 
 #include "Mesh.h"
 
@@ -243,4 +245,52 @@ void MeshComponent::DeformAnimMesh()
 		bones_trans.push_back(bone_trn_mat.Transposed());
 		
 	}
+}
+
+void MeshComponent::InitAnimBuffers()
+{
+	if (mesh != nullptr)
+	{
+		int size = mesh.get()->GetVerticesSize() * 4;
+		float* weights = new float[size];
+		int* bones_ids = new int[size];
+
+		for (size_t i = 0; i < bones_vertex.size(); ++i)
+		{
+			int ver_id = i * 4;
+
+			if (bones_vertex[i].weights.size() != bones_vertex[i].bone_index.size())
+			{
+				LOG("[WARNING] %s has different number of weights and index in the animation", game_object->name); //Just in case
+				//App->editor->DisplayWarning(WarningType::W_WARNING, "%s has different number of weights and index in the animation", game_object->name);
+				return;
+			}
+
+			//Reset all to zero
+			for (int w = 0; w < 4; ++w)
+			{
+				weights[ver_id + w] = 0;
+				bones_ids[ver_id + w] = 0;
+			}
+
+			for (size_t w = 0; w < bones_vertex[i].weights.size(); ++w)
+			{
+				weights[ver_id + w] = bones_vertex[i].weights[w];
+				bones_ids[ver_id + w] = bones_vertex[i].bone_index[w];
+			}
+		}
+		
+		//MeshImporter::LoadAnimBuffers(weights, size, weight_id, bones_ids, size, bone_id);
+
+		delete[] weights;
+		delete[] bones_ids;
+
+		animated = true;
+	}
+	else
+	{
+		//		LOG("[WARNING] Trying to init animation buffers from '%s' without a mesh", game_object->name);
+		//		App->editor->DisplayWarning(WarningType::W_WARNING, "Trying to init animation buffers from '%s' without a mesh", game_object->name);
+	}
+
 }

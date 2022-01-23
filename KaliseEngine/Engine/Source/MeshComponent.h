@@ -61,6 +61,8 @@ public:
 	bool HasBones();
 	void AddBone(ComponentBone* bone);
 	void DeformAnimMesh();
+	void InitAnimBuffers();
+
 
 	bool animated = false;
 	unsigned int weight_id = 0;
