@@ -4,6 +4,8 @@
 # Team Members:
  - Eduard Minguell ([@Eduardiko](https://github.com/Eduardiko))
  - Martí Davicino ([@MartiDavicino](https://github.com/MartiDavicino))
+ - Andres Sanchez ([@andreusama](https://github.com/andreusama))
+ - Aitor Álvarez ([@AitorAlvarez17](https://github.com/AitorAlvarez17))
 
 # Controls:
 
