@@ -332,52 +332,53 @@ void ComponentAnimation::LockAnimationRatio(float ratio)
 	}
 }
 
-//void ComponentAnimation::LinkChannels()
-//{
-//	std::vector<GameObject*> gameObjects;
-//	owner->CollectAllChilds(gameObjects);
-//
-//	for (uint i = 0; i < rAnimation->num_channels; i++)
-//	{
-//		for (uint g = 0; g < gameObjects.size(); g++)
-//		{
-//			if (gameObjects[g]->name == rAnimation->channels[i].name.c_str() && gameObjects[g]->GetComponent)
-//			{
-//				links.push_back(Link(gameObjects[g], &rAnimation->channels[i]));
-//				break;
-//			}
-//		}
-//	}
-//}
-//
-//void ComponentAnimation::LinkBones()
-//{
-//	std::map<std::string, ComponentMesh*> meshes;
-//	std::vector<ComponentBone*> bones;
-//	CollectMeshesBones(game_object, meshes, bones);
-//
-//	for (uint i = 0; i < bones.size(); i++)
-//	{
-//		std::string string = bones[i]->GetResource()->mesh_path;
-//		string = App->file_system->GetNameFromPath(string); //Just for old loaded bones
-//		std::map<std::string, ComponentMesh*>::iterator it = meshes.find(string);
-//		if (it != meshes.end())
-//		{
-//			it->second->AddBone(bones[i]);
-//		}
-//	}
-//
-//	//Iterate all meshes and create bones-weight buffers
-//	for (map<string, ComponentMesh*>::iterator mesh_it = meshes.begin(); mesh_it != meshes.end(); ++mesh_it)
-//		mesh_it->second->InitAnimBuffers();
-//}
-//
-//void ComponentAnimation::LinkAnimation()
-//{
-//	LinkChannels();
-//	LinkBones();
-//	linked = true;
-//}
+void ComponentAnimation::LinkChannels()
+{
+	std::vector<GameObject*> gameObjects;
+	owner->CollectAllChilds(gameObjects);
+
+	for (uint i = 0; i < rAnimation->num_channels; i++)
+	{
+		for (uint g = 0; g < gameObjects.size(); g++)
+		{
+			if (gameObjects[g]->name == rAnimation->channels[i].name.c_str() && gameObjects[g]->GetComponent(ComponentType::BONE))
+			{
+				links.push_back(Link(gameObjects[g], &rAnimation->channels[i]));
+				break;
+			}
+		}
+	}
+}
+
+void ComponentAnimation::LinkBones()
+{
+	std::map<std::string, MeshComponent*> meshes;
+	std::vector<ComponentBone*> bones;
+	CollectMeshesBones(owner, meshes, bones);
+
+
+	for (uint i = 0; i < bones.size(); i++)
+	{
+		std::string string = bones[i]->GetResource()->mesh_path;
+		string = app->fs->GetFilenameWithoutExtensionReturn(string); 
+		std::map<std::string, MeshComponent*>::iterator it = meshes.find(string);
+		if (it != meshes.end())
+		{
+			it->second->AddBone(bones[i]);
+		}
+	}
+
+	//Iterate all meshes and create bones-weight buffers
+	for (std::map<std::string, MeshComponent*>::iterator mesh_it = meshes.begin(); mesh_it != meshes.end(); ++mesh_it)
+		mesh_it->second->InitAnimBuffers();
+}
+
+void ComponentAnimation::LinkAnimation()
+{
+	LinkChannels();
+	LinkBones();
+	linked = true;
+}
 
 const char* ComponentAnimation::GetResourcePath()
 {
@@ -556,26 +557,29 @@ float3 ComponentAnimation::GetChannelScale(Link & link, float current_frame, flo
 	}
 	return scale;
 }
-//
-//void ComponentAnimation::CollectMeshesBones(GameObject * gameObject, std::map<std::string, ComponentMesh*>&meshes, std::vector<ComponentBone*>&bones)
-//{
-//	ComponentMesh* mesh = (ComponentMesh*)gameObject->GetComponent(C_MESH);
-//	if (mesh != nullptr)
-//	{
-//		if (mesh->GetResource() != nullptr)
-//			meshes[App->file_system->GetNameFromPath(mesh->GetResource()->GetFile())] = mesh;
-//	}
-//	ComponentBone* bone = (ComponentBone*)gameObject->GetComponent(C_BONE);
-//	if (bone != nullptr)
-//	{
-//		bones.push_back(bone);
-//	}
-//
-//	for (std::vector<GameObject*>::const_iterator it = gameObject->GetChilds()->begin(); it != gameObject->GetChilds()->end(); it++)
-//	{
-//		CollectMeshesBones(*it, meshes, bones);
-//	}
-//}
+
+
+void ComponentAnimation::CollectMeshesBones(GameObject * gameObject, std::map<std::string, MeshComponent*>&meshes, std::vector<ComponentBone*>&bones)
+{
+	MeshComponent* mesh = (MeshComponent*)gameObject->GetComponent(ComponentType::MESH_RENDERER);
+	if (mesh != nullptr)
+	{
+		
+		if (mesh->GetMesh() != nullptr)
+			meshes[app->fs->GetFilenameWithoutExtensionReturn(mesh->GetMesh().get()->file_path)] = mesh;
+
+	}
+	ComponentBone* bone = (ComponentBone*)gameObject->GetComponent(ComponentType::BONE);
+	if (bone != nullptr)
+	{
+		bones.push_back(bone);
+	}
+
+	for (std::vector<GameObject*>::const_iterator it = gameObject->GetChilds().begin(); it != gameObject->GetChilds().end(); it++)
+	{
+		CollectMeshesBones(*it, meshes, bones);
+	}
+}
 
 //
 //void ComponentAnimation::UpdateMeshAnimation(GameObject * gameObject)
