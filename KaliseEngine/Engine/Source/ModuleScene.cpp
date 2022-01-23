@@ -8,6 +8,10 @@
 #include "FileSystem.h"
 #include "Resource.h"
 #include "ResourceManager.h"
+#include "AnimationImporter.h"
+#include "Assimp/include/assimp/scene.h"
+#include "Assimp/include/assimp/postprocess.h"
+#include "Assimp/include/assimp/Importer.hpp"
 
 #include <stack>
 
@@ -27,6 +31,9 @@ bool ModuleScene::Start()
 {
 	RG_PROFILING_FUNCTION("Starting Scene");
 
+	Assimp::Importer importer;
+	const char* filePath = "Assets/Resources/model.dae";
+
 	GameObject* camera = CreateGameObject(nullptr);
 	camera->CreateComponent(ComponentType::CAMERA);
 	camera->SetName("Camera");
@@ -35,9 +42,42 @@ bool ModuleScene::Start()
 	
 	ResourceManager::GetInstance()->ImportResourcesFromLibrary();
 	ResourceManager::GetInstance()->ImportAllResources();
-	ImportPrimitives();
-	ResourceManager::GetInstance()->LoadResource(std::string("Assets/Resources/Street.fbx"));
+	//ImportPrimitives();
+	//ResourceManager::GetInstance()->LoadResource(std::string("Assets/Resources/Street.fbx"));
 
+	const aiScene* scene = importer.ReadFile(filePath, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenSmoothNormals);
+	aiNode* node = scene->mRootNode;
+
+
+	JsonParsing jsonValue = JsonParsing();
+
+	jsonValue.SetNewJsonString(jsonValue.ValueToObject(jsonValue.GetRootValue()), "Name", node->mName.C_Str());
+
+	aiVector3D pos;
+	aiQuaternion quat;
+	aiVector3D sca;
+	node->mTransformation.Decompose(sca, quat, pos);
+	float3 position(pos.x, pos.y, pos.z);
+	Quat quaternion(quat.x, quat.y, quat.z, quat.w);
+	float3 scale(sca.x, sca.y, sca.z);
+
+	jsonValue.SetNewJson3Number(jsonValue, "Position", position);
+	jsonValue.SetNewJson4Number(jsonValue, "Rotation", quaternion);
+	jsonValue.SetNewJson3Number(jsonValue, "Scale", scale);
+
+
+	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
+		std::cout << "ERROR::ASSIMP::" << importer.GetErrorString() << std::endl;
+	}
+	aiMesh* mesh = scene->mMeshes[0];
+	//aiAnimation* anim = scene->mAnimations.size();
+	std::vector<uint> uuids = {scene->mNumAnimations};
+	std::vector<uint> uuidsM = { mesh->mNumAnimMeshes};
+	
+	std::string default = "Default";
+
+	AnimationImporter::ImportSceneAnimations(scene, root, ANIM_FOLDER, default, uuids);
+	//MeshImporter::ImportMesh(mesh, scene, jsonValue, { MESHES_FOLDER }, uuidsM);
 	return true;
 }
 
