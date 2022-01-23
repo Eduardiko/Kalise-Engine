@@ -9,6 +9,8 @@
 #include "Resource.h"
 #include "ResourceManager.h"
 #include "AnimationImporter.h"
+#include "ModelImporter.h"
+#include "MeshImporter.h"
 #include "Assimp/include/assimp/scene.h"
 #include "Assimp/include/assimp/postprocess.h"
 #include "Assimp/include/assimp/Importer.hpp"
@@ -42,8 +44,8 @@ bool ModuleScene::Start()
 	
 	ResourceManager::GetInstance()->ImportResourcesFromLibrary();
 	ResourceManager::GetInstance()->ImportAllResources();
-	//ImportPrimitives();
-	//ResourceManager::GetInstance()->LoadResource(std::string("Assets/Resources/Street.fbx"));
+	ImportPrimitives();
+	ResourceManager::GetInstance()->LoadResource(std::string("Assets/Resources/Street.fbx"));
 
 	const aiScene* scene = importer.ReadFile(filePath, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenSmoothNormals);
 	aiNode* node = scene->mRootNode;
@@ -75,9 +77,12 @@ bool ModuleScene::Start()
 	std::vector<uint> uuidsM = { mesh->mNumAnimMeshes};
 	
 	std::string default = "Default";
+	std::string meshPath = MESHES_FOLDER;
+	std::string path = filePath;
 
 	AnimationImporter::ImportSceneAnimations(scene, root, ANIM_FOLDER, default, uuids);
-	//MeshImporter::ImportMesh(mesh, scene, jsonValue, { MESHES_FOLDER }, uuidsM);
+	ModelImporter::ImportModel(path);
+	ResourceManager::GetInstance()->LoadResource(std::string("Assets/Resources/model.dae"));
 	return true;
 }
 

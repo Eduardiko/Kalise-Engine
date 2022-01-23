@@ -54,8 +54,7 @@ FileSystem::FileSystem(const char* assetsPath) : name("FileSystem")
 	ilInit();
 	
 	texExtension = { ".png", ".jpg", ".dds", ".tga"};
-	modelExtension = { ".obj", ".fbx", ".3DS", ".FBX", ".dae" };
-	animExtension = { ".swf", ".mb", ".amx"};
+	modelExtension = { ".obj", ".fbx", ".3DS", ".FBX"};
 }
 
 FileSystem::~FileSystem()
@@ -329,15 +328,6 @@ ResourceType FileSystem::CheckExtension(std::string& path)
 		{
 			RG_PROFILING_FUNCTION("Importing Texture");
 			return ResourceType::TEXTURE;
-		}
-	}
-
-	for (s = animExtension.begin(); s != end; ++s)
-	{
-		if (*s == extension)
-		{
-			RG_PROFILING_FUNCTION("Importing Animation");
-			return ResourceType::ANIM;
 		}
 	}
 
