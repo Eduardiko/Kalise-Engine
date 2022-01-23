@@ -12,6 +12,7 @@
 #include "Bone.h"
 #include "ComponentBone.h"
 #include "ResourceManager.h"
+#include "AnimationComponent.h"
 
 #include "MathGeoLib/src/Algorithm/Random/LCG.h"
 
@@ -42,7 +43,7 @@ bool AnimationImporter::ImportSceneAnimations(const aiScene* scene, GameObject* 
 
 bool AnimationImporter::ImportAnimation(const aiAnimation* anim, const char* base_path, std::string& output_name, unsigned int& uuid)
 {
-	ResourceFileAnimation animation("", 0);
+	ResourceFileAnimation animation("AnimationCreated", 0);
 
 	animation.full_duration = anim->mDuration * 24;
 	animation.ticks_per_second = anim->mTicksPerSecond * 24;

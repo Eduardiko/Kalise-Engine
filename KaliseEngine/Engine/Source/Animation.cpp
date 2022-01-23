@@ -75,7 +75,7 @@ ResourceFileAnimation::ResourceFileAnimation(const std::string& file_path, unsig
 	//AnimationImporter::CreateMetaAnim(metaPath, file_path, uid);
 	name = file_path;
 	app->fs->GetFilenameWithoutExtension(name);
-	name = name.substr(name.find_first_of("__") + 2, name.length());
+	//name = name.substr(name.find_first_of("__") + 2, name.length());
 }
 
 ResourceFileAnimation::~ResourceFileAnimation()
