@@ -35,6 +35,7 @@ bool ModuleScene::Start()
 
 	Assimp::Importer importer;
 	const char* filePath = "Assets/Resources/model.dae";
+	std::string texS = "Assets/Resources/diffuse.png";
 
 	GameObject* camera = CreateGameObject(nullptr);
 	camera->CreateComponent(ComponentType::CAMERA);
@@ -77,12 +78,16 @@ bool ModuleScene::Start()
 	std::vector<uint> uuidsM = { mesh->mNumAnimMeshes};
 	
 	std::string default = "Default";
+
+
 	std::string meshPath = MESHES_FOLDER;
 	std::string path = filePath;
 
 	AnimationImporter::ImportSceneAnimations(scene, root, ANIM_FOLDER, default, uuids);
 	ModelImporter::ImportModel(path);
 	ResourceManager::GetInstance()->LoadResource(std::string("Assets/Resources/model.dae"));
+
+	
 	return true;
 }
 

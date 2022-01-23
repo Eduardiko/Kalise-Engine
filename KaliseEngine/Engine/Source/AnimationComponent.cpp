@@ -581,20 +581,20 @@ void ComponentAnimation::CollectMeshesBones(GameObject * gameObject, std::map<st
 	}
 }
 
-//
-//void ComponentAnimation::UpdateMeshAnimation(GameObject * gameObject)
-//{
-//	//BROFILER_CATEGORY("ComponentAnimation::UpdateMeshAnimation", Profiler::Color::Orange)
-//		ComponentMesh* mesh = (ComponentMesh*)gameObject->GetComponent(ComponentType::MESH_RENDERER);
-//	/if (mesh != nullptr && mesh->HasBones() == true)
-//	{
-//		mesh->DeformAnimMesh();
-//	}
-//
-//	for (std::vector<GameObject*>::const_iterator it = gameObject->GetChilds()->begin(); it != gameObject->GetChilds()->end(); it++)
-//	{
-//		UpdateMeshAnimation(*it);
-//	}
-//}
-//
+
+void ComponentAnimation::UpdateMeshAnimation(GameObject * gameObject)
+{
+	//BROFILER_CATEGORY("ComponentAnimation::UpdateMeshAnimation", Profiler::Color::Orange)
+	MeshComponent* mesh = (MeshComponent*)gameObject->GetComponent(ComponentType::MESH_RENDERER);
+	if (mesh != nullptr && mesh->HasBones() == true)
+	{
+		mesh->DeformAnimMesh();
+	}
+
+	for (std::vector<GameObject*>::const_iterator it = gameObject->GetChilds().begin(); it != gameObject->GetChilds().end(); it++)
+	{
+		UpdateMeshAnimation(*it);
+	}
+}
+
 
