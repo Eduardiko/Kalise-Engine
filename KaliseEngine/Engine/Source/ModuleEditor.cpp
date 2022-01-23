@@ -92,6 +92,10 @@ bool ModuleEditor::Draw(Framebuffer* editorBuffer, Framebuffer* gameBuffer)
 {
 	RG_PROFILING_FUNCTION("Drawing Module Editor");
 	
+	ImGui::Begin("Attention", &attentionWindow);
+	ImGui::Text("Hello! We are team kalise. We wanted to write this down because\nunfortunately after trying we were not able to make the module work.\nWe have implemented the sections of the code for all the requiring parts (bones, mesh,\nanimation...)But because we ran with a lot of problems with our previous engine\nand as a last resort we tried to make it work with a new and more stablished engine,\nbut we couldn't achieve what was asked for in the delivery.\nWe will be making our best in the last exam.\nThanks for your time.");
+	ImGui::End();
+
 	viewport->Draw(editorBuffer, gameBuffer, currentOperation);
 	gameView->Draw(gameBuffer);
 	ImGui::EndFrame();

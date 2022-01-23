@@ -40,6 +40,8 @@ public:
 
 	inline Viewport* GetViewport() { return viewport; }
 
+	bool attentionWindow = true;
+
 private:
 	MainMenuBar mainMenuBar;
 
